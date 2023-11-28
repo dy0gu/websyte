@@ -2,7 +2,7 @@ import "./globals.css";
 import { Metadata } from "next";
 import React from "react";
 import { Work_Sans } from "next/font/google";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
 	title: "Dy0gu",
