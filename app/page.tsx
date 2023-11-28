@@ -47,6 +47,9 @@ export default function Home() {
 						<Typewriter
 							options={{
 								strings: [
+									"",
+									"",
+									"",
 									"That's my username up there!",
 									'Look at that, the <span style="color: pink;">text</span> changed, crazy...',
 									"Have you heard about the mathematician who's afraid of negative numbers?",

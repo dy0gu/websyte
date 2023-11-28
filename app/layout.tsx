@@ -23,8 +23,8 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={font.className}>
 			<body className={"bg-black"}>
-				{children}
 				<Analytics />
+				{children}
 			</body>
 		</html>
 	);
