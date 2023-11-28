@@ -1,0 +1,34 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/test
+/coverage
+
+# Build / Production
+/build
+/.next/
+/out/
+tsconfig.tsbuildinfo
+
+# Misc
+.DS_Store
+*.pem
+next-env.d.ts
+
+# Debug / Log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment
+.env.*
+.env/
+env/
+
+# IDE
+.idea
+.vscode

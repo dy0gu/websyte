@@ -1,0 +1,12 @@
+{
+    "extends": [
+        "stylelint-config-standard"
+    ],
+    "ignoreFiles": [
+        "**/*.tsx",
+        "**/*.jsx"
+    ],
+    "rules": {
+        "at-rule-no-unknown": null
+    }
+}
