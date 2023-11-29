@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Metadata } from "next";
 import React from "react";
-import { Work_Sans } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 	metadataBase: new URL("https://dy0gu.com"),
 };
 
-const font = Work_Sans({
+const font = Roboto_Mono({
 	subsets: ["latin"],
 	display: "block",
 });
