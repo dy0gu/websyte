@@ -7,8 +7,9 @@ import Balancer from "react-wrap-balancer";
 import Typewriter from "typewriter-effect";
 
 const navigation = [
-	{ name: "Profile", href: "https://www.linkedin.com/in/dy0gu" },
-	{ name: "Contact", href: "mailto:email@diogo.work" },
+	{ name: "LinkedIn", href: "https://www.linkedin.com/in/dy0gu" },
+	{ name: "GitHub", href: "https://www.github.com/dy0gu" },
+	{ name: "Email", href: "mailto:email@diogo.work" },
 ];
 
 export default function Home() {
@@ -49,8 +50,7 @@ export default function Home() {
 								strings: [
 									"",
 									"",
-									"",
-									"That's my username up there!",
+									"That's my user handle up there in big letters!",
 									'Look at that, the <span style="color: pink;">text</span> changed, crazy...',
 									"Have you heard about the mathematician who's afraid of negative numbers?",
 									'He\'ll stop at <span style="color: green;">nothing</span> to avoid them.',
