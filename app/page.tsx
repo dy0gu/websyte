@@ -26,7 +26,7 @@ export default function Home() {
 								{item.name}
 							</Link>
 							{index !== navigation.length - 1 && (
-								<span className="text-white"> ● </span>
+								<span className="text-white"> • </span>
 							)}
 						</React.Fragment>
 					))}
