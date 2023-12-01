@@ -16,7 +16,7 @@ export default function Home() {
 	return (
 		<div className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
 			<nav className="my-16 mx-16 animate-fade-in">
-				<ul className="flex text-md md:text-md lg:text-xl items-center justify-center gap-4">
+				<ul className="flex text-sm md:text-md lg:text-xl items-center justify-center gap-4">
 					{navigation.map((item, index) => (
 						<React.Fragment key={item.href}>
 							<Link
@@ -43,18 +43,18 @@ export default function Home() {
 
 			<div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
 			<div className="my-16 mx-16 text-center animate-fade-in">
-				<h2 className="text-md md:text-md lg:text-xl text-zinc-500 ">
+				<h2 className="text-sm md:text-md lg:text-xl text-zinc-500 ">
 					<Balancer>
 						<Typewriter
 							options={{
 								strings: [
 									"",
 									"",
-									"Writing <span style='color: white;'>software</span> since...?",
+									"Writing <span style='color: white;'>code</span> since...?",
 									"Is making your own website a <span style='color: white;'>developer</span> cliché already?",
 									"Watch my all time favorite <a href=https://www.youtube.com/watch?v=xvFZjo5PgG0 style='text-decoration: underline; color: white;'>video</a> on YouTube!",
 									"The <span style='color: white;'>cake</span> was, in fact, a lie.",
-									"You should also check out <a href=https://www.instagram.com/jtsimoes style='color: white;'>@jtsimoes</a>!",
+									"You should also check out <a href=https://www.instagram.com/jtsimoes style='text-decoration: underline; color: white;'>jtsimoes</a>!",
 									"Do you think I <span style='color: white;'>overdid</span> it with the font size?",
 									"We've got some <span style='color: pink;'>pink</span> text too, if you want it!",
 									"01100100 <span style='color: white;'>01111001</span> 00110000 <span style='color: white;'>01100111</span> 01110101",
