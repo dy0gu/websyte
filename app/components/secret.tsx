@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 const Secret: React.FC = () => {
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            console.log("You pressed a key!");
+            console.log("You pressed a key! " + event.key);
         };
 
         document.addEventListener("keydown", handleKeyDown);
