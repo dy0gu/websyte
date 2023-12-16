@@ -1,17 +1,9 @@
+"use client";
+
 import React, { useEffect } from "react";
 
 const Secret: React.FC = () => {
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            console.log("You pressed a key! " + event.key);
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-        };
-    }, []);
+    useEffect(() => { }, []);
 
     return null;
 };

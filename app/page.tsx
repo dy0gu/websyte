@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Particles from "./components/particles";
-import Secret from "./components/secret";
 import React from "react";
 import Balancer from "react-wrap-balancer";
 import Typewriter from "typewriter-effect";
@@ -16,7 +15,6 @@ const navigation = [
 export default function Home() {
 	return (
 		<div className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
-			<Secret />
 			<nav className="my-16 mx-16 animate-fade-in">
 				<ul className="flex text-sm md:text-md lg:text-xl items-center justify-center gap-4">
 					{navigation.map((item, index) => (
