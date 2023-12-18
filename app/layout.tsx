@@ -5,7 +5,8 @@ import { Roboto_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
-	title: "dy0gu",
+	title: "y0gu",
+	applicationName: "dy0gu",
 	description: "Just an individual, writing some code on the internet.",
 	metadataBase: new URL("https://dy0gu.com"),
 };
