@@ -19,12 +19,12 @@ export default function Home() {
 				<ul className="flex text-sm md:text-md lg:text-xl items-center justify-center gap-4">
 					{navigation.map((item, index) => (
 						<React.Fragment key={item.href}>
-							<Link
+							<a
 								href={item.href}
 								className="duration-500 text-zinc-500 hover:text-zinc-300"
 							>
 								{item.name}
-							</Link>
+							</a>
 							{index !== navigation.length - 1 && (
 								<span className="text-white"> • </span>
 							)}
