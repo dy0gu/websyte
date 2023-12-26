@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Particles from "./components/particles";
 import React from "react";
 import Balancer from "react-wrap-balancer";
