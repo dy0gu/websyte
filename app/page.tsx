@@ -5,10 +5,9 @@ import React from "react";
 import Balancer from "react-wrap-balancer";
 import Typewriter from "typewriter-effect";
 
-const navigation = [
-	{ name: "LinkedIn", href: "https://www.linkedin.com/in/dy0gu" },
-	{ name: "GitHub", href: "https://www.github.com/dy0gu" },
+const links = [
 	{ name: "Email", href: "mailto:email@diogo.work" },
+	{ name: "GitHub", href: "https://www.github.com/dy0gu" },
 ];
 
 export default function Home() {
@@ -16,7 +15,7 @@ export default function Home() {
 		<div className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
 			<nav className="my-16 mx-16 animate-fade-in">
 				<ul className="flex text-sm md:text-md lg:text-xl items-center justify-center gap-4">
-					{navigation.map((item, index) => (
+					{links.map((item, index) => (
 						<React.Fragment key={item.href}>
 							<a
 								href={item.href}
@@ -24,7 +23,7 @@ export default function Home() {
 							>
 								{item.name}
 							</a>
-							{index !== navigation.length - 1 && (
+							{index !== links.length - 1 && (
 								<span className="text-white"> • </span>
 							)}
 						</React.Fragment>
