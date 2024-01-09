@@ -8,6 +8,7 @@ import Typewriter from "typewriter-effect";
 const links = [
 	{ name: "Email", href: "mailto:email@diogo.work" },
 	{ name: "GitHub", href: "https://www.github.com/dy0gu" },
+	{ name: "StackOverflow", href: "https://stackoverflow.com/users/22441488" },
 ];
 
 export default function Home() {
