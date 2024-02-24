@@ -1,6 +1,6 @@
 # Check out my page! 📚💻
 
-![logo](app\apple-icon.png)
+![logo](app/apple-icon.png)
 
 Websyte is a personal web portfolio, at the moment it acts only as a simple link hub, with some fun little easter eggs. It is built using React, Next.js, Tailwind and Framer Motion.
 
