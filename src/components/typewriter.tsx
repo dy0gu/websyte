@@ -153,7 +153,7 @@ function Typewriter({
 	]);
 
 	return (
-		<p className={cn("inline-block text-balance cursor-default", className)}>
+		<p className={cn("inline-block cursor-default text-center", className)}>
 			<span dangerouslySetInnerHTML={{ __html: text }} />
 			<span className={cn("animate-fade-blink select-none", cursorClassName)}>
 				|
@@ -163,7 +163,6 @@ function Typewriter({
 }
 
 export const quips = [
-	"<span style='color: white;'>TESTING</span>...........<span style='color: white;'>TESTED</span>",
 	"Writing <span style='color: white;'>code</span> since...?",
 	"Is making your own website a <span style='color: white;'>developer</span> cliché already?",
 	"Watch my all time favorite <a href=https://www.youtube.com/watch?v=xvFZjo5PgG0 style='text-decoration: underline; color: white;'>video</a> on YouTube!",

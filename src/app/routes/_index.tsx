@@ -24,7 +24,7 @@ export default function Page() {
 				loop={false}
 				startDelay={3500}
 				className="my-16 mx-16 animate-fade-in text-sm
-				md:text-md lg:text-xl text-zinc-500 text-balance"
+			md:text-md lg:text-xl text-zinc-500 text-balance"
 				cursorClassName="text-zinc-300"
 			/>
 		</section>
