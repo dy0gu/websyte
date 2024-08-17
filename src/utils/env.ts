@@ -25,7 +25,7 @@ const Environment = z.object({
 	DOMAIN: z.string({
 		required_error: "DOMAIN not correctly defined in environment variables!",
 	}),
-	CI: z.boolean().optional(),
+	CI: z.string().optional(),
 });
 
 const env = Environment.parse(normalized);
