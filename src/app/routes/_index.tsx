@@ -1,38 +1,38 @@
 import Particles from "~/components/particles";
 
 const links = [
-    { name: "Email", href: "mailto:email@diogo.work" },
-    { name: "GitHub", href: "https://www.github.com/dy0gu" },
-    { name: "Stack", href: "https://stackoverflow.com/users/22441488" },
+	{ name: "Email", href: "mailto:email@diogo.work" },
+	{ name: "GitHub", href: "https://www.github.com/dy0gu" },
+	{ name: "Stack", href: "https://stackoverflow.com/users/22441488" },
 ];
 
 export default function Page() {
-    return (
-        <section className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
-            <nav className="my-16 mx-16 animate-fade-in">
-                <ul className="flex list-none flex-row text-sm md:text-md lg:text-xl items-center justify-center gap-4 marker:text-green list-outside list-disc">
-                    {links.map((item) => (
-                        <li key={item.href}>
-                            <a
-                                href={item.href}
-                                className="duration-500 text-zinc-500 hover:text-zinc-300"
-                            >
-                                {item.name}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
-            <div className="hidden mx-16 w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
-            <Particles className="absolute inset-0 -z-10 animate-fade-in" />
-            <h1 className="z-10 text-6xl md:text-7xl lg:text-8xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display bg-clip-text ">
-                <b>DY0GU</b>
-            </h1>
+	return (
+		<section className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
+			<nav className="my-16 mx-16 animate-fade-in">
+				<ul className="flex list-none flex-row text-sm md:text-md lg:text-xl items-center justify-center gap-4 marker:text-green list-outside list-disc">
+					{links.map((item) => (
+						<li key={item.href}>
+							<a
+								href={item.href}
+								className="duration-500 text-zinc-500 hover:text-zinc-300"
+							>
+								{item.name}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+			<div className="hidden mx-16 w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
+			<Particles className="absolute inset-0 -z-10 animate-fade-in" />
+			<h1 className="z-10 text-6xl md:text-7xl lg:text-8xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display bg-clip-text ">
+				<b>DY0GU</b>
+			</h1>
 
-            <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
-            <div className="my-16 mx-16 text-center animate-fade-in">
-                <h2 className="text-sm md:text-md lg:text-xl text-zinc-500 text-balance">
-                    {/* <Typewriter
+			<div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
+			<div className="my-16 mx-16 text-center animate-fade-in">
+				<h2 className="text-sm md:text-md lg:text-xl text-zinc-500 text-balance">
+					{/* <Typewriter
 						options={{
 							strings: [
 								"",
@@ -74,8 +74,8 @@ export default function Page() {
 							delay: 75,
 						}}
 					/> */}
-                </h2>
-            </div>
-        </section>
-    );
+				</h2>
+			</div>
+		</section>
+	);
 }

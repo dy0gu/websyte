@@ -1,8 +1,5 @@
-import type {
-	LinksFunction,
-	MetaFunction,
-} from "@remix-run/node";
-import { type LoaderFunctionArgs, json } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import {
 	Links,
 	Meta,
@@ -17,7 +14,7 @@ import { resources } from "~/configs/resources";
 
 import "~/styles/globals.css";
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export function loader() {
 	return json(metadata);
 }
 

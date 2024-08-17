@@ -61,5 +61,27 @@
 				"noEmptyBlockStatements": "error"
 			}
 		}
-	}
+	},
+	"overrides": [
+		{
+			"include": ["src/utils/env.ts"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useNamingConvention": "off"
+					}
+				}
+			}
+		},
+		{
+			"include": ["src/app/routes/*.tsx"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useFilenamingConvention": "off"
+					}
+				}
+			}
+		}
+	]
 }

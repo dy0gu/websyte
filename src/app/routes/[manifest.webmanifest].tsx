@@ -2,7 +2,7 @@ import { info } from "~/configs/metadata";
 
 // Dynamic manifest.webmanifest generator route
 export const loader = () => {
-    const content = `
+	const content = `
         {
             "name": "${info.name}",
             "short_name": "${info.name}",
@@ -17,10 +17,10 @@ export const loader = () => {
             ]
         }
         `;
-    return new Response(content, {
-        status: 200,
-        headers: {
-            "Content-Type": "application/manifest+json",
-        },
-    });
+	return new Response(content, {
+		status: 200,
+		headers: {
+			"Content-Type": "application/manifest+json",
+		},
+	});
 };
