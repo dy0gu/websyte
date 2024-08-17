@@ -1,4 +1,4 @@
-import { info } from "~/configs/metadata";
+import { info } from "~/configs/resources";
 
 // Dynamic manifest.webmanifest generator route
 export const loader = () => {
