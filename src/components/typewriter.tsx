@@ -4,9 +4,10 @@ import { cn } from "~/utils/cn";
 type TypewriterProps = {
 	strings: string[];
 	deleteDelay?: number;
+	deleteReverseDelay?: number;
 	typeDelay?: number;
+	typeReverseDelay?: number;
 	startDelay?: number;
-	reverseDelay?: number;
 	className?: string;
 	cursorClassName?: string;
 };
@@ -15,18 +16,22 @@ function Typewriter({
 	className,
 	cursorClassName,
 	strings,
-	deleteDelay = 35,
+	deleteDelay = 25,
+	deleteReverseDelay = 500,
 	typeDelay = 100,
+	typeReverseDelay = 1000,
 	startDelay = 0,
-	reverseDelay = 1000,
 }: TypewriterProps) {
 	const [text, setText] = useState("");
 	const [loopNum, setLoopNum] = useState(0);
 	const [hasStarted, setHasStarted] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
-	const [currentSpeed, setTypingSpeed] = useState(typeDelay);
+	const [writeDelay, setWriteDelay] = useState(typeDelay);
 
-	const currentString = strings[loopNum % strings.length];
+	console.log(loopNum, strings.length);
+	console.log;
+	const currentString =
+		strings[(loopNum ? loopNum - 3 : 0) % strings.length] ?? "";
 
 	function parse(text: string, isDeleting: boolean) {
 		let index = text.length;
@@ -64,20 +69,21 @@ function Typewriter({
 			if (isDeleting) {
 				setText((prev) => {
 					const nextText = parse(prev, true);
-					setTypingSpeed(deleteDelay);
+					setWriteDelay(deleteDelay);
 					if (nextText === "") {
-						setIsDeleting(false);
+						setWriteDelay(deleteReverseDelay);
 						setLoopNum((prev) => prev + 1);
+						setTimeout(() => setIsDeleting(false), deleteReverseDelay);
 					}
 					return nextText;
 				});
 			} else {
 				setText((prev) => {
 					const nextText = parse(prev, false);
-					setTypingSpeed(typeDelay);
+					setWriteDelay(typeDelay);
 					if (nextText === currentString) {
-						setTypingSpeed(reverseDelay);
-						setTimeout(() => setIsDeleting(true), reverseDelay);
+						setWriteDelay(typeReverseDelay);
+						setTimeout(() => setIsDeleting(true), typeReverseDelay);
 					}
 					return nextText;
 				});
@@ -85,7 +91,7 @@ function Typewriter({
 		}
 
 		if (hasStarted) {
-			const typingTimeout = setTimeout(write, currentSpeed);
+			const typingTimeout = setTimeout(write, writeDelay);
 			return () => clearTimeout(typingTimeout);
 		}
 
@@ -97,10 +103,10 @@ function Typewriter({
 	}, [text, isDeleting]);
 
 	return (
-		<div className={cn("inline-flex text-balance cursor-default", className)}>
+		<p className={cn("inline-block text-balance cursor-default", className)}>
 			<span dangerouslySetInnerHTML={{ __html: text }} />
 			<span className={cn("animate-fade-blink", cursorClassName)}>|</span>
-		</div>
+		</p>
 	);
 }
 
@@ -115,8 +121,10 @@ export const quips = [
 	"We've got some <span style='color: hotpink;'>pink</span> text too, if you want it!",
 	"They had a broken <span style='color: white;'>keyboard</span>, I bought a broken keyboard.",
 	"Do you want <span style='color: white;'>ants</span>? Because that's how you get ants!",
+	"Their are <span style='color: white;'>three</span> erors in this sentence.",
 	"Snake? <span style='color: white;'>Snake?</span> SNAAAAAAKE!",
 	"01100100 <span style='color: white;'>01111001</span> 00110000 <span style='color: white;'>01100111</span> 01110101",
+	"The human race will not go <span style='color: white;'>extinct</span> in your lifetime!",
 	"How about another <span style='color: white;'>joke</span>, Murray?",
 	"Hotdogs all look the same because they're <span style='color: white;'>in-bread</span>.",
 	"That's what <span style='color: white;'>she</span> said!",
