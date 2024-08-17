@@ -7,7 +7,7 @@ on:
 
 env:
   PORT: 3456
-  DOMAIN: http://localhost:3000
+  DOMAIN: "http://localhost:${PORT}"
 
 jobs:
   e2e:

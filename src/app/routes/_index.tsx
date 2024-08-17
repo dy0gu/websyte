@@ -1,3 +1,5 @@
+import { useMystery } from "~/hooks/mystery";
+
 import Particles from "~/components/particles";
 
 const links = [
@@ -7,6 +9,8 @@ const links = [
 ];
 
 export default function Page() {
+	useMystery();
+
 	return (
 		<section className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
 			<nav className="my-16 mx-16 animate-fade-in">
