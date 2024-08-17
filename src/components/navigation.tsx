@@ -8,7 +8,7 @@ type NavigationProps = {
 function Navigation({ className, links }: NavigationProps) {
 	return (
 		<nav className={cn("my-16 mx-16 animate-fade-in", className)}>
-			<ul className="flex flex-row text-sm md:text-md lg:text-xl">
+			<ul className="flex flex-row text-sm md:text-md lg:text-xl select-none">
 				{links.map((item, index) => (
 					<li key={item.href}>
 						<a
@@ -18,7 +18,7 @@ function Navigation({ className, links }: NavigationProps) {
 							{item.name}
 						</a>
 						{index < links.length - 1 && (
-							<span className="mx-3 text-white select-none">•</span>
+							<span className="mx-3 text-white">•</span>
 						)}
 					</li>
 				))}

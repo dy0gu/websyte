@@ -5,7 +5,6 @@ type ParticlesProps = {
 	quantity?: number;
 	staticity?: number;
 	ease?: number;
-	refresh?: boolean;
 };
 
 type MousePosition = {
@@ -71,10 +70,10 @@ function Particles({
 		initCanvas();
 	}, []);
 
-	const initCanvas = () => {
+	function initCanvas() {
 		resizeCanvas();
 		drawParticles();
-	};
+	}
 
 	function onMouseMove(mouseX: number, mouseY: number) {
 		if (canvasRef.current) {
@@ -104,7 +103,7 @@ function Particles({
 		magnetism: number;
 	};
 
-	const resizeCanvas = () => {
+	function resizeCanvas() {
 		if (canvasContainerRef.current && canvasRef.current && context.current) {
 			circles.current.length = 0;
 			canvasSize.current.w = canvasContainerRef.current.offsetWidth;
@@ -115,9 +114,9 @@ function Particles({
 			canvasRef.current.style.height = `${canvasSize.current.h}px`;
 			context.current.scale(dpr, dpr);
 		}
-	};
+	}
 
-	const circleParams = (): Circle => {
+	function buildCircle(): Circle {
 		const x = Math.floor(Math.random() * canvasSize.current.w);
 		const y = Math.floor(Math.random() * canvasSize.current.h);
 		const translateX = 0;
@@ -143,9 +142,9 @@ function Particles({
 			dy,
 			magnetism,
 		};
-	};
+	}
 
-	const drawCircle = (circle: Circle, update = false) => {
+	function drawCircle(circle: Circle, update = false) {
 		if (context.current) {
 			const { x, y, translateX, translateY, size, alpha } = circle;
 
@@ -160,9 +159,9 @@ function Particles({
 				circles.current.push(circle);
 			}
 		}
-	};
+	}
 
-	const clearContext = () => {
+	function clearContext() {
 		if (context.current) {
 			context.current.clearRect(
 				0,
@@ -171,33 +170,35 @@ function Particles({
 				canvasSize.current.h,
 			);
 		}
-	};
+	}
 
-	const drawParticles = () => {
+	function drawParticles() {
 		clearContext();
 		const particleCount = quantity;
 
 		for (let i = 0; i < particleCount; i++) {
-			const circle = circleParams();
+			const circle = buildCircle();
 
 			drawCircle(circle);
 		}
-	};
+	}
 
-	const remapValue = (
+	function remap(
 		value: number,
-		start1: number,
-		end1: number,
-		start2: number,
-		end2: number,
-	): number => {
+		firstStart: number,
+		firstEnd: number,
+		secondStart: number,
+		secondEnd: number,
+	): number {
 		const remapped =
-			((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
+			((value - firstStart) * (secondEnd - secondStart)) /
+				(firstEnd - firstStart) +
+			secondStart;
 
 		return remapped > 0 ? remapped : 0;
-	};
+	}
 
-	const animate = () => {
+	function animate() {
 		clearContext();
 		circles.current.forEach((circle: Circle, i: number) => {
 			const edge = [
@@ -208,7 +209,7 @@ function Particles({
 			];
 			const closestEdge = edge.reduce((a, b) => Math.min(a, b));
 			const remapClosestEdge = Number.parseFloat(
-				remapValue(closestEdge, 0, 20, 0, 1).toFixed(2),
+				remap(closestEdge, 0, 20, 0, 1).toFixed(2),
 			);
 
 			if (remapClosestEdge > 1) {
@@ -237,8 +238,8 @@ function Particles({
 				circle.y > canvasSize.current.h + circle.size
 			) {
 				circles.current.splice(i, 1);
-				const newCircle = circleParams();
-				drawCircle(newCircle);
+				const params = buildCircle();
+				drawCircle(params);
 			} else {
 				drawCircle(
 					{
@@ -254,7 +255,7 @@ function Particles({
 			}
 		});
 		window.requestAnimationFrame(animate);
-	};
+	}
 
 	return (
 		<div className={className} ref={canvasContainerRef} aria-hidden="true">
