@@ -1,22 +1,18 @@
 import Particles from "~/components/particles";
 
-import { useMystery } from "~/hooks/mystery";
-
 const links = [
-    { name: "Email", href: "mailto:diogo@simoes.cc" },
+    { name: "Email", href: "mailto:email@diogo.work" },
     { name: "GitHub", href: "https://www.github.com/dy0gu" },
     { name: "Stack", href: "https://stackoverflow.com/users/22441488" },
 ];
 
 export default function Page() {
-    useMystery();
-
     return (
         <section className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
             <nav className="my-16 mx-16 animate-fade-in">
-                <ul className="flex flex-row text-sm md:text-md lg:text-xl items-center justify-center gap-7 list-disc marker:text-zinc-300">
+                <ul className="flex list-none flex-row text-sm md:text-md lg:text-xl items-center justify-center gap-4 marker:text-green list-outside list-disc">
                     {links.map((item) => (
-                        <li key={item.href} className="first:list-none">
+                        <li key={item.href}>
                             <a
                                 href={item.href}
                                 className="duration-500 text-zinc-500 hover:text-zinc-300"
@@ -28,8 +24,8 @@ export default function Page() {
                 </ul>
             </nav>
             <div className="hidden mx-16 w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
-            <Particles className="absolute inset-0 z-10 animate-fade-in" />
-            <h1 className="z-10 text-6xl md:text-7xl lg:text-8xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display bg-clip-text">
+            <Particles className="absolute inset-0 -z-10 animate-fade-in" />
+            <h1 className="z-10 text-6xl md:text-7xl lg:text-8xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display bg-clip-text ">
                 <b>DY0GU</b>
             </h1>
 
