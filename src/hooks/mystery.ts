@@ -41,7 +41,7 @@ function useMystery() {
 	const [success, setSuccess] = useState(false);
 	const key = useInputEvent();
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: count is not a dependency
+	// biome-ignore lint/correctness/useExhaustiveDependencies: effect only depends on key presses
 	useEffect(() => {
 		if (key == null) {
 			return;
