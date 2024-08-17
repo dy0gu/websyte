@@ -34,7 +34,7 @@ function useMousePosition(): MousePosition {
 	return mousePosition;
 }
 
-export default function Particles({
+function Particles({
 	className,
 	quantity = 100,
 	staticity = 30,
@@ -230,7 +230,6 @@ export default function Particles({
 				(mouse.current.y / (staticity / circle.magnetism) - circle.translateY) /
 				ease;
 
-			// Circle gets out of the canvas
 			if (
 				circle.x < -circle.size ||
 				circle.x > canvasSize.current.w + circle.size ||
@@ -263,3 +262,5 @@ export default function Particles({
 		</div>
 	);
 }
+
+export { Particles };

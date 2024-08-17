@@ -22,8 +22,8 @@
     }
 
     body {
-        margin: 0;
-        overscroll-behavior-y: none;
         font-family: "Roboto Mono";
+        overscroll-behavior-y: none;
+        margin: 0;
     }
 }

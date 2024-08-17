@@ -82,6 +82,16 @@
 					}
 				}
 			}
+		},
+		{
+			"include": ["src/components/typewriter.tsx"],
+			"linter": {
+				"rules": {
+					"security": {
+						"noDangerouslySetInnerHtml": "off"
+					}
+				}
+			}
 		}
 	]
 }

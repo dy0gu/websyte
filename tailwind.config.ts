@@ -5,20 +5,35 @@ const config: Config = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ["var(--font-inter)"],
-				display: ["var(--font-calsans)"],
-			},
-			backgroundImage: {
-				"gradient-radial":
-					"radial-gradient(50% 50% at 50% 50%, var(--tw-gradient-stops))",
+				mono: ["Roboto Mono"],
 			},
 			animation: {
-				"fade-in": "fade-in 3s ease-in-out forwards",
 				title: "title 3s ease-out forwards",
+				"fade-in": "fade-in 3s ease-in-out forwards",
 				"fade-left": "fade-left 3s ease-in-out forwards",
 				"fade-right": "fade-right 3s ease-in-out forwards",
+				"fade-blink": "fade-blink 1s ease-in-out infinite",
 			},
 			keyframes: {
+				title: {
+					"0%": {
+						"line-height": "0%",
+						"letter-spacing": "0.25em",
+						opacity: "0",
+					},
+					"25%": {
+						"line-height": "0%",
+						opacity: "0%",
+					},
+					"80%": {
+						opacity: "100%",
+					},
+
+					"100%": {
+						"line-height": "100%",
+						opacity: "100%",
+					},
+				},
 				"fade-in": {
 					"0%": {
 						opacity: "0%",
@@ -58,24 +73,9 @@ const config: Config = {
 						opacity: "0%",
 					},
 				},
-				title: {
-					"0%": {
-						"line-height": "0%",
-						"letter-spacing": "0.25em",
-						opacity: "0",
-					},
-					"25%": {
-						"line-height": "0%",
-						opacity: "0%",
-					},
-					"80%": {
-						opacity: "100%",
-					},
-
-					"100%": {
-						"line-height": "100%",
-						opacity: "100%",
-					},
+				"fade-blink": {
+					"0%, 100%": { opacity: "100%" },
+					"50%": { opacity: "0%" },
 				},
 			},
 		},
