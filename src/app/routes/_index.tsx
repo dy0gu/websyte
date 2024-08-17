@@ -20,6 +20,8 @@ export default function Page() {
 			<Beam className="mt-2" disappear="fade-right" />
 			<Typewriter
 				strings={quips}
+				sequence="random"
+				loop={false}
 				startDelay={3500}
 				className="my-16 mx-16 animate-fade-in text-sm
 				md:text-md lg:text-xl text-zinc-500 text-balance"

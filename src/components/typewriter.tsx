@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "~/utils/cn";
 
 type TypewriterProps = {
 	strings: string[];
+	sequence: "array" | "random";
+	loop?: boolean;
 	deleteDelay?: number;
 	deleteReverseDelay?: number;
 	typeDelay?: number;
@@ -13,104 +15,155 @@ type TypewriterProps = {
 };
 
 function Typewriter({
-	className,
-	cursorClassName,
 	strings,
+	sequence,
+	loop = true,
 	deleteDelay = 25,
-	deleteReverseDelay = 500,
-	typeDelay = 100,
+	deleteReverseDelay = 300,
+	typeDelay = 80,
 	typeReverseDelay = 1000,
 	startDelay = 0,
+	className,
+	cursorClassName,
 }: TypewriterProps) {
 	const [text, setText] = useState("");
-	const [loopNum, setLoopNum] = useState(0);
-	const [hasStarted, setHasStarted] = useState(false);
-	const [isDeleting, setIsDeleting] = useState(false);
-	const [writeDelay, setWriteDelay] = useState(typeDelay);
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const isFirstRunRef = useRef(true);
+	const startTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const remainingStringsRef = useRef<string[]>([]);
 
-	console.log(loopNum, strings.length);
-	console.log;
-	const currentString =
-		strings[(loopNum ? loopNum - 3 : 0) % strings.length] ?? "";
-
-	function parse(text: string, isDeleting: boolean) {
-		let index = text.length;
-
-		if (isDeleting) {
-			while (index > 0) {
-				index--;
-				if (currentString[index] === ">") {
-					while (index > 0 && currentString[index] !== "<") {
-						index--;
-					}
-					index--;
-				}
-				break;
-			}
-		} else {
-			while (index < currentString.length) {
-				index++;
-				if (currentString[index] === "<") {
-					while (index < currentString.length && currentString[index] !== ">") {
-						index++;
-					}
-					index++;
-					continue;
-				}
-				break;
-			}
-		}
-		return currentString.slice(0, index);
-	}
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: effect only depends on text and direction changes
 	useEffect(() => {
-		function write() {
-			if (isDeleting) {
-				setText((prev) => {
-					const nextText = parse(prev, true);
-					setWriteDelay(deleteDelay);
-					if (nextText === "") {
-						setWriteDelay(deleteReverseDelay);
-						setLoopNum((prev) => prev + 1);
-						setTimeout(() => setIsDeleting(false), deleteReverseDelay);
-					}
-					return nextText;
+		function getNextString() {
+			if (sequence === "array") {
+				return strings[currentIndex];
+			}
+			if (remainingStringsRef.current.length === 0) {
+				remainingStringsRef.current = [...strings];
+			}
+			const randomIndex = Math.floor(
+				Math.random() * remainingStringsRef.current.length,
+			);
+			const nextString = remainingStringsRef.current[randomIndex];
+			remainingStringsRef.current.splice(randomIndex, 1);
+			return nextString;
+		}
+
+		async function write() {
+			if (isFirstRunRef.current) {
+				await new Promise((resolve) => {
+					startTimeoutRef.current = setTimeout(resolve, startDelay);
 				});
-			} else {
-				setText((prev) => {
-					const nextText = parse(prev, false);
-					setWriteDelay(typeDelay);
-					if (nextText === currentString) {
-						setWriteDelay(typeReverseDelay);
-						setTimeout(() => setIsDeleting(true), typeReverseDelay);
+			}
+			isFirstRunRef.current = false;
+
+			while (true) {
+				const currentString = getNextString();
+				let i = 0;
+
+				while (i <= currentString.length) {
+					// Detect the start of an HTML tag
+					if (currentString[i] === "<") {
+						// Find the end of the HTML tag
+						const tagEndIndex = currentString.indexOf(">", i);
+						if (tagEndIndex !== -1) {
+							// Immediately add the full tag
+							setText(
+								(prevText) =>
+									prevText + currentString.slice(i, tagEndIndex + 1),
+							);
+							// Skip past the HTML tag in the loop
+							i = tagEndIndex + 1;
+							continue;
+						}
 					}
-					return nextText;
+
+					// Add regular text character by character
+					setText(currentString.slice(0, i + 1));
+					await new Promise((resolve) => {
+						typingTimeoutRef.current = setTimeout(resolve, typeDelay);
+					});
+					i++;
+				}
+
+				await new Promise((resolve) => {
+					typingTimeoutRef.current = setTimeout(resolve, typeReverseDelay);
 				});
+
+				// Delete characters in reverse
+				let j = currentString.length;
+				while (j >= 0) {
+					// Detect the start of an HTML tag
+					if (currentString[j] === ">") {
+						// Find the end of the HTML tag
+						const tagStartIndex = currentString.lastIndexOf("<", j);
+						if (tagStartIndex !== -1) {
+							// Immediately remove the full tag
+							setText((prevText) => prevText.slice(0, tagStartIndex));
+							// Skip past the HTML tag in the loop
+							j = tagStartIndex - 1;
+							continue;
+						}
+					}
+					setText(currentString.slice(0, j));
+					await new Promise((resolve) => {
+						typingTimeoutRef.current = setTimeout(resolve, deleteDelay);
+					});
+					j--;
+				}
+
+				await new Promise((resolve) => {
+					typingTimeoutRef.current = setTimeout(resolve, deleteReverseDelay);
+				});
+
+				// Update the index and check loop conditions
+				if (sequence === "array") {
+					setCurrentIndex((prevIndex) => (prevIndex + 1) % strings.length);
+				}
+				if (
+					!loop &&
+					sequence === "array" &&
+					currentIndex === strings.length - 1
+				) {
+					break;
+				}
 			}
 		}
 
-		if (hasStarted) {
-			const typingTimeout = setTimeout(write, writeDelay);
-			return () => clearTimeout(typingTimeout);
-		}
+		write();
 
-		setHasStarted(true);
-		const startTimeout = setTimeout(() => {
-			write();
-		}, startDelay);
-		return () => clearTimeout(startTimeout);
-	}, [text, isDeleting]);
+		return () => {
+			if (typingTimeoutRef.current) {
+				clearTimeout(typingTimeoutRef.current);
+			}
+			if (startTimeoutRef.current) {
+				clearTimeout(startTimeoutRef.current);
+			}
+		};
+	}, [
+		strings,
+		sequence,
+		loop,
+		deleteDelay,
+		deleteReverseDelay,
+		typeDelay,
+		typeReverseDelay,
+		startDelay,
+		currentIndex,
+	]);
 
 	return (
 		<p className={cn("inline-block text-balance cursor-default", className)}>
 			<span dangerouslySetInnerHTML={{ __html: text }} />
-			<span className={cn("animate-fade-blink", cursorClassName)}>|</span>
+			<span className={cn("animate-fade-blink select-none", cursorClassName)}>
+				|
+			</span>
 		</p>
 	);
 }
 
 export const quips = [
+	"<span style='color: white;'>TESTING</span>...........<span style='color: white;'>TESTED</span>",
 	"Writing <span style='color: white;'>code</span> since...?",
 	"Is making your own website a <span style='color: white;'>developer</span> cliché already?",
 	"Watch my all time favorite <a href=https://www.youtube.com/watch?v=xvFZjo5PgG0 style='text-decoration: underline; color: white;'>video</a> on YouTube!",
@@ -134,17 +187,6 @@ export const quips = [
 	"I like <span style='color: white;'>shorts</span>! They're comfy and easy to wear!",
 	"All we had to do was follow the <span style='color: white;'>damn</span> train, CJ!",
 	"Crazy? I was <span style='color: white;'>crazy</span> once.",
-	"",
-	"You're really <span style='color: white;'>still</span> reading these?",
-	"Come on, get out, there is <span style='color: white;'>nothing</span> else to see here.",
-	"I'm <span style='color: white;'>serious</span>, no more references.",
-	"",
-	"Okay now you're making me <span style='color: white;'>upset</span>.",
-	"",
-	"<span style='color: white;'>Go</span> away.",
-	"",
-	"You know what? I'm just gonna <span style='color: white;'>loop</span> this text, see if you like that.",
-	"",
 ];
 
 export { Typewriter };

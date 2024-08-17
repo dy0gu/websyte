@@ -1,5 +1,7 @@
 import { cn } from "~/utils/cn";
 
+import quack from "~/assets/sounds/quack.mp3";
+
 type HeroProps = {
 	className?: string;
 	title: string;
@@ -13,9 +15,18 @@ function Hero({ className, title }: HeroProps) {
 				className,
 			)}
 		>
-			{title.split("").map((letter) => (
+			{title.split("").map((letter, index) => (
 				<b
 					key={letter}
+					{...(index === title.length - 1
+						? {
+								onClick: () => {
+									const audio = new Audio(quack);
+									audio.volume = 0.1;
+									audio.play();
+								},
+							}
+						: {})}
 					className="hover:text-zinc-500 duration-500 cursor-pointer"
 				>
 					{letter}
