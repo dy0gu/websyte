@@ -14,7 +14,7 @@ export default defineConfig({
 	retries: env.CI ? 2 : 0,
 	workers: env.CI ? 1 : undefined,
 	use: {
-		baseURL: `http://localhost:${env.PORT}`,
+		baseURL: `${env.DOMAIN}`,
 		trace: "on-first-retry",
 	},
 	// List of browsers to test against
@@ -35,7 +35,7 @@ export default defineConfig({
 		},
 	],
 	webServer: {
-		command: "remix vite:dev",
+		command: "npm run build && npm run start",
 		port: env.PORT,
 		reuseExistingServer: !env.CI,
 	},
