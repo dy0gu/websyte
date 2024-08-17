@@ -1,8 +1,4 @@
-// import env from "~/utils/env";
-
-const env = {
-    WEBSITE_DOMAIN: "https://nei.dei.uc.pt",
-};
+import { env } from "~/utils/env";
 
 // Dynamic robots.txt generator route
 export const loader = () => {
@@ -11,7 +7,7 @@ export const loader = () => {
             Allow: /$
             Disallow: /
 
-            Sitemap: ${env.WEBSITE_DOMAIN}/sitemap.xml
+            Sitemap: ${env.DOMAIN}/sitemap.xml
         `;
     return new Response(content, {
         status: 200,
