@@ -4,31 +4,28 @@
 .pnp.js
 
 # Testing
-/test
 /coverage
 
-# Build / Production
+# Build
 /build
 /.next/
 /out/
 tsconfig.tsbuildinfo
 
-# Misc
+# Miscellaneous
 .DS_Store
 *.pem
 next-env.d.ts
 
-# Debug / Log
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
 # Environment
-.env.*
-.env/
-env/
-
+.env*
+!.env.example
 # IDE
 .idea
 .vscode

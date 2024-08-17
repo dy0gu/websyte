@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: "Roboto Mono";
+        font-weight: normal;
+        src: url("../assets/fonts/RobotoMono-Regular.ttf") format("truetype");
+    }
+
+    @font-face {
+        font-family: "Roboto Mono";
+        font-weight: bold;
+        src: url("../assets/fonts/RobotoMono-Bold.ttf") format("truetype");
+    }
+
+    @font-face {
+        font-family: "Roboto Mono";
+        font-style: italic;
+        src: url("../assets/fonts/RobotoMono-Italic.ttf") format("truetype");
+    }
+
+    body {
+        font-family: "Roboto Mono";
+        overscroll-behavior-y: none;
+        margin: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+}
