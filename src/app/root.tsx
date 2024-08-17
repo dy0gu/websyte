@@ -37,7 +37,7 @@ export default function Layout() {
 				<Meta />
 				<Links />
 			</head>
-			<body className="bg-black">
+			<body className="bg-black bg-gradient-to-tl from-black via-zinc-600/20 to-black">
 				<Outlet />
 				<ScrollRestoration />
 				<Scripts />
