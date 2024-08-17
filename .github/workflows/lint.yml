@@ -1,0 +1,19 @@
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install Biome
+        run: npm install -g @biomejs/biome@$(< package.json jq -r ".devDependencies.\"@biomejs/biome\"")
+      - name: Run linter
+        run: npm run lint

@@ -1,0 +1,9 @@
+output: false
+
+# Run linter and formatter before every commit
+pre-commit:
+  paralell: true
+  commands:
+    biome:
+      run: "npm run check:fix"
+      stage_fixed: true

@@ -6,9 +6,9 @@
 	"sideEffects": false,
 	"scripts": {
 		"build": "remix vite:build",
-		"dev": "remix vite:dev",
-		"start": "remix-serve ./build/server/index.js",
-		"test": "",
+		"dev": "cross-env NODE_ENV=development remix vite:dev",
+		"start": "cross-env NODE_ENV=production remix-serve ./build/server/index.js",
+		"test": "playwright install --with-deps && cross-env NODE_ENV=test playwright test",
 		"typecheck": "tsc",
 		"lint": "biome lint",
 		"lint:fix": "biome lint --write",
@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"@biomejs/biome": "^1.8.3",
+		"@playwright/test": "^1.46.1",
 		"@remix-run/dev": "^2.11.2",
 		"@remix-run/node": "^2.9.2",
 		"@remix-run/react": "^2.9.2",
@@ -30,10 +31,14 @@
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^19.4.0",
+		"@commitlint/config-conventional": "^19.2.2",
 		"@types/node": "^22.4.0",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
 		"autoprefixer": "^10.4.20",
+		"cross-env": "^7.0.3",
+		"lefthook": "^1.7.13",
 		"postcss": "^8.4.41",
 		"tailwindcss": "^3.4.10",
 		"typescript": "^5.5.4",

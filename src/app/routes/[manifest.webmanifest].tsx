@@ -1,6 +1,6 @@
 import { info } from "~/configs/metadata";
 
-// Dynamic manifest.webmanifest generator route.
+// Dynamic manifest.webmanifest generator route
 export const loader = () => {
     const content = `
         {
