@@ -1,15 +1,6 @@
 import { env } from "~/utils/env";
 
-// Reusable values throughout the app
-const info = {
-	name: "Dy0gu",
-	description: "Just an individual, writing some code on the internet.",
-	links: [
-		{ name: "Email", href: "mailto:email@diogo.work" },
-		{ name: "GitHub", href: "https://www.github.com/dy0gu" },
-		{ name: "Stack", href: "https://stackoverflow.com/users/22441488" },
-	],
-};
+import { info } from "~/configs/resources";
 
 // Meta tags for the <head> of the root html document
 // This object uses server environment variables, meaning it can only be called in Remix loader functions
@@ -28,4 +19,4 @@ const metadata = [
 	},
 ];
 
-export { info, metadata };
+export { metadata };

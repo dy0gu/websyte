@@ -11,7 +11,7 @@ type TypewriterProps = {
 	cursorClassName?: string;
 };
 
-export function Typewriter({
+function Typewriter({
 	className,
 	cursorClassName,
 	strings,
@@ -97,9 +97,7 @@ export function Typewriter({
 	}, [text, isDeleting]);
 
 	return (
-		<div
-			className={cn("inline-flex pointer-events-none text-balance", className)}
-		>
+		<div className={cn("inline-flex text-balance cursor-default", className)}>
 			<span dangerouslySetInnerHTML={{ __html: text }} />
 			<span className={cn("animate-fade-blink", cursorClassName)}>|</span>
 		</div>
@@ -123,6 +121,7 @@ export const quips = [
 	"Hotdogs all look the same because they're <span style='color: white;'>in-bread</span>.",
 	"That's what <span style='color: white;'>she</span> said!",
 	"Apathy's a tragedy and <span style='color: white;'>boredom</span> is a crime.",
+	"You don't need a <span style='color: white;'>parachute</span> to jump off a plane, only to do it twice.",
 	"Did I ever tell you the <span style='color: white;'>definition</span> of insanity?",
 	"I like <span style='color: white;'>shorts</span>! They're comfy and easy to wear!",
 	"All we had to do was follow the <span style='color: white;'>damn</span> train, CJ!",
@@ -139,3 +138,5 @@ export const quips = [
 	"You know what? I'm just gonna <span style='color: white;'>loop</span> this text, see if you like that.",
 	"",
 ];
+
+export { Typewriter };
