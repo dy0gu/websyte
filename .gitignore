@@ -4,7 +4,6 @@
 .pnp.js
 
 # Testing
-/test
 /coverage
 
 # Build
