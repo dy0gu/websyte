@@ -13,7 +13,7 @@ export default function Page() {
 
 	return (
 		<section className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden">
-			<Particles className="absolute inset-0 animate-fade-in" />
+			<Particles className="absolute w-screen h-screen animate-fade-in" />
 			<Navigation links={info.links} />
 			<Beam className="mb-2" disappear="fade-left" />
 			<Hero title={name} />
@@ -21,7 +21,6 @@ export default function Page() {
 			<Typewriter
 				strings={quips}
 				sequence="random"
-				loop={false}
 				startDelay={3500}
 				className="my-16 mx-16 animate-fade-in text-sm
 			md:text-md lg:text-xl text-zinc-500 text-balance"

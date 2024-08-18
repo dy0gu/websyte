@@ -4,6 +4,10 @@
 
 Websyte is a compact app that acts as personal hub for all sorts of important resources. It's also got some tricks up its sleeves so feel free to poke around.
 
+## Requirements 📋
+
+- Node.js 22.0.0+
+
 ## Development Installation 🛠️
 
 - Clone the repository:
