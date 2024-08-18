@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/dy0gu/websyte/compare/v1.1.1...v1.1.2) (2024-08-18)
+
+
+### Bug Fixes
+
+* take into account mobile navbar for height ([0e3c54a](https://github.com/dy0gu/websyte/commit/0e3c54af926a60d7e55d7f85274e627b977d8089))
+
 ## [1.1.1](https://github.com/dy0gu/websyte/compare/v1.1.0...v1.1.1) (2024-08-18)
 
 
