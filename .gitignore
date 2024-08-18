@@ -1,15 +1,17 @@
+# IDE
+.idea/
+.vscode/
+
 # Dependencies
-/node_modules
-/.pnp
-.pnp.js
+node_modules/
 
 # Testing
 /coverage
 
 # Build
-/build
-/.next/
-/out/
+build/
+.next/
+out/
 tsconfig.tsbuildinfo
 
 # Miscellaneous
@@ -26,6 +28,3 @@ yarn-error.log*
 # Environment
 .env*
 !.env.example
-# IDE
-.idea
-.vscode
