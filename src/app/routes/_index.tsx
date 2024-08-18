@@ -12,8 +12,8 @@ export default function Page() {
 	useMystery();
 
 	return (
-		<section className="flex flex-col items-center justify-center w-screen h-svh overflow-hidden">
-			<Particles className="absolute w-screen h-svh animate-fade-in" />
+		<section className="flex flex-col items-center justify-center w-screen h-dvh overflow-hidden">
+			<Particles className="absolute w-screen h-dvh animate-fade-in" />
 			<Navigation links={info.links} />
 			<Beam className="mb-2" disappear="fade-left" />
 			<Hero title={name} />
