@@ -36,7 +36,7 @@ function useMousePosition(): MousePosition {
 function Particles({
 	className,
 	quantity = 100,
-	staticity = 30,
+	staticity = 20,
 	ease = 40,
 }: ParticlesProps) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);

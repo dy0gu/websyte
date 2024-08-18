@@ -4,6 +4,7 @@ import { cn } from "~/utils/cn";
 type TypewriterProps = {
 	strings: string[];
 	sequence: "array" | "random";
+	active?: boolean;
 	loop?: boolean;
 	deleteDelay?: number;
 	deleteReverseDelay?: number;
@@ -17,6 +18,7 @@ type TypewriterProps = {
 function Typewriter({
 	strings,
 	sequence,
+	active = true,
 	loop = true,
 	deleteDelay = 25,
 	deleteReverseDelay = 300,
@@ -130,7 +132,9 @@ function Typewriter({
 			}
 		}
 
-		write();
+		if (active) {
+			write();
+		}
 
 		return () => {
 			if (typingTimeoutRef.current) {
@@ -149,6 +153,7 @@ function Typewriter({
 		typeDelay,
 		typeReverseDelay,
 		startDelay,
+		active,
 		currentIndex,
 	]);
 
@@ -173,19 +178,27 @@ export const quips = [
 	"We've got some <span style='color: hotpink;'>pink</span> text too, if you want it!",
 	"They had a broken <span style='color: white;'>keyboard</span>, I bought a broken keyboard.",
 	"Do you want <span style='color: white;'>ants</span>? Because that's how you get ants!",
+	"Winter <span style='color: white;'>is</span> coming...",
 	"Their are <span style='color: white;'>three</span> erors in this sentence.",
 	"Snake? <span style='color: white;'>Snake?</span> SNAAAAAAKE!",
 	"01100100 <span style='color: white;'>01111001</span> 00110000 <span style='color: white;'>01100111</span> 01110101",
+	"It's dangerous to go alone, take <span style='color: white;'>this</span>.",
 	"The human race will not go <span style='color: white;'>extinct</span> in your lifetime!",
 	"How about another <span style='color: white;'>joke</span>, Murray?",
 	"Hotdogs all look the same because they're <span style='color: white;'>in-bread</span>.",
+	"To infinity and <span style='color: white;'>beyond</span>!",
+	"Remember, the <span style='color: white;'>night</span> is darkest just before the dawn.",
 	"That's what <span style='color: white;'>she</span> said!",
+	"On your <span style='color: white;'>left</span>.",
 	"Apathy's a tragedy and <span style='color: white;'>boredom</span> is a crime.",
-	"You don't need a <span style='color: white;'>parachute</span> to jump off a plane, only to do it twice.",
+	"Is it just me, or is it getting <span style='color: white;'>crazier</span> out there?",
+	"We have to go <span style='color: white;'>back</span> Kate!",
+	"You don't need a <span style='color: white;'>parachute</span> to jump off a plane, only if you want to do it again.",
 	"Did I ever tell you the <span style='color: white;'>definition</span> of insanity?",
 	"I like <span style='color: white;'>shorts</span>! They're comfy and easy to wear!",
 	"All we had to do was follow the <span style='color: white;'>damn</span> train, CJ!",
 	"Crazy? I was <span style='color: white;'>crazy</span> once.",
+	"Yes, <span style='color: white;'>chef</span>!",
 ];
 
 export { Typewriter };

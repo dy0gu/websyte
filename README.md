@@ -1,15 +1,19 @@
 # Check out my page! 📚💻
 
-![logo](app/apple-icon.png)
+![logo](public/logo.png)
 
-Websyte is a personal web portfolio, at the moment it acts only as a simple link hub, with some fun little easter eggs. It is built using React, Next.js, Tailwind and Framer Motion.
+Websyte is a compact app that acts as personal hub for all sorts of important resources. It's also got some tricks up its sleeves so feel free to poke around.
 
-## Installation 🛠️
+## Requirements 📋
+
+- Node.js 22.0.0+
+
+## Development Installation 🛠️
 
 - Clone the repository:
 
   ```shell
-  git clone https://github.com/Diogu-Simoes/Websyte.git
+  git clone https://github.com/dy0gu/websyte.git
   ```
 
 - Install the dependencies:
@@ -18,10 +22,22 @@ Websyte is a personal web portfolio, at the moment it acts only as a simple link
   npm install
   ```
 
-## Usage 🚩
-
-- Quick start the app for testing:
+- Start the development server:
 
   ```shell
   npm run dev
+  ```
+
+## Deployment 🚀
+
+- Build the project:
+
+  ```shell
+  npm run build
+  ```
+
+- Start the production server:
+
+  ```shell
+  npm run start
   ```
