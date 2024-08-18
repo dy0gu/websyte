@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/dy0gu/websyte/compare/v1.0.0...v1.1.0) (2024-08-18)
+
+
+### Features
+
+* add new quips ([#4](https://github.com/dy0gu/websyte/issues/4)) ([d3f91b5](https://github.com/dy0gu/websyte/commit/d3f91b5898ed68db95ab0534571ba827659b92f1))
+
 ## 1.0.0 (2024-08-17)
 
 
