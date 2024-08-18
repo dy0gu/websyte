@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/dy0gu/websyte/compare/v1.1.0...v1.1.1) (2024-08-18)
+
+
+### Bug Fixes
+
+* improve height responsiveness ([68cfdc3](https://github.com/dy0gu/websyte/commit/68cfdc32d1dae7d5cc2470b3870cf83ee777f8c6))
+
 ## [1.1.0](https://github.com/dy0gu/websyte/compare/v1.0.0...v1.1.0) (2024-08-18)
 
 
