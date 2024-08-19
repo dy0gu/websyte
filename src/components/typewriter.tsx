@@ -11,7 +11,7 @@ type TypewriterProps = {
 	typeDelay?: number;
 	typeReverseDelay?: number;
 	startDelay?: number;
-	className?: string;
+	wrapperClassName?: string;
 	cursorClassName?: string;
 };
 
@@ -25,10 +25,11 @@ function Typewriter({
 	typeDelay = 80,
 	typeReverseDelay = 1000,
 	startDelay = 0,
-	className,
+	wrapperClassName,
 	cursorClassName,
 }: TypewriterProps) {
 	const [text, setText] = useState("");
+	const [aria, setAria] = useState("");
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const isFirstRunRef = useRef(true);
 	const startTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -40,6 +41,8 @@ function Typewriter({
 			if (sequence === "array") {
 				return strings[currentIndex];
 			}
+			// Not following array sequence so pick a random string
+			// If set to loop don't repeat strings until they're all shown once
 			if (remainingStringsRef.current.length === 0) {
 				remainingStringsRef.current = [...strings];
 			}
@@ -61,6 +64,7 @@ function Typewriter({
 
 			while (true) {
 				const currentString = getNextString();
+				setAria(currentString.replace(/<[^>]*>/g, ""));
 				let i = 0;
 
 				while (i <= currentString.length) {
@@ -158,16 +162,25 @@ function Typewriter({
 	]);
 
 	return (
-		<p className={cn("inline-block cursor-default text-center", className)}>
-			<span dangerouslySetInnerHTML={{ __html: text }} />
-			<span className={cn("animate-fade-blink select-none", cursorClassName)}>
+		<p
+			className={cn(
+				"inline-block cursor-default text-center",
+				wrapperClassName,
+			)}
+			aria-label={aria}
+		>
+			<span dangerouslySetInnerHTML={{ __html: text }} aria-hidden="true" />
+			<span
+				className={cn("animate-fade-blink select-none", cursorClassName)}
+				aria-hidden="true"
+			>
 				|
 			</span>
 		</p>
 	);
 }
 
-export const quips = [
+const quips = [
 	"Writing <span style='color: white;'>code</span> since...?",
 	"Is making your own website a <span style='color: white;'>developer</span> cliché already?",
 	"Watch my all time favorite <a href=https://www.youtube.com/watch?v=xvFZjo5PgG0 style='text-decoration: underline; color: white;'>video</a> on YouTube!",
@@ -201,4 +214,4 @@ export const quips = [
 	"Yes, <span style='color: white;'>chef</span>!",
 ];
 
-export { Typewriter };
+export { Typewriter, quips };
