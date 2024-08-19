@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/dy0gu/websyte/compare/v1.1.2...v1.2.0) (2024-08-19)
+
+
+### Features
+
+* add dynamic aria labels for accessibility ([12b2dc9](https://github.com/dy0gu/websyte/commit/12b2dc9b6f529ea4bae27aef2a6f1b212a03529a))
+* add new sounds ([9255633](https://github.com/dy0gu/websyte/commit/925563312b0afb6fef7da2706e454b786e728013))
+
 ## [1.1.2](https://github.com/dy0gu/websyte/compare/v1.1.1...v1.1.2) (2024-08-18)
 
 
