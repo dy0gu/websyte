@@ -14,7 +14,7 @@ function Navigation({ className, links }: NavigationProps) {
 					<li key={index}>
 						<a
 							href={item.href}
-							className="duration-500 text-zinc-500 hover:text-zinc-300"
+							className="duration-500 text-zinc-400 hover:text-zinc-100"
 						>
 							{item.name}
 						</a>

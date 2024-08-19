@@ -16,14 +16,14 @@ export default function Page() {
 			<Particles className="absolute w-screen h-dvh animate-fade-in" />
 			<Navigation links={info.links} />
 			<Beam className="mb-2" disappear="fade-left" />
-			<Hero title={name} />
+			<Hero letters={name} />
 			<Beam className="mt-2" disappear="fade-right" />
 			<Typewriter
 				strings={quips}
 				sequence="random"
 				startDelay={3500}
 				wrapperClassName="my-16 mx-16 animate-fade-in text-sm
-		md:text-md lg:text-xl text-zinc-500 text-balance"
+		md:text-md lg:text-xl text-zinc-400 text-balance"
 				cursorClassName="text-zinc-300"
 			/>
 		</section>

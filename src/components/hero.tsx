@@ -1,13 +1,24 @@
 import { cn } from "~/utils/cn";
+import { sound } from "~/utils/sound";
 
+import amogus from "~/assets/sounds/amogus.mp3";
+import boom from "~/assets/sounds/boom.mp3";
+import drums from "~/assets/sounds/drums.mp3";
+import error from "~/assets/sounds/error.mp3";
 import quack from "~/assets/sounds/quack.mp3";
 
-type HeroProps = {
-	className?: string;
-	title: string;
+type HeroLetter = {
+	value: string;
+	aria?: string;
+	onClick?: () => void;
 };
 
-function Hero({ className, title }: HeroProps) {
+type HeroProps = {
+	letters: HeroLetter[];
+	className?: string;
+};
+
+function Hero({ letters, className }: HeroProps) {
 	return (
 		<h1
 			className={cn(
@@ -15,27 +26,51 @@ function Hero({ className, title }: HeroProps) {
 				className,
 			)}
 		>
-			{title.split("").map((letter, index) => (
+			{letters.map((letter, index) => (
+				// biome-ignore lint/a11y/useValidAriaProps: aria-description is a valid aria
 				<b
-					key={letter}
-					{...(index === title.length - 1
-						? {
-								onClick: () => {
-									const audio = new Audio(quack);
-									audio.volume = 0.1;
-									audio.play();
-								},
-							}
-						: {})}
-					className="hover:text-zinc-500 duration-500 cursor-pointer"
+					// biome-ignore lint/suspicious/noArrayIndexKey: mapped object is static
+					key={index}
+					aria-description={letter.aria}
+					tabIndex={letter.onClick ? 0 : -1}
+					role={letter.onClick ? "button" : undefined}
+					onClick={letter.onClick}
+					onKeyDown={(e) => {
+						if (e.key === "Enter" || e.key === " ") {
+							letter.onClick?.();
+						}
+					}}
+					className="hover:text-zinc-400 duration-500 cursor-pointer"
 				>
-					{letter}
+					{letter.value}
 				</b>
 			))}
 		</h1>
 	);
 }
 
-const name = "DY0GU";
+const name = [
+	{
+		value: "D",
+		aria: "Play the pun drums sound!",
+		onClick: () => sound(drums),
+	},
+	{
+		value: "Y",
+		aria: "Play the Windows XP error sound!",
+		onClick: () => sound(error),
+	},
+	{
+		value: "0",
+		aria: "Play the Vine boom sound!",
+		onClick: () => sound(boom, { volume: 0.2 }),
+	},
+	{
+		value: "G",
+		aria: "Play the Among Us imposter reveal sound!",
+		onClick: () => sound(amogus),
+	},
+	{ value: "U", aria: "Play a duck quack sound!", onClick: () => sound(quack) },
+];
 
 export { Hero, name };
