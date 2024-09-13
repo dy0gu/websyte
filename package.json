@@ -46,6 +46,6 @@
 		"vite-tsconfig-paths": "^5.0.1"
 	},
 	"optionalDependencies": {
-		"@rollup/rollup-linux-x64-gnu": "4.21.3"
+		"@rollup/rollup-linux-x64-gnu": "*"
 	}
 }
