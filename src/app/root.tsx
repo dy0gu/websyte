@@ -8,9 +8,9 @@ import {
 	ScrollRestoration,
 } from "@remix-run/react";
 
-import { metadata } from "~/configs/metadata";
+import { metadata } from "~/data/meta";
 
-import { resources } from "~/configs/resources";
+import { rels } from "~/data/attributes";
 
 import "~/styles/globals.css";
 
@@ -27,7 +27,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export const links: LinksFunction = () => {
-	return resources;
+	return rels;
 };
 
 export default function Layout() {

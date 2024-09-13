@@ -12,23 +12,30 @@ for (const key in process.env) {
 	}
 }
 
-// Validate all environment variables
-const Environment = z.object({
-	PORT: z.coerce
-		.number({
-			invalid_type_error:
-				"PORT not correctly defined in environment variables!",
-		})
-		.int({ message: "PORT must be an integer!" })
-		.min(1000, { message: "PORT must be greater than 1000!" })
-		.max(65535, { message: "PORT must be less than 65535!" }),
-	DOMAIN: z.string({
-		required_error: "DOMAIN not correctly defined in environment variables!",
-	}),
+// Schema that should contain all variables meant to be validated
+const expected = z.object({
+	PORT: z.coerce.number().int().min(1000).max(65535),
+	DOMAIN: z.string(),
 	CI: z.string().optional(),
 });
 
-const env = Environment.parse(normalized);
+// Pretty print errors during validation
+function parse(input: { [key: string]: string }) {
+	try {
+		return expected.parse(input);
+	} catch (err) {
+		if (err instanceof z.ZodError) {
+			for (const issue of err.issues) {
+				console.error(
+					`❌ ${issue.message} for ${issue.path} environment variable!`,
+				);
+			}
+		}
+		process.exit(1);
+	}
+}
+
+const env = parse(normalized);
 
 // Always read environment variables through this object instead of
 // directly accessing process.env in order to ensure type safety

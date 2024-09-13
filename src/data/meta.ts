@@ -1,6 +1,6 @@
 import { env } from "~/utils/env";
 
-import { info } from "~/configs/resources";
+import { info } from "~/data/attributes";
 
 // Meta tags for the <head> of the root html document
 // This object uses server environment variables, meaning it can only be called in Remix loader functions
