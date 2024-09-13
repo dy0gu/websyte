@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.2.1](https://github.com/dy0gu/websyte/compare/v1.2.0...v1.2.1) (2024-09-13)
+
+
+### Bug Fixes
+
+* add cross platform rollup dependency ([5c83677](https://github.com/dy0gu/websyte/commit/5c8367781b706ef76cf29ae7372cd150e2f6a3a6))
+* add generic font family fallback ([d393d53](https://github.com/dy0gu/websyte/commit/d393d534d115345c4b975c043ca35ba29ac70e3f))
+* rollback broken playwright version ([653e288](https://github.com/dy0gu/websyte/commit/653e288831ddd0d6d6e42f70212fa6dbef5887a7))
+* update links to open in a new tab ([5ffdfde](https://github.com/dy0gu/websyte/commit/5ffdfdecb1bd14dd9a87d1fa0ae3cb3c20da5d24))
+* update package lock ([38c757c](https://github.com/dy0gu/websyte/commit/38c757c27773aab9cded8bcd909a4bc8b026872c))
+
 ## [1.2.0](https://github.com/dy0gu/websyte/compare/v1.1.2...v1.2.0) (2024-08-19)
 
 
