@@ -20,7 +20,7 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
       - name: Install dependencies
-        run: npm install --ignore-platform
+        run: npm ci
       - name: Analyze types
         run: npm run typecheck
       - name: Run Playwright tests
