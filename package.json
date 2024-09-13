@@ -18,7 +18,7 @@
 		"check:fix": "biome check --write"
 	},
 	"dependencies": {
-		"@playwright/test": "~1.46.1",
+		"@playwright/test": "^1.47.1",
 		"@remix-run/dev": "^2.12.0",
 		"@remix-run/node": "^2.12.0",
 		"@remix-run/react": "^2.12.0",
