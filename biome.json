@@ -56,8 +56,8 @@
 				}
 			},
 			"suspicious": {
+				"noConsole": "error",
 				"useAwait": "error",
-				"noConsoleLog": "error",
 				"noEmptyBlockStatements": "error"
 			}
 		}

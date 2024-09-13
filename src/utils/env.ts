@@ -26,6 +26,7 @@ function parse(input: { [key: string]: string }) {
 	} catch (err) {
 		if (err instanceof z.ZodError) {
 			for (const issue of err.issues) {
+				// biome-ignore lint/suspicious/noConsole: will only be sent to the server
 				console.error(
 					`❌ ${issue.message} for ${issue.path} environment variable!`,
 				);

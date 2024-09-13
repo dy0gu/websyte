@@ -55,6 +55,7 @@ function useMystery() {
 
 	useEffect(() => {
 		if (count === CODE.length) {
+			// biome-ignore lint/suspicious/noConsole: this is sent to the console as an easter egg
 			console.info(MESSAGE);
 			setSuccess(true);
 		}
