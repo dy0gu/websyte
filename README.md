@@ -2,7 +2,7 @@
 
 ![logo](public/logo.png)
 
-Websyte is a compact app that acts as personal hub for all sorts of important resources. It's also got some tricks up its sleeves so feel free to poke around.
+Simple landing page for my personal website, with a few links and a couple secrets.
 
 ## Requirements 📋
 
