@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/dy0gu/websyte/compare/v2.0.0...v2.0.1) (2024-09-14)
+
+
+### Bug Fixes
+
+* improve hero button attributes ([92e0cb8](https://github.com/dy0gu/websyte/commit/92e0cb88b2da98a6e98ff60186ddc9da3745d4a6))
+
 ## [2.0.0](https://github.com/dy0gu/websyte/compare/v1.2.1...v2.0.0) (2024-09-14)
 
 
