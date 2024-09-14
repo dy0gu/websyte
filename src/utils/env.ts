@@ -28,7 +28,7 @@ function parse(input: { [key: string]: string }) {
 			for (const issue of err.issues) {
 				// biome-ignore lint/suspicious/noConsole: will only be sent to the server
 				console.error(
-					`❌ ${issue.message} for ${issue.path} environment variable!`,
+					`  ❌ ${issue.message} - ${issue.path} environment variable!`,
 				);
 			}
 		}
