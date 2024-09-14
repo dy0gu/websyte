@@ -28,22 +28,14 @@ function Hero({ letters, className }: HeroProps) {
 		>
 			{letters.map((letter, index) => (
 				// biome-ignore lint/a11y/useValidAriaProps: aria-description is a valid aria
-				<b
-					// biome-ignore lint/suspicious/noArrayIndexKey: mapped object is static
-					key={index}
+				// biome-ignore lint/suspicious/noArrayIndexKey: mapped object is static
+				<button
+					className="bg-transparent hover:text-zinc-400 duration-500 font-bold"
 					aria-description={letter.aria}
-					tabIndex={letter.onClick ? 0 : -1}
-					role={letter.onClick ? "button" : undefined}
 					onClick={letter.onClick}
-					onKeyDown={(e) => {
-						if (e.key === "Enter" || e.key === " ") {
-							letter.onClick?.();
-						}
-					}}
-					className="hover:text-zinc-400 duration-500 cursor-pointer"
 				>
 					{letter.value}
-				</b>
+				</button>
 			))}
 		</h1>
 	);

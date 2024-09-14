@@ -28,14 +28,14 @@ export const links: LinksFunction = () => {
 
 export default function Layout() {
 	return (
-		<html lang="en">
+		<html lang="en" className="overscroll-y-none">
 			<head>
 				<Meta />
 				<Links />
 			</head>
 			<body
 				className="bg-black bg-gradient-to-tl from-black via-zinc-600/20 to-black
-			font-mono"
+			min-h-screen font-mono"
 			>
 				<Outlet />
 				<ScrollRestoration />

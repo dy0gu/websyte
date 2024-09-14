@@ -22,7 +22,7 @@ export default function Page() {
 				strings={quips}
 				sequence="random"
 				startDelay={3500}
-				wrapperClassName="my-16 mx-16 animate-fade-in text-sm
+				wrapperClassName="mt-16 mx-8 animate-fade-in text-sm
 		md:text-md lg:text-xl text-zinc-400 text-balance"
 				cursorClassName="text-zinc-300"
 			/>

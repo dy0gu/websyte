@@ -7,7 +7,7 @@ type NavigationProps = {
 
 function Navigation({ className, links }: NavigationProps) {
 	return (
-		<nav className={cn("my-16 mx-16 animate-fade-in", className)}>
+		<nav className={cn("mb-16 animate-fade-in", className)}>
 			<ul className="flex flex-row text-sm md:text-md lg:text-xl select-none">
 				{links.map((item, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: mapped object is static
