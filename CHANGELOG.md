@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/dy0gu/websyte/compare/v1.2.1...v2.0.0) (2024-09-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* improve tailwind handling
+
+### Bug Fixes
+
+* improve tailwind handling ([442cafe](https://github.com/dy0gu/websyte/commit/442cafeed03cd79c874e086c3747bab10e3f7dd5))
+
 ## [1.2.1](https://github.com/dy0gu/websyte/compare/v1.2.0...v1.2.1) (2024-09-13)
 
 
