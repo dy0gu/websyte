@@ -1,3 +1,5 @@
+import stylesheet from "~/styles/tailwind.css?url";
+
 // Reusable values throughout the app
 const info = {
 	name: "Dy0gu",
@@ -16,6 +18,7 @@ const rels = [
 	{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
 	{ rel: "sitemap", href: "/sitemap.xml" },
 	{ rel: "manifest", href: "/manifest.webmanifest" },
+	{ rel: "stylesheet", href: stylesheet },
 ];
 
 export { info, rels };

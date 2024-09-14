@@ -7,7 +7,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
 	plugins: [
 		remix({
-			appDirectory: "src/app",
+			appDirectory: "src",
 		}),
 		tsconfigPaths(),
 	],

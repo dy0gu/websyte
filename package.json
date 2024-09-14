@@ -31,15 +31,15 @@
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.47.1",
 		"@biomejs/biome": "~1.9.0",
+		"@playwright/test": "^1.47.1",
 		"@types/node": "^22.5.4",
 		"@types/react": "^18.3.5",
 		"@types/react-dom": "^18.3.0",
 		"autoprefixer": "^10.4.20",
 		"cross-env": "^7.0.3",
 		"lefthook": "^1.7.15",
-		"postcss": "^8.4.45",
+		"postcss": "^8.4.47",
 		"tailwindcss": "^3.4.11",
 		"typescript": "^5.6.2",
 		"vite": "^5.4.5",

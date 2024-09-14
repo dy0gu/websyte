@@ -7,12 +7,8 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from "@remix-run/react";
-
-import { metadata } from "~/data/meta";
-
 import { rels } from "~/data/attributes";
-
-import "~/styles/globals.css";
+import { metadata } from "~/data/meta";
 
 export function loader() {
 	return json(metadata);
@@ -37,7 +33,10 @@ export default function Layout() {
 				<Meta />
 				<Links />
 			</head>
-			<body className="bg-black bg-gradient-to-tl from-black via-zinc-600/20 to-black">
+			<body
+				className="bg-black bg-gradient-to-tl from-black via-zinc-600/20 to-black
+			font-mono"
+			>
 				<Outlet />
 				<ScrollRestoration />
 				<Scripts />
