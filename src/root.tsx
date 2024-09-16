@@ -7,8 +7,8 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from "@remix-run/react";
-import { rels } from "~/data/attributes";
 import { metadata } from "~/data/meta";
+import stylesheet from "~/styles/tailwind.css?url";
 
 export function loader() {
 	return json(metadata);
@@ -23,7 +23,12 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export const links: LinksFunction = () => {
-	return rels;
+	return [
+		{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+		{ rel: "sitemap", href: "/sitemap.xml" },
+		{ rel: "manifest", href: "/manifest.webmanifest" },
+		{ rel: "stylesheet", href: stylesheet },
+	];
 };
 
 export default function Layout() {

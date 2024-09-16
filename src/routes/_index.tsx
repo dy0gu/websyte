@@ -1,6 +1,6 @@
 import { useMystery } from "~/hooks/mystery";
 
-import { info } from "~/data/attributes";
+import { info } from "~/data/info";
 
 import { Beam } from "~/components/beam";
 import { Hero, name } from "~/components/hero";
