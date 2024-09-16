@@ -64,7 +64,7 @@
 	},
 	"overrides": [
 		{
-			"include": ["src/utils/env.ts"],
+			"include": ["src/utils/env.ts", "vite.config.ts"],
 			"linter": {
 				"rules": {
 					"style": {
