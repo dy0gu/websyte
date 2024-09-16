@@ -16,4 +16,7 @@ export default defineConfig({
 			plugins: [tailwindcss, autoprefixer],
 		},
 	},
+	define: {
+		__REACT_DEVTOOLS_GLOBAL_HOOK__: JSON.stringify({ isDisabled: true }),
+	},
 });

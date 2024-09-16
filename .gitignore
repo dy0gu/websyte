@@ -13,6 +13,7 @@ build/
 .next/
 out/
 tsconfig.tsbuildinfo
+vite.config.ts.*
 
 # Miscellaneous
 .DS_Store
