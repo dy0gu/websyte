@@ -35,7 +35,7 @@ export default defineConfig({
 		},
 	],
 	webServer: {
-		command: "npm run build && remix-serve ./build/server/index.js",
+		command: "remix-serve ./build/server/index.js",
 		port: env.PORT,
 		reuseExistingServer: !env.CI,
 	},

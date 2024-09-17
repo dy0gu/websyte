@@ -23,6 +23,8 @@ jobs:
         run: npm ci
       - name: Analyze types
         run: npm run typecheck
+      - name: Build Remix
+        run: npm run build
       - name: Run Playwright tests
         if: ${{ !cancelled() }}
         run: npm run test
