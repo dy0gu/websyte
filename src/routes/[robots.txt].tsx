@@ -1,5 +1,5 @@
-import { env } from "~/utils/env";
 import { txt } from "remix-utils/responses";
+import { env } from "~/utils/env";
 
 // Dynamic robots.txt generator route
 export function loader() {

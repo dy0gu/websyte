@@ -5,5 +5,5 @@ pre-commit:
   paralell: true
   commands:
     format:
-      run: "npm run format:fix"
+      run: "npx biome format --write"
       stage_fixed: true

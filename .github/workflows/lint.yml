@@ -16,4 +16,4 @@ jobs:
       - name: Install Biome
         run: npm install -g @biomejs/biome@$(< package.json jq -r ".devDependencies.\"@biomejs/biome\"")
       - name: Run linter
-        run: npm run lint
+        run: npx biome lint

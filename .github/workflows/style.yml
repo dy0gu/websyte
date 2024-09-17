@@ -16,4 +16,4 @@ jobs:
       - name: Install Biome
         run: npm install -g @biomejs/biome@$(< package.json jq -r ".devDependencies.\"@biomejs/biome\"")
       - name: Run formatter
-        run: npm run format
+        run: npx biome format

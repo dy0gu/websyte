@@ -1,6 +1,4 @@
-# Check out my page! 📚💻
-
-![logo](public/logo.png)
+# Personal Page 📚💻
 
 Simple landing page for my personal website, with a few links and a couple secrets.
 

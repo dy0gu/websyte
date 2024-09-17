@@ -7,8 +7,8 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from "@remix-run/react";
-import { metadata } from "~/data/meta";
 import favicon from "~/assets/images/favicon.svg?url";
+import { metadata } from "~/data/meta";
 import stylesheet from "~/styles/tailwind.css?url";
 
 export function loader() {
