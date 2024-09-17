@@ -8,6 +8,7 @@ import {
 	ScrollRestoration,
 } from "@remix-run/react";
 import { metadata } from "~/data/meta";
+import favicon from "~/assets/images/favicon.svg?url";
 import stylesheet from "~/styles/tailwind.css?url";
 
 export function loader() {
@@ -24,9 +25,8 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export const links: LinksFunction = () => {
 	return [
-		{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
 		{ rel: "sitemap", href: "/sitemap.xml" },
-		{ rel: "manifest", href: "/manifest.webmanifest" },
+		{ rel: "icon", href: favicon, type: "image/svg+xml" },
 		{ rel: "stylesheet", href: stylesheet },
 	];
 };
