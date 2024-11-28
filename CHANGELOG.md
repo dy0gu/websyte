@@ -1,5 +1,27 @@
 # Changelog
 
+## [3.0.0](https://github.com/dy0gu/websyte/compare/v2.0.2...v3.0.0) (2024-11-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate to new react-router
+
+### Features
+
+* add docker image ([3fed1a2](https://github.com/dy0gu/websyte/commit/3fed1a29e4bd7bf02ade4690fd14f4000b971b42))
+
+
+### Bug Fixes
+
+* remove unused dependency ([317a350](https://github.com/dy0gu/websyte/commit/317a35015b4eaf2d6e1a467818e22499a042b10f))
+* update test command ([1ac2b1e](https://github.com/dy0gu/websyte/commit/1ac2b1e53f46c957ca44aaa6ca146c40cc42e5b8))
+
+
+### Miscellaneous Chores
+
+* migrate to new react-router ([1708446](https://github.com/dy0gu/websyte/commit/1708446fa63008a392d0f3ca90d02279a1b7eacd))
+
 ## [2.0.2](https://github.com/dy0gu/websyte/compare/v2.0.1...v2.0.2) (2024-11-28)
 
 
