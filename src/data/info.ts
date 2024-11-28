@@ -1,7 +1,7 @@
 // Reusable values throughout the app
 const info = {
 	name: "Dy0gu",
-	description: "Just an individual, writing some code on the internet.",
+	description: "This is not a website.",
 	links: [
 		{ name: "GitHub", href: "https://www.github.com/dy0gu" },
 		{
