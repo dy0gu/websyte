@@ -1,5 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
-import { env } from "~/utils/env";
+import { env } from "./src/utils/env";
 
 export default defineConfig({
 	testDir: "./test",
@@ -35,7 +35,7 @@ export default defineConfig({
 		},
 	],
 	webServer: {
-		command: "remix-serve ./build/server/index.js",
+		command: "react-router-serve ./build/server/index.js",
 		port: env.PORT,
 		reuseExistingServer: !env.CI,
 	},

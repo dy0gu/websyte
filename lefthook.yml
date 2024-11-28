@@ -1,9 +1,8 @@
 output: false
 
-# Run formatter before every commit
 pre-commit:
   paralell: true
   commands:
     format:
-      run: "npx biome format --write"
+      run: "npm run check"
       stage_fixed: true

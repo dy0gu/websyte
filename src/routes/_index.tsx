@@ -1,12 +1,12 @@
-import { useMystery } from "~/hooks/mystery";
+import { useMystery } from "../hooks/mystery";
 
-import { info } from "~/data/info";
+import { info } from "../data/info";
 
-import { Beam } from "~/components/beam";
-import { Hero, name } from "~/components/hero";
-import { Navigation } from "~/components/navigation";
-import { Particles } from "~/components/particles";
-import { Typewriter, quips } from "~/components/typewriter";
+import { Beam } from "../components/beam";
+import { Hero, name } from "../components/hero";
+import { Navigation } from "../components/navigation";
+import { Particles } from "../components/particles";
+import { Typewriter, quips } from "../components/typewriter";
 
 export default function Page() {
 	useMystery();

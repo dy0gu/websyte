@@ -1,5 +1,5 @@
 import { xml } from "remix-utils/responses";
-import { env } from "~/utils/env";
+import { env } from "../utils/env";
 
 enum Frequency {
 	Always = "always",

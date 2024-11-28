@@ -5,23 +5,24 @@
 	"private": true,
 	"sideEffects": false,
 	"scripts": {
-		"build": "remix vite:build",
-		"dev": "cross-env NODE_ENV=development remix vite:dev",
-		"start": "cross-env NODE_ENV=production remix-serve ./build/server/index.js",
+		"build": "react-router build",
+		"dev": "cross-env NODE_ENV=development react-router dev",
+		"start": "cross-env NODE_ENV=production react-router-serve build/server/index.js",
 		"test": "playwright install --with-deps && cross-env NODE_ENV=test playwright test",
-		"typecheck": "tsc",
-		"biome": "biome check --write"
+		"types": "react-router typegen && tsc",
+		"check": "biome check --write"
 	},
 	"dependencies": {
-		"@remix-run/dev": "^2.12.0",
-		"@remix-run/node": "^2.12.0",
-		"@remix-run/react": "^2.12.0",
-		"@remix-run/serve": "^2.12.0",
+		"@react-router/dev": "^7.0.1",
+		"@react-router/fs-routes": "^7.0.1",
+		"@react-router/node": "^7.0.1",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"dotenv": "^16.4.5",
 		"dotenv-expand": "^11.0.6",
 		"isbot": "^5.1.17",
+		"react-dom": "^18.3.1",
+		"react-router": "^7.0.1",
 		"remix-utils": "^7.6.0",
 		"tailwind-merge": "^2.5.2",
 		"zod": "^3.23.8"

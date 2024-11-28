@@ -14,6 +14,7 @@ build/
 out/
 tsconfig.tsbuildinfo
 vite.config.ts.*
+.react-router
 
 # Miscellaneous
 .DS_Store

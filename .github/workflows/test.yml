@@ -3,7 +3,7 @@ name: test
 on:
   push:
     branches: [main]
-  pull_request:
+  pull_request_target:
 
 env:
   PORT: 3456
@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Analyze types
-        run: npm run typecheck
-      - name: Build Remix
+        run: npm run types
+      - name: Build app
         run: npm run build
       - name: Run Playwright tests
         if: ${{ !cancelled() }}

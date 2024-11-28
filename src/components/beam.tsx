@@ -1,6 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority";
 
-import { cn } from "~/utils/cn";
+import { cn } from "../utils/cn";
 
 const beamVariants = cva(
 	`w-screen h-px animate-glow bg-gradient-to-r from-zinc-300/0

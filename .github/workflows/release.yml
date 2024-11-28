@@ -9,10 +9,13 @@ permissions:
   pull-requests: write
 
 jobs:
-  node:
+  metadata:
     runs-on: ubuntu-latest
+    outputs:
+      release-created: ${{ steps.metadata.outputs.release_created }}
     steps:
-      - uses: googleapis/release-please-action@v4
+      - name: Update project metadata and the release pull request
+        uses: googleapis/release-please-action@v4
+        id: metadata
         with:
-          # Updates CHANGELOG.md, creates a tagged release in github and increments the version in package.json
           release-type: node

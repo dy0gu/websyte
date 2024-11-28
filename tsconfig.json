@@ -1,10 +1,13 @@
 {
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"],
 	"compilerOptions": {
-		"types": ["@remix-run/node", "vite/client"],
 		"paths": {
 			"~/*": ["./src/*"]
 		},
+		"types": ["@react-router/node", "vite/client"],
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"rootDirs": [".", "./.react-router/types"],
 		"module": "esnext",
 		"target": "ESNext",
 		"moduleResolution": "Bundler",
@@ -17,11 +20,7 @@
 		"strict": true,
 		"allowJs": false,
 		"resolveJsonModule": true,
-		"noFallthroughCasesInSwitch": true,
-		"forceConsistentCasingInFileNames": true,
 		"noEmit": true,
 		"incremental": true
-	},
-	"include": ["**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules"]
+	}
 }

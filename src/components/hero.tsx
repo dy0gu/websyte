@@ -1,5 +1,5 @@
-import { cn } from "~/utils/cn";
-import { sound } from "~/utils/sound";
+import { cn } from "../utils/cn";
+import { sound } from "../utils/sound";
 
 import amogus from "~/assets/sounds/amogus.mp3";
 import boom from "~/assets/sounds/boom.mp3";

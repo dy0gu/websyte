@@ -1,18 +1,26 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import {
-	Links,
-	Meta,
-	Outlet,
-	Scripts,
-	ScrollRestoration,
-} from "@remix-run/react";
+import type { LinksFunction, MetaFunction } from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import favicon from "~/assets/icons/favicon.ico?url";
-import { metadata } from "~/data/meta";
+import preview from "~/assets/images/og-preview.png?url";
+import { info } from "~/data/info";
 import stylesheet from "~/styles/tailwind.css?url";
+import { env } from "~/utils/env";
 
 export function loader() {
-	return json(metadata);
+	return [
+		{ title: info.name },
+		{ name: "description", content: info.description },
+		{ name: "viewport", content: "width=device-width, initial-scale=1" },
+		{ charSet: "utf-8" },
+		{ property: "og:type", content: "website" },
+		{ property: "og:title", content: info.name },
+		{ property: "og:description", content: info.description },
+		{ property: "og:url", content: env.DOMAIN },
+		{
+			property: "og:image",
+			content: `${env.DOMAIN}${preview}`,
+		},
+	];
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
