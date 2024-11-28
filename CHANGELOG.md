@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/dy0gu/websyte/compare/v2.0.1...v2.0.2) (2024-11-28)
+
+
+### Bug Fixes
+
+* rework metada that was breaking on certain search engines ([f5471d3](https://github.com/dy0gu/websyte/commit/f5471d33627b607681b41ecec38cfe23ec5cdd39))
+
 ## [2.0.1](https://github.com/dy0gu/websyte/compare/v2.0.0...v2.0.1) (2024-09-14)
 
 
