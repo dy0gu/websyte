@@ -35,7 +35,7 @@ export default defineConfig({
 		},
 	],
 	webServer: {
-		command: "react-router-serve ./build/server/index.js",
+		command: "npm run start",
 		port: env.PORT,
 		reuseExistingServer: !env.CI,
 	},
