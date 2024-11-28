@@ -12,6 +12,7 @@
 		"target": "ESNext",
 		"moduleResolution": "Bundler",
 		"jsx": "react-jsx",
+		"outDir": "dist",
 		"isolatedModules": true,
 		"esModuleInterop": true,
 		"preserveSymlinks": true,

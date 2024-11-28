@@ -9,9 +9,7 @@ node_modules/
 /coverage
 
 # Build
-build/
-.next/
-out/
+dist/
 tsconfig.tsbuildinfo
 vite.config.ts.*
 .react-router

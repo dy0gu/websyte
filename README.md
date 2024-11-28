@@ -4,9 +4,11 @@ Simple landing page for my personal website, with a few links and a couple secre
 
 ## Requirements 📋
 
-- Node.js 22.0.0+
+- Node 22.0.0+
+- Docker Engine 25.0.0+
+- Docker Compose 2.24.0+
 
-## Development Installation 🛠️
+## Development 🛠️
 
 - Clone the repository:
 
@@ -43,14 +45,8 @@ Simple landing page for my personal website, with a few links and a couple secre
 
 ## Deployment 🚀
 
-- Build the project:
+- Run the docker compose:
 
   ```shell
-  npm run build
-  ```
-
-- Start the production server:
-
-  ```shell
-  npm run start
+  docker compose up --build --force-recreate -d
   ```

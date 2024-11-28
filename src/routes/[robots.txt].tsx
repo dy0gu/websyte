@@ -1,12 +1,18 @@
-import { txt } from "remix-utils/responses";
 import { env } from "../utils/env";
 
 // Dynamic robots.txt generator route
-export function loader() {
-	return txt(`User-agent: *
-		Allow: /$
-		Disallow: /
+export const loader = () => {
+	const content = `
+User-agent: *
+Allow: /$
+Disallow: /
 
-		Sitemap: ${env.DOMAIN}/sitemap.xml
-		`);
-}
+Sitemap: ${env.DOMAIN}/sitemap.xml
+`;
+	return new Response(content, {
+		status: 200,
+		headers: {
+			"Content-Type": "text/plain",
+		},
+	});
+};

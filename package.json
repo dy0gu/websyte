@@ -7,7 +7,7 @@
 	"scripts": {
 		"build": "react-router build",
 		"dev": "cross-env NODE_ENV=development react-router dev",
-		"start": "cross-env NODE_ENV=production react-router-serve build/server/index.js",
+		"start": "cross-env NODE_ENV=production react-router-serve dist/server/index.js",
 		"test": "playwright install --with-deps && cross-env NODE_ENV=test playwright test",
 		"types": "react-router typegen && tsc",
 		"check": "biome check --write"
@@ -16,6 +16,7 @@
 		"@react-router/dev": "^7.0.1",
 		"@react-router/fs-routes": "^7.0.1",
 		"@react-router/node": "^7.0.1",
+		"@react-router/serve": "^7.0.1",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"dotenv": "^16.4.5",
