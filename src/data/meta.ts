@@ -9,8 +9,9 @@ const metadata = [
 	{ name: "description", content: info.description },
 	{ name: "viewport", content: "width=device-width, initial-scale=1" },
 	{ charSet: "utf-8" },
-	{ property: "og:type", content: "website" },
 	{ property: "og:title", content: info.name },
+	{ property: "og:type", content: "website" },
+	{ property: "og:site_name", content: info.name },
 	{ property: "og:description", content: info.description },
 	{ property: "og:url", content: env.DOMAIN },
 	{
