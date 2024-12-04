@@ -3,10 +3,11 @@ import { env } from "~/utils/env";
 
 // Dynamic robots.txt generator route
 export function loader() {
-	return txt(`User-agent: *
-		Allow: /$
-		Disallow: /
+	return txt(
+		`User-agent: *
+Allow: /$
+Disallow: /
 
-		Sitemap: ${env.DOMAIN}/sitemap.xml
-		`);
+Sitemap: ${env.DOMAIN}/sitemap.xml`,
+	);
 }
