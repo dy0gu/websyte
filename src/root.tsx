@@ -25,7 +25,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export const links: LinksFunction = () => {
 	return [
 		{ rel: "sitemap", href: "/sitemap.xml" },
-		{ rel: "icon", href: "favicon.ico", type: "image/x-icon" },
+		{ rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
 		{ rel: "stylesheet", href: stylesheet },
 	];
 };
