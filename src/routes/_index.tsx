@@ -7,6 +7,14 @@ import { Hero, name } from "~/components/hero";
 import { Navigation } from "~/components/navigation";
 import { Particles } from "~/components/particles";
 import { Typewriter, quips } from "~/components/typewriter";
+import { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = ({ matches }) => {
+	const parentMeta = matches
+		.flatMap((match) => match.meta ?? [])
+		.filter((meta) => !("title" in meta));
+	return [...parentMeta, { title: "Home - Dy0gu" }];
+};
 
 export default function Page() {
 	useMystery();

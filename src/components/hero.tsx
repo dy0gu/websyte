@@ -26,7 +26,7 @@ function Hero({ letters, className }: HeroProps) {
 				className,
 			)}
 		>
-			{letters.map((letter, index) => (
+			{letters.map((letter) => (
 				// biome-ignore lint/a11y/useValidAriaProps: aria-description is a valid aria
 				<button
 					className="bg-transparent hover:text-zinc-400 duration-500 font-bold"
@@ -45,25 +45,29 @@ function Hero({ letters, className }: HeroProps) {
 const name = [
 	{
 		value: "D",
-		aria: "Play the pun drums sound!",
+		aria: "Plays the pun drums sound on interaction!",
 		onClick: () => sound(drums),
 	},
 	{
 		value: "Y",
-		aria: "Play the Windows XP error sound!",
+		aria: "Plays the Windows XP error sound on interaction!",
 		onClick: () => sound(error),
 	},
 	{
 		value: "0",
-		aria: "Play the Vine boom sound!",
+		aria: "Plays the Vine boom sound on interaction!",
 		onClick: () => sound(boom, { volume: 0.2 }),
 	},
 	{
 		value: "G",
-		aria: "Play the Among Us imposter reveal sound!",
+		aria: "Plays the Among Us imposter reveal sound on interaction!",
 		onClick: () => sound(amogus),
 	},
-	{ value: "U", aria: "Play a duck quack sound!", onClick: () => sound(quack) },
+	{
+		value: "U",
+		aria: "Plays a duck quack sound on interaction!",
+		onClick: () => sound(quack),
+	},
 ];
 
 export { Hero, name };
