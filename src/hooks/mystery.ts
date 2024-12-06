@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
 const CODE = [
-	"ArrowUp",
-	"ArrowUp",
-	"ArrowDown",
-	"ArrowDown",
-	"ArrowLeft",
-	"ArrowRight",
-	"ArrowLeft",
-	"ArrowRight",
+	"ARROWUP",
+	"ARROWUP",
+	"ARROWDOWN",
+	"ARROWDOWN",
+	"ARROWLEFT",
+	"ARROWRIGHT",
+	"ARROWLEFT",
+	"ARROWRIGHT",
 	"B",
 	"A",
 ] as const;
@@ -61,9 +61,8 @@ export function useMystery() {
 
 	useEffect(() => {
 		if (count === CODE.length) {
-			// biome-ignore lint/suspicious/noConsole: log is expected
+			// biome-ignore lint/suspicious/noConsole: intended as an easter egg
 			console.info(MESSAGE);
-			window.location.href = "https://omoelas.pt";
 		}
 	}, [count]);
 
