@@ -1,67 +1,71 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const CODE = [
-	"Digit4",
-	"Digit8",
-	"Digit1",
-	"Digit5",
-	"Digit1",
-	"Digit6",
-	"Digit2",
-	"Digit3",
-	"Digit4",
-	"Digit2",
-];
+	"ArrowUp",
+	"ArrowUp",
+	"ArrowDown",
+	"ArrowDown",
+	"ArrowLeft",
+	"ArrowRight",
+	"ArrowLeft",
+	"ArrowRight",
+	"B",
+	"A",
+] as const;
+type CodeType = (typeof CODE)[number];
 
 const MESSAGE = [
 	"---------------------",
 	"|                   |",
-	"|  dy0gu was here!  |",
+	"|  Dy0gu was here!  |",
 	"|                   |",
-	"---------------------",
+	"--------------------",
 ].join("\n");
 
-function useInputEvent() {
-	const [key, setKey] = useState<string | null>(null);
+export function useMystery() {
+	const [count, setCount] = useState(0);
+	const ref = useRef<string | null>(null);
+
 	useEffect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			setKey(e.code);
-		};
+		function handleKeyDown(e: KeyboardEvent) {
+			const key = e.key.toUpperCase();
+
+			if (key === "SHIFT" || key === "CAPSLOCK" || key === "ALT") {
+				return;
+			}
+
+			if (key !== ref.current) {
+				ref.current = key;
+
+				setCount((currentCount) => {
+					const isValid = CODE.includes(key as CodeType);
+					if (!isValid) {
+						return 0;
+					}
+
+					if (key !== CODE[currentCount]) {
+						return 0;
+					}
+
+					return currentCount + 1;
+				});
+				ref.current = null;
+			}
+		}
+
 		window.addEventListener("keydown", handleKeyDown);
 		return () => {
 			window.removeEventListener("keydown", handleKeyDown);
 		};
 	}, []);
 
-	return key;
-}
-
-function useMystery() {
-	const [count, setCount] = useState(0);
-	const [success, setSuccess] = useState(false);
-	const key = useInputEvent();
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: effect only depends on key presses
-	useEffect(() => {
-		if (key == null) {
-			return;
-		}
-		if (key !== CODE[count]) {
-			setCount(0);
-			return;
-		}
-		setCount((state) => state + 1);
-	}, [key]);
-
 	useEffect(() => {
 		if (count === CODE.length) {
-			// biome-ignore lint/suspicious/noConsole: this is sent to the console as an easter egg
+			// biome-ignore lint/suspicious/noConsole: log is expected
 			console.info(MESSAGE);
-			setSuccess(true);
+			window.location.href = "https://omoelas.pt";
 		}
 	}, [count]);
 
-	return success;
+	return count;
 }
-
-export { useMystery };
