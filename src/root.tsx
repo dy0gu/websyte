@@ -39,7 +39,7 @@ export default function Layout() {
 			</head>
 			<body
 				className="bg-black bg-gradient-to-tl from-black via-zinc-600/20 to-black
-			min-h-screen font-mono"
+			min-h-screen font-mono overflow-hidden"
 			>
 				<Outlet />
 				<ScrollRestoration />
