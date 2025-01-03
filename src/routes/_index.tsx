@@ -13,7 +13,7 @@ export const meta: MetaFunction = ({ matches }) => {
 	const parentMeta = matches
 		.flatMap((match) => match.meta ?? [])
 		.filter((meta) => !("title" in meta));
-	return [...parentMeta, { title: "Home - Dy0gu" }];
+	return [...parentMeta, { title: `Home - ${info.name}` }];
 };
 
 export default function Page() {
