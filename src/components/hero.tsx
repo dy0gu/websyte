@@ -29,7 +29,7 @@ function Hero({ letters, className }: HeroProps) {
 			{letters.map((letter) => (
 				// biome-ignore lint/a11y/useValidAriaProps: aria-description is a valid aria
 				<button
-					className="bg-transparent hover:text-zinc-400 duration-500 font-bold"
+					className="bg-transparent hover:text-zinc-400 font-bold active:text-zinc-500 active:scale-90 duration-200"
 					key={letter.aria}
 					type="button"
 					aria-description={letter.aria}

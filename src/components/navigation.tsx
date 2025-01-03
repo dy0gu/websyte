@@ -13,7 +13,7 @@ function Navigation({ className, links }: NavigationProps) {
 					// biome-ignore lint/suspicious/noArrayIndexKey: mapped object is static
 					<li key={index}>
 						<a
-							className="duration-500 text-zinc-400 hover:text-zinc-100"
+							className="duration-200 text-zinc-400 hover:text-zinc-100"
 							href={item.href}
 							target="_blank"
 							rel="noreferrer"
