@@ -2,12 +2,12 @@ import { useMystery } from "~/hooks/mystery";
 
 import { info } from "~/data/info";
 
+import type { MetaFunction } from "@remix-run/node";
 import { Beam } from "~/components/beam";
 import { Hero, name } from "~/components/hero";
 import { Navigation } from "~/components/navigation";
 import { Particles } from "~/components/particles";
 import { Typewriter, quips } from "~/components/typewriter";
-import { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = ({ matches }) => {
 	const parentMeta = matches

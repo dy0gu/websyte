@@ -4,6 +4,15 @@ import { z } from "zod";
 
 dotenvExpand.expand(dotenv.config());
 
+const SCHEMA = z.object({
+	// Port the server will listen on
+	PORT: z.coerce.number().int().min(1000).max(65535),
+	// URL where the web app is served, used for metadata
+	DOMAIN: z.string(),
+	// Optional variable that is set by some CI services
+	CI: z.string().optional(),
+});
+
 // Convert all environment variables to uppercase and remove any that are empty
 const normalized: { [key: string]: string } = {};
 for (const key in process.env) {
@@ -12,23 +21,16 @@ for (const key in process.env) {
 	}
 }
 
-// Schema that should contain all variables meant to be validated
-const expected = z.object({
-	PORT: z.coerce.number().int().min(1000).max(65535),
-	DOMAIN: z.string(),
-	CI: z.string().optional(),
-});
-
 // Pretty print errors during validation
 function parse(input: { [key: string]: string }) {
 	try {
-		return expected.parse(input);
+		return SCHEMA.parse(input);
 	} catch (err) {
 		if (err instanceof z.ZodError) {
 			for (const issue of err.issues) {
 				// biome-ignore lint/suspicious/noConsole: will only be sent to the server
 				console.error(
-					`  ❌ ${issue.message} - ${issue.path} environment variable!`,
+					`  ❌ Error on ${issue.path} environment variable - ${issue.message}`,
 				);
 			}
 		}

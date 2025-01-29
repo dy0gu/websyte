@@ -1,11 +1,13 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import {
 	Links,
 	Meta,
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	isRouteErrorResponse,
+	useRouteError,
 } from "@remix-run/react";
 import { metadata } from "~/data/meta";
 import stylesheet from "~/styles/tailwind.css?url";
