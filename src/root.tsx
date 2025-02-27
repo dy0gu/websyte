@@ -34,7 +34,7 @@ export const links: LinksFunction = () => {
 
 export default function Layout() {
 	return (
-		<html lang="en" className="overscroll-y-none">
+		<html lang="en" translate="no" className="overscroll-y-none">
 			<head>
 				<Meta />
 				<Links />
