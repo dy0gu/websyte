@@ -203,6 +203,7 @@ const quips = [
 	"Remember, the <span style='color: white;'>night</span> is darkest just before the dawn.",
 	"That's what <span style='color: white;'>she</span> said!",
 	"On your <span style='color: white;'>left</span>.",
+	"Would you like to play a <span style='color: white;'>game</span>?",
 	"Apathy's a tragedy and <span style='color: white;'>boredom</span> is a crime.",
 	"Is it just me, or is it getting <span style='color: white;'>crazier</span> out there?",
 	"We have to go <span style='color: white;'>back</span> Kate!",
@@ -211,7 +212,20 @@ const quips = [
 	"I like <span style='color: white;'>shorts</span>! They're comfy and easy to wear!",
 	"All we had to do was follow the <span style='color: white;'>damn</span> train, CJ!",
 	"Crazy? I was <span style='color: white;'>crazy</span> once.",
+	"Hey, you're finally awake. You were trying to cross the <span style='color: white;'>border</span>, right?",
 	"Yes, <span style='color: white;'>chef</span>!",
+	"The Waffle <span style='color: white;'>House</span> Has Found Its New Host!",
+	"I'm sorry, <span style='color: white;'>Dave</span>. I'm afraid I can't do that.",
+	"A guy opens his door and gets <span style='color: white;'>shot</span>, and you think that of me? No. I am the one who knocks!",
+	"Wake up samurai, we have a <span style='color: white;'>city</span to burn.",
+	"Get to the <span style='color: white;'>choppa</span>!",
+	"Fatality!",
+	"Say <span style='color: white;'>hello</span> to my little friend!",
+	"Sweep the <span style='color: white;'>leg</span>, Johnny!",
+	"Here's <span style='color: white;'>Johnny</span>!",
+	"Here's <span style='color: white;'>looking</span> at you, kid.",
+	"Run, <span style='color: white;'>Forrest</span>, run!",
+	"If no mistake you have made, <span style='color: white;'>losing</span> you are. A different game you should play.",
 ];
 
 export { Typewriter, quips };
