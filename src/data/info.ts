@@ -8,6 +8,10 @@ const info = {
 			name: "Stack Overflow",
 			href: "https://stackoverflow.com/users/22441488",
 		},
+		{
+			name: "Reddit",
+			href: "https://www.reddit.com/user/dy0gu",
+		},
 	],
 };
 
