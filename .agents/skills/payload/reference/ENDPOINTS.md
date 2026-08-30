@@ -106,7 +106,7 @@ export const getTrackingEndpoint = {
 
 ### Request Body Handling
 
-**Option 1: Manual JSON parsing**
+#### Option 1: Manual JSON parsing
 
 ```ts
 export const createEndpoint = {
@@ -125,7 +125,7 @@ export const createEndpoint = {
 }
 ```
 
-**Option 2: Using helper (handles JSON + files)**
+#### Option 2: Using helper (handles JSON + files)
 
 ```ts
 import { addDataAndFileToRequest } from 'payload'

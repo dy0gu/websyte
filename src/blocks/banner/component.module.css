@@ -1,0 +1,18 @@
+.root {
+  width: 100%;
+  margin-block: 2rem;
+  margin-inline: auto;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid;
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.info { border-color: var(--border); background: var(--card); }
+.error { border-color: var(--error); background: color-mix(in oklab, var(--error) 30%, transparent); }
+.success { border-color: var(--success); background: color-mix(in oklab, var(--success) 30%, transparent); }
+.warning { border-color: var(--warning); background: color-mix(in oklab, var(--warning) 30%, transparent); }

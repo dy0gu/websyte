@@ -5,28 +5,32 @@ import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
+import { AdminBar } from '@/components/admin-bar'
+import { Footer } from '@/footer/component'
+import { Header } from '@/header/component'
 import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { InitTheme } from '@/providers/theme/init-theme'
+import { mergeOpenGraph } from '@/utilities/merge-open-graph'
 import { draftMode } from 'next/headers'
 
-import './globals.css'
-import { getServerSideURL } from '@/utilities/getURL'
+import styles from './layout.module.css'
+import { getServerSideURL } from '@/utilities/get-url'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(styles.root, GeistSans.variable, GeistMono.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body>
+      <body className={styles.body}>
         <Providers>
           <AdminBar
             adminBarProps={{

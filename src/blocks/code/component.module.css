@@ -1,0 +1,33 @@
+.code {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  background: #000;
+  font-size: 0.75rem;
+}
+
+.line { display: table-row; }
+
+.lineNumber {
+  display: table-cell;
+  color: rgb(255 255 255 / 25%);
+  text-align: right;
+  user-select: none;
+}
+
+.lineContent {
+  display: table-cell;
+  padding-left: 1rem;
+}
+
+.copyRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.copyButton {
+  display: flex;
+  gap: 0.25rem;
+}

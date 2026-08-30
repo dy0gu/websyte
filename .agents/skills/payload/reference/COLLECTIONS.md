@@ -139,7 +139,7 @@ const generatePreviewPath = ({
   collection: string
   req: any
 }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL
+  const baseUrl = process.env.PUBLIC_SERVER_URL
   return `${baseUrl}/api/preview?slug=${slug}&collection=${collection}`
 }
 

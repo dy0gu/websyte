@@ -1,0 +1,13 @@
+.trigger {
+  width: auto;
+  gap: 0.5rem;
+  padding-left: 0;
+  border: 0;
+  background: transparent;
+}
+
+@media (min-width: 48rem) {
+  .trigger {
+    padding-left: 0.75rem;
+  }
+}

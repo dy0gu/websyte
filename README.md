@@ -160,7 +160,7 @@ Core features:
 - [TypeScript](https://www.typescriptlang.org)
 - [React Hook Form](https://react-hook-form.com)
 - [Payload Admin Bar](https://github.com/payloadcms/payload/tree/3.x/packages/admin-bar)
-- [TailwindCSS styling](https://tailwindcss.com/)
+- Vanilla CSS Modules
 - [shadcn/ui components](https://ui.shadcn.com/)
 - User Accounts and Authentication
 - Fully featured blog

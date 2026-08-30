@@ -31,7 +31,7 @@ export const myPlugin =
 
 ### Simple Structure
 
-```
+```tree
 plugin-<name>/
 ├── package.json              # Package metadata and dependencies
 ├── README.md                 # Plugin documentation
@@ -46,7 +46,7 @@ plugin-<name>/
 
 ### Exhaustive Structure
 
-```
+```tree
 plugin-<name>/
 ├── .swcrc                    # SWC compiler config
 ├── package.json              # Package metadata and dependencies
@@ -1306,7 +1306,7 @@ DATABASE_URL=mongodb://127.0.0.1/plugin-dev
 PAYLOAD_SECRET=your-secret-here
 ```
 
-2. Configure `dev/payload.config.ts`:
+1. Configure `dev/payload.config.ts`:
 
 ```ts
 import { buildConfig } from 'payload'
@@ -1330,7 +1330,7 @@ export default buildConfig({
 })
 ```
 
-3. Run development server:
+1. Run development server:
 
 ```bash
 npm run dev  # Starts Next.js on http://localhost:3000

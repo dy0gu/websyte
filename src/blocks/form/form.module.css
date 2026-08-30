@@ -1,0 +1,34 @@
+.root {
+  max-width: 48rem;
+}
+
+.intro { margin-bottom: 2rem; }
+
+.panel {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+}
+
+.fields { margin-bottom: 1rem; }
+.field { margin-bottom: 1.5rem; }
+.field:last-child { margin-bottom: 0; }
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error {
+  margin-top: 0.5rem;
+  color: #ef4444;
+  font-size: 0.875rem;
+}
+
+.message { margin-block: 3rem; }
+
+@media (min-width: 64rem) {
+  .intro { margin-bottom: 3rem; }
+  .panel { padding: 1.5rem; }
+}

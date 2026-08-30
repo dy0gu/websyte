@@ -1,12 +1,14 @@
 import type { Metadata } from 'next/types'
 
-import { CollectionArchive } from '@/components/CollectionArchive'
-import { PageRange } from '@/components/PageRange'
-import { Pagination } from '@/components/Pagination'
+import { CollectionArchive } from '@/components/collection-archive'
+import { PageRange } from '@/components/page-range'
+import { Pagination } from '@/components/pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import React from 'react'
 import PageClient from './page.client'
+import { cn } from '@/utilities/ui'
+import shared from '@/styles/shared.module.css'
+import styles from '@/app/(frontend)/pages.module.css'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -28,15 +30,15 @@ export default async function Page() {
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <div className={styles.page}>
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
+      <div className={cn(shared.container, styles.intro)}>
+        <div className={shared.prose}>
           <h1>Posts</h1>
         </div>
       </div>
 
-      <div className="container mb-8">
+      <div className={cn(shared.container, styles.range)}>
         <PageRange
           collection="posts"
           currentPage={posts.page}
@@ -47,7 +49,7 @@ export default async function Page() {
 
       <CollectionArchive posts={posts.docs} />
 
-      <div className="container">
+      <div className={shared.container}>
         {posts.totalPages > 1 && posts.page && (
           <Pagination page={posts.page} totalPages={posts.totalPages} />
         )}

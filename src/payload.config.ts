@@ -4,16 +4,16 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
-import { Categories } from './collections/Categories'
-import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
-import { Users } from './collections/Users'
-import { Footer } from './Footer/config'
-import { Header } from './Header/config'
+import { Categories } from './collections/categories'
+import { Media } from './collections/media'
+import { Pages } from './collections/pages'
+import { Posts } from './collections/posts'
+import { Users } from './collections/users'
+import { Footer } from './footer/config'
+import { Header } from './header/config'
 import { plugins } from './plugins'
-import { defaultLexical } from '@/fields/defaultLexical'
-import { getServerSideURL } from './utilities/getURL'
+import { defaultLexical } from '@/fields/default-lexical'
+import { getServerSideURL } from './utilities/get-url'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,13 +23,14 @@ export default buildConfig({
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
-      beforeLogin: ['@/components/BeforeLogin'],
+      beforeLogin: ['@/components/before-login'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
-      beforeDashboard: ['@/components/BeforeDashboard'],
+      beforeDashboard: ['@/components/before-dashboard'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
+      importMapFile: path.resolve(dirname, 'app/(payload)/admin/import-map.js'),
     },
     user: Users.slug,
     livePreview: {

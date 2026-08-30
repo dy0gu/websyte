@@ -1,22 +1,35 @@
+# IDE
+.idea/
+.vscode/
+xcuserdata/
+
+# Miscellaneous
+.DS_Store
+
+# Dependencies
+node_modules
+
+# Environment
+*.env*
+*.pem*
+|.pem.example
+!.env.example
+
+# Logs
+*.log
+
+# Build
 build
 dist / media
-node_modules
-.DS_Store
-.env
 .next
 next-env.d.ts
 .vercel
 
-# Payload default media upload directory
-public/media/
-
-public/robots.txt
-public/sitemap*.xml
-
-
-# Playwright
-node_modules/
+# Test
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Payload default media upload directory
+public/media/

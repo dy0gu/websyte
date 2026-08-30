@@ -1,0 +1,31 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--card);
+}
+
+.content {
+  display: flex;
+  max-width: 48rem;
+  align-items: center;
+}
+
+.richText { margin-bottom: 0; }
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 48rem) {
+  .panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

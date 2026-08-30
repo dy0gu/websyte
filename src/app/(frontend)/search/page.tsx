@@ -1,12 +1,14 @@
 import type { Metadata } from 'next/types'
 
-import { CollectionArchive } from '@/components/CollectionArchive'
+import { CollectionArchive } from '@/components/collection-archive'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import React from 'react'
-import { Search } from '@/search/Component'
+import { Search } from '@/search/component'
 import PageClient from './page.client'
-import { CardPostData } from '@/components/Card'
+import { CardPostData } from '@/components/card'
+import { cn } from '@/utilities/ui'
+import shared from '@/styles/shared.module.css'
+import styles from '@/app/(frontend)/pages.module.css'
 
 type Args = {
   searchParams: Promise<{
@@ -60,13 +62,13 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <div className={styles.page}>
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none text-center">
-          <h1 className="mb-8 lg:mb-16">Search</h1>
+      <div className={cn(shared.container, styles.intro)}>
+        <div className={cn(shared.prose, styles.centered)}>
+          <h1 className={styles.searchTitle}>Search</h1>
 
-          <div className="max-w-[50rem] mx-auto">
+          <div className={styles.searchForm}>
             <Search />
           </div>
         </div>
@@ -75,7 +77,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       {posts.totalDocs > 0 ? (
         <CollectionArchive posts={posts.docs as CardPostData[]} />
       ) : (
-        <div className="container">No results found.</div>
+        <div className={shared.container}>No results found.</div>
       )}
     </div>
   )
