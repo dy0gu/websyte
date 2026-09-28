@@ -1,0 +1,82 @@
+name: websyte
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deps
+    command: bash -c "pnpm migrate && NODE_ENV=development pnpm seed && pnpm dev"
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://db_user:db_password@db:5432/websyte
+      HOSTNAME: 0.0.0.0
+      NODE_ENV: development
+      SMTP_HOST: mail
+      SMTP_PORT: "1025"
+      SMTP_SECURE: "false"
+      SMTP_FROM: no-reply@websyte.local
+    depends_on:
+      db:
+        condition: service_healthy
+      mail:
+        condition: service_started
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+      - next_cache:/app/.next
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - --fail
+        - http://localhost:3000/health
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+  mail:
+    image: axllent/mailpit:v1.27@sha256:e22dce5b36f93c77082e204a3942fb6b283b7896e057458400a4c88344c3df68
+    ports:
+      - "1025:1025"
+      # Web interface
+      - "8025:8025"
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - --fail
+        - http://localhost:8025/health
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+  db:
+    image: postgres:17@sha256:67f41722b7a8cbdb868a44a4995c846eddfdc2973bccb291ce937dce88ad5675
+    environment:
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: db_password
+      POSTGRES_DB: websyte
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test:
+        - CMD
+        - pg_isready
+        - -U
+        - db_user
+        - -d
+        - websyte
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  next_cache:
+  node_modules:
+  postgres_data:

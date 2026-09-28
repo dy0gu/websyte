@@ -1,0 +1,108 @@
+import configPromise from '@payload-config'
+import type { Metadata } from 'next'
+import { draftMode } from 'next/headers'
+import { getLocale } from 'next-intl/server'
+import { getPayload } from 'payload'
+import { cache } from 'react'
+import styles from '@/app/(frontend)/pages.module.css'
+
+import { RenderBlocks } from '@/blocks/render-blocks'
+import { LivePreviewListener } from '@/components/live-preview-listener'
+import { PayloadRedirects } from '@/components/payload-redirects'
+import { RenderHero } from '@/heros/render-hero'
+import { generateMeta } from '@/utilities/generate-meta'
+import PageClient from './page.client'
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+  const pages = await payload.find({
+    locale: 'en',
+    collection: 'pages',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+    },
+  })
+
+  const params = pages.docs
+    ?.filter((doc) => {
+      return doc.slug !== 'home'
+    })
+    .map(({ slug }) => {
+      return { slug }
+    })
+
+  return params
+}
+
+type Args = {
+  params: Promise<{
+    slug?: string
+  }>
+}
+
+export default async function Page({ params: paramsPromise }: Args) {
+  const { isEnabled: draft } = await draftMode()
+  const { slug = 'home' } = await paramsPromise
+  // Decode to support slugs with special characters
+  const decodedSlug = decodeURIComponent(slug)
+  const url = `/${decodedSlug}`
+  const page = await queryPageBySlug({
+    slug: decodedSlug,
+  })
+
+  if (!page) {
+    return <PayloadRedirects url={url} />
+  }
+
+  const { hero, layout } = page
+
+  return (
+    <article className={styles.article}>
+      <PageClient />
+      {/* Allows redirects for valid pages too */}
+      <PayloadRedirects disableNotFound url={url} />
+
+      {draft && <LivePreviewListener />}
+
+      <RenderHero {...hero} />
+      <RenderBlocks blocks={layout} />
+    </article>
+  )
+}
+
+export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+  const { slug = 'home' } = await paramsPromise
+  // Decode to support slugs with special characters
+  const decodedSlug = decodeURIComponent(slug)
+  const page = await queryPageBySlug({
+    slug: decodedSlug,
+  })
+
+  return generateMeta({ doc: page, path: `/${decodedSlug}` })
+}
+
+const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+  const { isEnabled: draft } = await draftMode()
+
+  const payload = await getPayload({ config: configPromise })
+
+  const result = await payload.find({
+    locale: await getLocale(),
+    collection: 'pages',
+    draft,
+    limit: 1,
+    pagination: false,
+    overrideAccess: draft,
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  })
+
+  return result.docs?.[0] || null
+})

@@ -26,10 +26,28 @@ next-env.d.ts
 .vercel
 
 # Test
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
 
 # Payload default media upload directory
-public/media/
+web/public/media/
+
+# Terraform and local infrastructure credentials
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+infra/plan
+infra/bootstrap/plan
+infra/bootstrap/backend.tf
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+.justcache/
+*.tsbuildinfo
+
+infra-comment-*.md
+infra/.local/

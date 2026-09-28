@@ -1,0 +1,80 @@
+.card {
+  overflow: hidden;
+  border: 1px solid var(--ink, var(--border));
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink, var(--foreground));
+  transition:
+    background 0.25s,
+    color 0.25s,
+    transform 0.25s;
+}
+
+.card:hover {
+  background: var(--ink, var(--foreground));
+  color: var(--paper, var(--background));
+  cursor: pointer;
+  transform: translateY(-0.25rem);
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-bottom: 1px solid var(--ink, var(--border));
+  background: var(--ink, var(--foreground));
+}
+
+.media > div {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  color: var(--paper, var(--background));
+  font:
+    0.68rem / 1 var(--font-mono),
+    monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .media img {
+  transform: scale(1.035);
+}
+
+.content {
+  padding: 1.25rem;
+}
+
+.categories {
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.title h3 {
+  margin-bottom: 0;
+  color: inherit;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  font-weight: 550;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.titleLink {
+  text-decoration: none;
+}
+
+.description {
+  margin-top: 0.75rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  opacity: 0.7;
+}

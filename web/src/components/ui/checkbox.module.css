@@ -1,0 +1,38 @@
+.root {
+  display: grid;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--ink, var(--input));
+  border-radius: 0;
+  background: transparent;
+  color: var(--paper, var(--primary-foreground));
+}
+
+.root:focus-visible {
+  outline: 2px solid var(--ink, var(--ring));
+  outline-offset: 2px;
+}
+
+.root:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.root[data-state="checked"] {
+  background: var(--ink, var(--primary));
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+}
+
+.icon {
+  width: 0.85rem;
+  height: 0.85rem;
+}

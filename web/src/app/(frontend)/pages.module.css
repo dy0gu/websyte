@@ -1,0 +1,102 @@
+.page,
+.article,
+.postArticle {
+  --ink: #151515;
+  --paper: #f0efe9;
+  --acid: #dfff00;
+  --coral: #ff5c45;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.page {
+  margin-top: calc(-1 * var(--site-header-height));
+}
+
+.article {
+  padding-block: 4rem 6rem;
+}
+.postArticle {
+  margin-top: calc(-1 * var(--site-header-height));
+}
+.searchForm {
+  width: calc(100% - 2 * clamp(1.25rem, 3vw, 3.5rem));
+  max-width: 50rem;
+  margin: 0 auto clamp(3rem, 6vw, 6rem);
+}
+.searchSection {
+  padding-block: clamp(4rem, 8vw, 8rem);
+  background: #ddd9cf;
+}
+.postContentArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: clamp(3rem, 7vw, 7rem);
+  padding-block: clamp(4rem, 8vw, 8rem);
+  border-top: 1px solid var(--ink);
+  background: #ddd9cf;
+}
+.postContent {
+  max-width: 48rem;
+  margin-inline: auto;
+  color: var(--ink);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.75;
+}
+
+.postContent h2,
+.postContent h3 {
+  letter-spacing: -0.045em;
+}
+
+.postContent h2 {
+  margin-top: 2.5em;
+  font-size: clamp(2rem, 4vw, 3.75rem);
+  font-weight: 550;
+  line-height: 0.95;
+}
+
+.postContent h3 {
+  margin-top: 2em;
+  font-size: clamp(1.4rem, 2.5vw, 2.25rem);
+}
+
+.postContent a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25rem;
+}
+.relatedPosts {
+  max-width: 52rem;
+  margin-top: 3rem;
+}
+.notFoundAction {
+  min-height: 16rem;
+  padding: 4rem clamp(1.25rem, 3vw, 3.5rem);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.pagination {
+  padding: 0 clamp(1.25rem, 3vw, 3.5rem) 4rem;
+  background: #ddd9cf;
+}
+
+.emptyState {
+  min-height: 24rem;
+  margin: 0;
+  padding: 5rem clamp(1.25rem, 3vw, 3.5rem);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 64rem) {
+  .relatedPosts {
+    display: grid;
+  }
+}

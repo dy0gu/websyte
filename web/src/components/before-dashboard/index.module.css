@@ -1,0 +1,9 @@
+.instructions {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  padding-left: 6px;
+}

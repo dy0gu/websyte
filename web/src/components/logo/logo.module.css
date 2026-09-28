@@ -1,0 +1,18 @@
+.logo {
+  display: inline-flex;
+  align-items: flex-start;
+  color: currentColor;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 1;
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: auto;
+}

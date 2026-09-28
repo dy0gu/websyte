@@ -1,0 +1,15 @@
+.git
+.next
+.env
+.env.*
+!.env.example
+node_modules
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+public/media
+test-results
+playwright-report
+*.tsbuildinfo
