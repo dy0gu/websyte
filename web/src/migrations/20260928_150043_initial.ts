@@ -631,6 +631,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   	"reset_password_expiration" timestamp(3) with time zone,
   	"salt" varchar,
   	"hash" varchar,
+    "reset_password_requested_at" timestamp(3) with time zone,
   	"login_attempts" numeric DEFAULT 0,
   	"lock_until" timestamp(3) with time zone
   );

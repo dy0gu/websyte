@@ -1,57 +1,79 @@
 'use client'
 
-import React, { createContext, useCallback, use, useEffect, useState } from 'react'
+import {
+  createContext,
+  type ReactNode,
+  use,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
+import {
+  getImplicitPreference,
+  getStoredPreference,
+  themeLocalStorageKey,
+  themeMediaQuery,
+} from './shared'
+import { type Theme, type ThemeContextType, themeIsValid } from './types'
 
-import type { Theme, ThemeContextType } from './types'
-
-import canUseDOM from '@/utilities/can-use-dom'
-import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
-import { themeIsValid } from './types'
-
-const initialContext: ThemeContextType = {
+const ThemeContext = createContext<ThemeContextType>({
   setTheme: () => null,
   theme: undefined,
-}
+  preference: undefined,
+})
 
-const ThemeContext = createContext(initialContext)
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  // Server rendering and the first hydration render must have identical state.
+  // The head script owns the initial colors, independently of React loading.
+  const [theme, setThemeState] = useState<Theme>()
+  const [preference, setPreference] = useState<Theme | null>()
+  const preferenceRef = useRef<Theme | null>(null)
 
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setThemeState] = useState<Theme | undefined>(
-    canUseDOM ? (document.documentElement.getAttribute('data-theme') as Theme) : undefined,
+  const applyPreference = useCallback((next: Theme | null) => {
+    preferenceRef.current = next
+    const resolved = next ?? getImplicitPreference()
+    document.documentElement.setAttribute('data-theme', resolved)
+    document.documentElement.style.colorScheme = resolved
+    setPreference(next)
+    setThemeState(resolved)
+  }, [])
+
+  const setTheme = useCallback(
+    (next: Theme | null) => {
+      try {
+        if (next === null) window.localStorage.removeItem(themeLocalStorageKey)
+        else window.localStorage.setItem(themeLocalStorageKey, next)
+      } catch {
+        // Theme changes still work when persistence is unavailable.
+      }
+      applyPreference(next)
+    },
+    [applyPreference],
   )
 
-  const setTheme = useCallback((themeToSet: Theme | null) => {
-    if (themeToSet === null) {
-      window.localStorage.removeItem(themeLocalStorageKey)
-      const implicitPreference = getImplicitPreference()
-      document.documentElement.setAttribute('data-theme', implicitPreference || '')
-      if (implicitPreference) setThemeState(implicitPreference)
-    } else {
-      setThemeState(themeToSet)
-      window.localStorage.setItem(themeLocalStorageKey, themeToSet)
-      document.documentElement.setAttribute('data-theme', themeToSet)
+  useLayoutEffect(() => {
+    // Also restore attributes cleared by React's development remount.
+    applyPreference(getStoredPreference())
+    const media =
+      typeof window.matchMedia === 'function' ? window.matchMedia(themeMediaQuery) : null
+    const onSystemChange = () => {
+      if (preferenceRef.current === null) applyPreference(null)
     }
-  }, [])
-
-  useEffect(() => {
-    let themeToSet: Theme = defaultTheme
-    const preference = window.localStorage.getItem(themeLocalStorageKey)
-
-    if (themeIsValid(preference)) {
-      themeToSet = preference
-    } else {
-      const implicitPreference = getImplicitPreference()
-
-      if (implicitPreference) {
-        themeToSet = implicitPreference
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === themeLocalStorageKey || event.key === null) {
+        applyPreference(themeIsValid(event.newValue) ? event.newValue : null)
       }
     }
+    media?.addEventListener('change', onSystemChange)
+    window.addEventListener('storage', onStorage)
+    return () => {
+      media?.removeEventListener('change', onSystemChange)
+      window.removeEventListener('storage', onStorage)
+    }
+  }, [applyPreference])
 
-    document.documentElement.setAttribute('data-theme', themeToSet)
-    setThemeState(themeToSet)
-  }, [])
-
-  return <ThemeContext value={{ setTheme, theme }}>{children}</ThemeContext>
+  return <ThemeContext value={{ setTheme, theme, preference }}>{children}</ThemeContext>
 }
 
 export const useTheme = (): ThemeContextType => use(ThemeContext)

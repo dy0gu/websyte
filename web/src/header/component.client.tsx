@@ -1,6 +1,6 @@
 'use client'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Logo } from '@/components/logo/logo'
 import { Link, usePathname } from '@/i18n/navigation'
 
@@ -18,19 +18,13 @@ interface HeaderClientProps {
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isLoggedIn }) => {
-  /* Storing the value in a useState to avoid hydration errors */
-  const [theme, setTheme] = useState<string | null>(null)
-  const { headerTheme, setHeaderTheme } = useHeaderTheme()
+  const { headerTheme: theme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: pathname intentionally triggers the reset
   useEffect(() => {
     setHeaderTheme(null)
   }, [pathname])
-
-  useEffect(() => {
-    if (headerTheme !== undefined && headerTheme !== theme) setTheme(headerTheme)
-  }, [headerTheme, theme])
 
   return (
     <header

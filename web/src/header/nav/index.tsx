@@ -6,6 +6,7 @@ import { LanguageSwitcher } from '@/components/language-switcher'
 import { SmoothLink } from '@/components/smooth-link'
 import { Link } from '@/i18n/navigation'
 import type { Header as HeaderType } from '@/payload-types'
+import { ThemeSelector } from '@/providers/theme/theme-selector'
 import styles from './index.module.css'
 
 export const HeaderNav: React.FC<{ data: HeaderType; isLoggedIn: boolean }> = ({
@@ -35,7 +36,10 @@ export const HeaderNav: React.FC<{ data: HeaderType; isLoggedIn: boolean }> = ({
       {navItems.map(({ id, link }) => {
         return <CMSLink key={id || link.label} {...link} appearance="link" />
       })}
-      <LanguageSwitcher />
+      <div className={styles.preferences}>
+        <LanguageSwitcher />
+        <ThemeSelector />
+      </div>
     </nav>
   )
 }

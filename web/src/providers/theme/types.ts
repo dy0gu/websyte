@@ -2,6 +2,7 @@ export type Theme = 'dark' | 'light'
 
 export interface ThemeContextType {
   setTheme: (theme: Theme | null) => void
+  preference?: Theme | null
   theme?: Theme | null
 }
 

@@ -7086,6 +7086,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "reset_password_requested_at": {
+          "name": "reset_password_requested_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
         "login_attempts": {
           "name": "login_attempts",
           "type": "numeric",
