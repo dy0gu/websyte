@@ -11,7 +11,6 @@ import { LivePreviewListener } from '@/components/live-preview-listener'
 import { PayloadRedirects } from '@/components/payload-redirects'
 import { RenderHero } from '@/heros/render-hero'
 import { generateMeta } from '@/utilities/generate-meta'
-import PageClient from './page.client'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -61,8 +60,10 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { hero, layout } = page
 
   return (
-    <article className={styles.article}>
-      <PageClient />
+    <article
+      className={styles.article}
+      data-header-contrast={hero.type === 'highImpact' ? 'light' : undefined}
+    >
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
 

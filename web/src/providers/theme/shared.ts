@@ -1,21 +1,7 @@
-import { type Theme, themeIsValid } from './types'
+import { type ThemePreference, themeIsValid } from './types'
 
-export const themeLocalStorageKey = 'payload-theme'
-export const themeMediaQuery = '(prefers-color-scheme: dark)'
-export const defaultTheme: Theme = 'light'
+export const themeCookieName = 'site-theme'
+export const themeCookieMaxAge = 60 * 60 * 24 * 365
 
-export const getImplicitPreference = (): Theme =>
-  typeof window.matchMedia === 'function'
-    ? window.matchMedia(themeMediaQuery).matches
-      ? 'dark'
-      : 'light'
-    : defaultTheme
-
-export const getStoredPreference = (): Theme | null => {
-  try {
-    const preference = window.localStorage.getItem(themeLocalStorageKey)
-    return themeIsValid(preference) ? preference : null
-  } catch {
-    return null
-  }
-}
+export const parseThemePreference = (value: unknown): ThemePreference =>
+  themeIsValid(value) ? value : 'auto'

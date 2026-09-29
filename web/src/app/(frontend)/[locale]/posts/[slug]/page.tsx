@@ -12,7 +12,6 @@ import RichText from '@/components/rich-text'
 import { PostHero } from '@/heros/post-hero'
 import shared from '@/styles/shared.module.css'
 import { generateMeta } from '@/utilities/generate-meta'
-import PageClient from './page.client'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -53,8 +52,6 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   return (
     <article className={styles.postArticle}>
-      <PageClient />
-
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
 

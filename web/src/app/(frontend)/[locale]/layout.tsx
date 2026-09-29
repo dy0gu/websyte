@@ -1,14 +1,15 @@
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
+import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import type React from 'react'
 import { Footer } from '@/footer/component'
 import { Header } from '@/header/component'
 import { isLocale, locales } from '@/i18n/config'
-import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/theme/init-theme'
+import { ThemeProvider } from '@/providers/theme'
+import { parseThemePreference, themeCookieName } from '@/providers/theme/shared'
 import { getServerSideURL } from '@/utilities/get-url'
 import { mergeOpenGraph } from '@/utilities/merge-open-graph'
 import { cn } from '@/utilities/ui'
@@ -27,24 +28,23 @@ export default async function RootLayout({
 }) {
   const { locale } = await params
   if (!isLocale(locale)) notFound()
+  const preference = parseThemePreference((await cookies()).get(themeCookieName)?.value)
   return (
     <html
       className={cn(styles.root, GeistSans.variable, GeistMono.variable)}
       lang={locale}
-      suppressHydrationWarning
+      data-theme={preference}
     >
       <head>
-        <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body className={styles.body}>
         <NextIntlClientProvider>
-          <Providers>
+          <ThemeProvider initialPreference={preference}>
             <Header />
             {children}
             <Footer />
-          </Providers>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

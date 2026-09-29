@@ -1,106 +1,111 @@
-import { runInNewContext } from 'node:vm'
 import { act, cleanup, render } from '@testing-library/react'
+import { NextIntlClientProvider } from 'next-intl'
 import { createElement } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import { renderToString } from 'react-dom/server'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, expect, it, vi } from 'vitest'
+import en from '@/i18n/messages/en.json'
 import { ThemeProvider, useTheme } from '@/providers/theme'
-import { InitTheme } from '@/providers/theme/init-theme'
-import { themeLocalStorageKey } from '@/providers/theme/shared'
-import type { ThemeContextType } from '@/providers/theme/types'
+import { parseThemePreference } from '@/providers/theme/shared'
+import { ThemeSelector } from '@/providers/theme/theme-selector'
+import type { ThemeContextType, ThemePreference } from '@/providers/theme/types'
+
+const { saveThemePreference } = vi.hoisted(() => ({ saveThemePreference: vi.fn() }))
+vi.mock('@/providers/theme/actions', () => ({ saveThemePreference }))
 
 afterEach(() => {
   cleanup()
   vi.restoreAllMocks()
-  vi.unstubAllGlobals()
-  window.localStorage.clear()
+  saveThemePreference.mockReset()
   document.documentElement.removeAttribute('data-theme')
-  document.documentElement.removeAttribute('style')
-})
-
-describe('theme before hydration', () => {
-  it.each([
-    ['dark', false, 'dark'],
-    ['light', true, 'light'],
-    [null, true, 'dark'],
-    [null, false, 'light'],
-    ['invalid', true, 'dark'],
-    ['blocked', true, 'dark'],
-  ])('resolves %s with system dark=%s during parsing', (stored: string | null, dark: boolean, expected: string) => {
-    const markup = renderToString(createElement(InitTheme))
-    document.head.innerHTML = markup
-    const script = document.getElementById('theme-script')
-    expect(script?.tagName).toBe('SCRIPT')
-    runInNewContext(script?.textContent ?? '', {
-      document,
-      matchMedia: () => ({ matches: dark }),
-      localStorage: {
-        getItem: () => {
-          if (stored === 'blocked') throw new Error('blocked')
-          return stored
-        },
-      },
-    })
-    expect(document.documentElement.dataset.theme).toBe(expected)
-    expect(document.documentElement.style.colorScheme).toBe(expected)
-  })
 })
 
 let current: ThemeContextType
 function Consumer() {
   current = useTheme()
-  return createElement('span', null, `${current.preference}:${current.theme}`)
+  return createElement(ThemeSelector)
 }
-const app = () => createElement(ThemeProvider, null, createElement(Consumer))
-
-it('hydrates with identical initial state despite a stored preference', async () => {
-  window.localStorage.setItem(themeLocalStorageKey, 'dark')
-  const container = document.createElement('div')
-  container.innerHTML = renderToString(app())
-  expect(container.textContent).toBe('undefined:undefined')
-  const errors = vi.fn()
-  let root: ReturnType<typeof hydrateRoot> | undefined
-  await act(async () => {
-    root = hydrateRoot(container, app(), { onRecoverableError: errors })
+const app = (preference: ThemePreference) =>
+  createElement(NextIntlClientProvider, {
+    locale: 'en',
+    messages: en,
+    timeZone: 'UTC',
+    // biome-ignore lint/correctness/noChildrenProp: createElement requires the component's required children prop
+    children: createElement(ThemeProvider, {
+      initialPreference: preference,
+      // biome-ignore lint/correctness/noChildrenProp: createElement requires the component's required children prop
+      children: createElement(Consumer),
+    }),
   })
-  expect(errors).not.toHaveBeenCalled()
-  expect(container.textContent).toBe('dark:dark')
-  await act(async () => root?.unmount())
-})
 
-it('tracks system changes only in auto mode and synchronizes tabs', () => {
-  let dark = true
-  const media = new EventTarget()
-  vi.stubGlobal('matchMedia', () => Object.assign(media, { matches: dark }))
-  render(app())
-  expect(current.theme).toBe('dark')
-  act(() => current.setTheme('light'))
-  act(() => media.dispatchEvent(new Event('change')))
-  expect(current.theme).toBe('light')
-  act(() => current.setTheme(null))
-  expect(current.theme).toBe('dark')
-  expect(window.localStorage.getItem(themeLocalStorageKey)).toBeNull()
-  dark = false
-  act(() => media.dispatchEvent(new Event('change')))
-  expect(current.theme).toBe('light')
-  act(() =>
-    window.dispatchEvent(
-      new StorageEvent('storage', { key: themeLocalStorageKey, newValue: 'dark' }),
-    ),
-  )
-  expect(current.preference).toBe('dark')
-  expect(document.documentElement.dataset.theme).toBe('dark')
-})
-
-it('can switch themes when storage is unavailable', () => {
-  for (const method of ['getItem', 'setItem', 'removeItem'] as const) {
-    vi.spyOn(Storage.prototype, method).mockImplementation(() => {
-      throw new Error('blocked')
+it.each(['light', 'dark', 'auto'] as const)(
+  'server-renders and hydrates the %s selection without scripts or mismatches',
+  async (preference) => {
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(app(preference))
+    expect(container.querySelector('select')?.value).toBe(preference)
+    expect(container.querySelector('script')).toBeNull()
+    document.documentElement.dataset.theme = preference
+    const errors = vi.fn()
+    let root: ReturnType<typeof hydrateRoot> | undefined
+    await act(async () => {
+      root = hydrateRoot(container, app(preference), { onRecoverableError: errors })
     })
-  }
-  render(app())
+    expect(errors).not.toHaveBeenCalled()
+    expect(document.documentElement.dataset.theme).toBe(preference)
+    await act(async () => root?.unmount())
+  },
+)
+
+it.each(['dark', 'light', 'auto'] as const)(
+  'optimistically applies %s until the server confirms it',
+  async (next) => {
+    let complete: () => void = () => {}
+    saveThemePreference.mockImplementation(
+      () =>
+        new Promise<void>((resolve) => {
+          complete = resolve
+        }),
+    )
+    const view = render(app(next === 'dark' ? 'light' : 'dark'))
+    act(() => current.setTheme(next))
+    expect(document.documentElement.dataset.theme).toBe(next)
+    expect(view.container.querySelector('select')?.value).toBe(next)
+    expect(view.container.querySelector('select')?.disabled).toBe(true)
+    expect(saveThemePreference).toHaveBeenCalledWith(next)
+    // Next.js delivers the new cookie preference in the action's server response.
+    await act(async () => {
+      view.rerender(app(next))
+      complete()
+    })
+    expect(document.documentElement.dataset.theme).toBe(next)
+    expect(view.container.querySelector('select')?.disabled).toBe(false)
+  },
+)
+
+it('reverts an unsuccessful save and exposes an accessible retry message', async () => {
+  let fail: (reason: Error) => void = () => {}
+  saveThemePreference.mockImplementation(
+    () =>
+      new Promise<void>((_, reject) => {
+        fail = reject
+      }),
+  )
+  const view = render(app('light'))
   act(() => current.setTheme('dark'))
-  expect(current.theme).toBe('dark')
-  act(() => current.setTheme(null))
-  expect(current.theme).toBe('light')
+  expect(document.documentElement.dataset.theme).toBe('dark')
+  await act(async () => {
+    fail(new Error('Network unavailable'))
+  })
+  expect(document.documentElement.dataset.theme).toBe('light')
+  expect(view.container.querySelector('select')?.disabled).toBe(false)
+  expect(view.getByRole('alert').textContent).toBe(en.UI.themeSaveError)
+})
+
+it.each([undefined, null, '', 'invalid', 'auto'])('defaults cookie value %s to Auto', (value) => {
+  expect(parseThemePreference(value)).toBe('auto')
+})
+
+it.each(['light', 'dark'])('accepts the %s cookie', (value) => {
+  expect(parseThemePreference(value)).toBe(value)
 })

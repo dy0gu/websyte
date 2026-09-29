@@ -9,7 +9,6 @@ import type { HomePost } from '@/components/home/types'
 import { WritingSection } from '@/components/home/writing-section'
 import { Pagination } from '@/components/pagination'
 import { localizedMetadata } from '@/i18n/metadata'
-import PageClient from './page.client'
 
 export const revalidate = 600
 
@@ -48,7 +47,6 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   return (
     <main className={styles.page}>
-      <PageClient />
       <ArchiveHero
         description={t('postsDescription')}
         eyebrow={t('postsEyebrow')}

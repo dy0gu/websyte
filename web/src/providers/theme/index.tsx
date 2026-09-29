@@ -6,74 +6,56 @@ import {
   use,
   useCallback,
   useLayoutEffect,
-  useRef,
+  useOptimistic,
   useState,
+  useTransition,
 } from 'react'
-import {
-  getImplicitPreference,
-  getStoredPreference,
-  themeLocalStorageKey,
-  themeMediaQuery,
-} from './shared'
-import { type Theme, type ThemeContextType, themeIsValid } from './types'
+import { saveThemePreference } from './actions'
+import type { ThemeContextType, ThemePreference } from './types'
 
 const ThemeContext = createContext<ThemeContextType>({
   setTheme: () => null,
-  theme: undefined,
-  preference: undefined,
+  preference: 'auto',
+  isPending: false,
+  saveFailed: false,
 })
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  // Server rendering and the first hydration render must have identical state.
-  // The head script owns the initial colors, independently of React loading.
-  const [theme, setThemeState] = useState<Theme>()
-  const [preference, setPreference] = useState<Theme | null>()
-  const preferenceRef = useRef<Theme | null>(null)
+export const ThemeProvider = ({
+  children,
+  initialPreference,
+}: {
+  children: ReactNode
+  initialPreference: ThemePreference
+}) => {
+  const [preference, setOptimisticPreference] = useOptimistic(initialPreference)
+  const [isPending, startTransition] = useTransition()
+  const [saveFailed, setSaveFailed] = useState(false)
 
-  const applyPreference = useCallback((next: Theme | null) => {
-    preferenceRef.current = next
-    const resolved = next ?? getImplicitPreference()
-    document.documentElement.setAttribute('data-theme', resolved)
-    document.documentElement.style.colorScheme = resolved
-    setPreference(next)
-    setThemeState(resolved)
-  }, [])
+  // CSS handles the first paint. Optimistic changes apply before the next paint;
+  // failed saves revert to the server preference when the transition finishes.
+  useLayoutEffect(() => {
+    document.documentElement.setAttribute('data-theme', preference)
+  }, [preference])
 
   const setTheme = useCallback(
-    (next: Theme | null) => {
-      try {
-        if (next === null) window.localStorage.removeItem(themeLocalStorageKey)
-        else window.localStorage.setItem(themeLocalStorageKey, next)
-      } catch {
-        // Theme changes still work when persistence is unavailable.
-      }
-      applyPreference(next)
+    (next: ThemePreference) => {
+      setSaveFailed(false)
+      startTransition(async () => {
+        setOptimisticPreference(next)
+        try {
+          // Setting a cookie in a Server Action also refreshes the server layout.
+          await saveThemePreference(next)
+        } catch {
+          setSaveFailed(true)
+        }
+      })
     },
-    [applyPreference],
+    [setOptimisticPreference],
   )
 
-  useLayoutEffect(() => {
-    // Also restore attributes cleared by React's development remount.
-    applyPreference(getStoredPreference())
-    const media =
-      typeof window.matchMedia === 'function' ? window.matchMedia(themeMediaQuery) : null
-    const onSystemChange = () => {
-      if (preferenceRef.current === null) applyPreference(null)
-    }
-    const onStorage = (event: StorageEvent) => {
-      if (event.key === themeLocalStorageKey || event.key === null) {
-        applyPreference(themeIsValid(event.newValue) ? event.newValue : null)
-      }
-    }
-    media?.addEventListener('change', onSystemChange)
-    window.addEventListener('storage', onStorage)
-    return () => {
-      media?.removeEventListener('change', onSystemChange)
-      window.removeEventListener('storage', onStorage)
-    }
-  }, [applyPreference])
-
-  return <ThemeContext value={{ setTheme, theme, preference }}>{children}</ThemeContext>
+  return (
+    <ThemeContext value={{ setTheme, preference, isPending, saveFailed }}>{children}</ThemeContext>
+  )
 }
 
 export const useTheme = (): ThemeContextType => use(ThemeContext)

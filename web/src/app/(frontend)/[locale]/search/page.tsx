@@ -9,7 +9,6 @@ import { CollectionArchive } from '@/components/collection-archive'
 import { localizedMetadata } from '@/i18n/metadata'
 import { Search } from '@/search/component'
 import shared from '@/styles/shared.module.css'
-import PageClient from './page.client'
 
 type Args = {
   searchParams: Promise<{
@@ -67,7 +66,6 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 
   return (
     <main className={styles.page}>
-      <PageClient />
       <ArchiveHero
         description={t('searchDescription')}
         eyebrow={t('searchEyebrow')}

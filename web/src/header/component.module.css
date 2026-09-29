@@ -2,11 +2,13 @@
   position: relative;
   z-index: 30;
   height: var(--site-header-height);
-  color: oklch(14.5% 0 0deg);
+  color: var(--foreground);
 }
 
-.root[data-theme='dark'] {
-  color: var(--foreground);
+/* The image hero extends behind the header. Its server-rendered page marker
+   provides contrast without client state or navigation effects. */
+.root:has(~ [data-header-contrast="light"]) {
+  color: #fff;
 }
 
 .inner {

@@ -68,6 +68,7 @@
     "next": "Next",
     "morePages": "More pages",
     "socialLinks": "Social links",
+    "themeSaveError": "Could not save the theme. Please try again.",
     "selectTheme": "Select a theme",
     "theme": "Theme",
     "auto": "Auto",
