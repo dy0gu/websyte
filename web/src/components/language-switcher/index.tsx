@@ -4,17 +4,20 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useTransition } from 'react';
 import { isLocale, localeLabels, locales } from '~/i18n/config';
 import { usePathname, useRouter } from '~/i18n/navigation';
+import { useTheme } from '~/providers/theme';
 
 export function LanguageSwitcher() {
   const locale = useLocale();
   const t = useTranslations('UI');
   const pathname = usePathname();
   const router = useRouter();
+  const { isPending: isThemePending, waitForThemeSave } = useTheme();
   const [isPending, startTransition] = useTransition();
 
-  const changeLocale = (nextLocale: string) => {
+  const changeLocale = async (nextLocale: string) => {
     if (!isLocale(nextLocale) || nextLocale === locale) return;
 
+    await waitForThemeSave();
     startTransition(() => {
       router.replace(
         {
@@ -28,9 +31,9 @@ export function LanguageSwitcher() {
 
   return (
     <select
-      aria-busy={isPending}
+      aria-busy={isPending || isThemePending}
       aria-label={t('language')}
-      disabled={isPending}
+      disabled={isPending || isThemePending}
       onChange={(event) => changeLocale(event.target.value)}
       value={locale}
     >

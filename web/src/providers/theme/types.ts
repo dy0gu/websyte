@@ -3,6 +3,7 @@ export type ThemePreference = Theme | 'auto';
 
 export type ThemeContextType = {
   setTheme: (theme: ThemePreference) => void;
+  waitForThemeSave: () => Promise<void>;
   preference: ThemePreference;
   isPending: boolean;
   saveFailed: boolean;

@@ -6,6 +6,7 @@ import {
   use,
   useCallback,
   useLayoutEffect,
+  useRef,
   useState,
   useTransition,
 } from 'react';
@@ -17,6 +18,7 @@ const ThemeContext = createContext<ThemeContextType>({
   preference: 'auto',
   saveFailed: false,
   setTheme: () => null,
+  waitForThemeSave: () => Promise.resolve(),
 });
 
 export const ThemeProvider = ({
@@ -27,6 +29,7 @@ export const ThemeProvider = ({
   initialPreference: ThemePreference;
 }) => {
   const [preference, setPreference] = useState<ThemePreference>(initialPreference);
+  const pendingSave = useRef<Promise<void>>(Promise.resolve());
   const [isPending, startTransition] = useTransition();
   const [saveFailed, setSaveFailed] = useState(false);
 
@@ -40,7 +43,7 @@ export const ThemeProvider = ({
     (next: ThemePreference) => {
       setSaveFailed(false);
       setPreference(next);
-      startTransition(async () => {
+      const save = (async () => {
         try {
           // Setting a cookie in a Server Action also refreshes the server layout.
           await saveThemePreference(next);
@@ -48,10 +51,16 @@ export const ThemeProvider = ({
           setPreference(initialPreference);
           setSaveFailed(true);
         }
+      })();
+      pendingSave.current = save;
+      startTransition(async () => {
+        await save;
       });
     },
     [initialPreference],
   );
+
+  const waitForThemeSave = useCallback(() => pendingSave.current, []);
 
   return (
     <ThemeContext
@@ -60,6 +69,7 @@ export const ThemeProvider = ({
         preference: preference,
         saveFailed: saveFailed,
         setTheme: setTheme,
+        waitForThemeSave: waitForThemeSave,
       }}
     >
       {children}
