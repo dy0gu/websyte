@@ -22,7 +22,7 @@ import { FolderField as FolderField_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@pa
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { FolderTypeField as FolderTypeField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
-import { NavigationRowLabel as NavigationRowLabel_48d05811afc5149ff3a33f9d87fa12a7 } from '~/components/payload/row-label'
+import { NavigationRowLabel as NavigationRowLabel_1f776344a8ce1e65a720f51ad37b2f45 } from '~/components/payload/row-label'
 import { AdminLogo as AdminLogo_ba7e19ea1cde86b7ae13491bc226d0bc } from '../../../components/logo/logo'
 import { BeforeDashboard as BeforeDashboard_37b6a2a70f439520060df5fb4c5bf2c8 } from '~/components/before-dashboard'
 import { BeforeLogin as BeforeLogin_596080d2b70bb81c8cd4c3663ae2e387 } from '~/components/before-login'
@@ -54,7 +54,7 @@ export const importMap = {
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/next/client#FolderTypeField": FolderTypeField_2b8867833a34864a02ddf429b0728a40,
-  "~/components/payload/row-label#NavigationRowLabel": NavigationRowLabel_48d05811afc5149ff3a33f9d87fa12a7,
+  "~/components/payload/row-label#NavigationRowLabel": NavigationRowLabel_1f776344a8ce1e65a720f51ad37b2f45,
   "/components/logo/logo#AdminLogo": AdminLogo_ba7e19ea1cde86b7ae13491bc226d0bc,
   "~/components/before-dashboard#BeforeDashboard": BeforeDashboard_37b6a2a70f439520060df5fb4c5bf2c8,
   "~/components/before-login#BeforeLogin": BeforeLogin_596080d2b70bb81c8cd4c3663ae2e387,

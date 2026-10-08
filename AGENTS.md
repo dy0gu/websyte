@@ -4,7 +4,7 @@ Prefer the Docker based environment defined in each section of the project over 
 
 Run project specific commands through the appopriate docker services.
 
-If Docker commands get blocked because of your sandbox ask the user to open that section of the project in the provided Devcontainer (if their IDE supports it) or to allow you to proceed outside the sandbox.
+If Docker commands get blocked because of your sandbox, first ask the user to open that section of the project in the provided Devcontainer (if their IDE supports it), if the user cannot do it ask them to allow you to proceed outside the sandbox.
 
 ## Web
 
