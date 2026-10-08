@@ -87,6 +87,7 @@ export default buildConfig({
     pool: {
       connectionString: databaseUrl.toString(),
     },
+    disableCreateDatabase: false,
     // Schema changes must be created and applied through migrations in every environment.
     push: false,
   }),

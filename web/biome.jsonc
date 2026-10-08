@@ -158,7 +158,6 @@
         "src/app/**",
         "src/i18n/request.ts",
         "src/payload.config.ts",
-        "src/proxy.ts",
         "vitest.config.mts"
       ],
       "linter": {

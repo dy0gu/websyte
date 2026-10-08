@@ -1,33 +1,36 @@
 import { expect, test } from '@playwright/test';
 
-test('redirects old URLs and switches between English and Portuguese', async ({
-  baseURL,
+test('switches between English and Portuguese without changing the public URL', async ({
+  context,
   page,
 }) => {
   await page.goto('/');
-  await expect(page).toHaveURL('/en');
+  await expect(page).toHaveURL('/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.getByRole('heading', { level: 1 })).toHaveAccessibleName(
     'I build software that works',
   );
+
   await page.getByRole('combobox', { name: 'Language' }).selectOption('pt');
-  await expect(page).toHaveURL('/pt');
+  await expect(page).toHaveURL('/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt');
   await expect(page.getByRole('heading', { level: 1 })).toHaveAccessibleName(
     'Crio software que funciona',
   );
   await expect(page.getByRole('link', { exact: true, name: 'Pesquisar' })).toHaveAttribute(
     'href',
-    '/pt/search',
+    '/search',
   );
-  await expect(
-    page.locator(`link[rel="canonical"][href="${new URL('/pt', baseURL).href}"]`),
-  ).toHaveCount(1);
+  await expect
+    .poll(
+      async () => (await context.cookies()).find((cookie) => cookie.name === 'site-locale')?.value,
+    )
+    .toBe('pt');
 });
 
 test('keeps navigation visible and the layout within a narrow viewport', async ({ page }) => {
   await page.setViewportSize({ height: 800, width: 320 });
-  await page.goto('/en');
+  await page.goto('/');
 
   const navigation = page.getByRole('navigation', { name: 'Main navigation' });
   for (const name of ['Projects', 'Posts', 'Contact', 'Search']) {
@@ -43,14 +46,14 @@ test('keeps navigation visible and the layout within a narrow viewport', async (
 
 test('changes language in both directions and retains the search query', async ({ page }) => {
   const languageSelector = page.getByRole('combobox', { name: /Language|Idioma/ });
-  await page.goto('/en/search?q=software');
+  await page.goto('/search?q=software');
 
   await languageSelector.selectOption('pt');
-  await expect(page).toHaveURL('/pt/search?q=software');
+  await expect(page).toHaveURL('/search?q=software');
   await expect(page.getByPlaceholder('Pesquisar')).toHaveValue('software');
 
   await languageSelector.selectOption('en');
-  await expect(page).toHaveURL('/en/search?q=software');
+  await expect(page).toHaveURL('/search?q=software');
   await expect(page.getByPlaceholder('Search')).toHaveValue('software');
 });
 

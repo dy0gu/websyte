@@ -1,14 +1,12 @@
-import { notFound } from 'next/navigation';
-import { locale as rootLocale } from 'next/root-params';
+import { cookies } from 'next/headers';
 import { getRequestConfig } from 'next-intl/server';
-import { isLocale } from '~/i18n/config';
+import { localeCookieName, parseLocale } from '~/i18n/config';
 
-export default getRequestConfig(async ({ locale: explicitLocale }) => {
-  const value = explicitLocale ?? (await rootLocale());
-  if (!value || !isLocale(value)) notFound();
+export default getRequestConfig(async () => {
+  const locale = parseLocale((await cookies()).get(localeCookieName)?.value);
   return {
-    locale: value,
-    messages: (await import(`./messages/${value}.json`)).default,
+    locale: locale,
+    messages: (await import(`./messages/${locale}.json`)).default,
     timeZone: 'Europe/Lisbon',
   };
 });

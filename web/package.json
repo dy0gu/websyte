@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm generate && next build",
-    "check": "biome check . && fallow --fail-on-issues --only dead-code,dupes",
+    "check": "biome check . && fallow --no-cache --fail-on-issues --only dead-code,dupes",
     "check:fix": "biome check --write .",
     "dev": "next dev",
     "generate": "payload generate:types && payload generate:importmap",

@@ -1,13 +1,11 @@
 // @vitest-environment node
 
-import { NextRequest } from 'next/server';
 import { describe, expect, it, vi } from 'vitest';
 import { localizeFormFields } from '~/fields/localize-form-fields';
-import { localizedPath } from '~/i18n/config';
+import { defaultLocale, localizedPath, parseLocale } from '~/i18n/config';
 import en from '~/i18n/messages/en.json';
 import pt from '~/i18n/messages/pt.json';
-import { languageAlternates, localizedMetadata, localizedPageMetadata } from '~/i18n/metadata';
-import proxy from '~/proxy';
+import { localizedMetadata, localizedPageMetadata } from '~/i18n/metadata';
 import { formatDateTime } from '~/utilities/format-date-time';
 import { getDocumentPath } from '~/utilities/get-document-path';
 import { siteName, titleSuffix, withSiteTitle } from '~/utilities/site';
@@ -17,72 +15,30 @@ vi.mock('next/cache', () => ({ revalidatePath: revalidatePath }));
 
 import { revalidateLocalizedPath } from '~/i18n/revalidate';
 
-describe('localized public routes', () => {
-  it('redirects unprefixed routes to the locale requested by the browser and retains the query', () => {
-    const rootResponse = proxy(
-      new NextRequest('https://example.com', {
-        headers: { 'accept-language': 'pt-PT,pt;q=0.9,en;q=0.8' },
-      }),
-    );
-    expect(rootResponse.headers.get('location')).toBe('https://example.com/pt');
-
-    const postsResponse = proxy(
-      new NextRequest('https://example.com/posts?q=hello', {
-        headers: { 'accept-language': 'pt' },
-      }),
-    );
-    expect(postsResponse.headers.get('location')).toBe('https://example.com/pt/posts?q=hello');
-  });
-
-  it('falls back to English when the browser does not request a supported locale', () => {
-    const response = proxy(
-      new NextRequest('https://example.com/posts', {
-        headers: { 'accept-language': 'de-DE,de;q=0.9' },
-      }),
-    );
-    expect(response.headers.get('location')).toBe('https://example.com/en/posts');
-  });
-
-  it('keeps an explicit Portuguese locale', () => {
-    const response = proxy(new NextRequest('https://example.com/pt/posts'));
-    expect(response.headers.get('location')).toBeNull();
-    expect(response.headers.get('x-middleware-request-x-next-intl-locale')).toBe('pt');
-  });
-
-  it('prefixes public URLs without changing admin, APIs, assets, external URLs, or existing prefixes', () => {
-    expect(localizedPath('/', 'pt')).toBe('/pt');
-    expect(localizedPath('/posts/example?q=one#two', 'pt')).toBe('/pt/posts/example?q=one#two');
-    for (const path of [
-      '/admin',
-      '/api/media/file/image.webp',
-      '/next/preview?path=/en',
-      '/favicon.svg',
-      '/pt/posts',
-      '/en/posts',
-      'https://example.com',
-      '//example.com',
-      'mailto:test@example.com',
-      '#contact',
-    ]) {
-      expect(localizedPath(path, 'pt')).toBe(path);
+describe('cookie-based locale selection', () => {
+  it('uses a supported cookie locale and falls back to English', () => {
+    expect(parseLocale('pt')).toBe('pt');
+    for (const value of [undefined, null, '', 'de', 'pt-PT']) {
+      expect(parseLocale(value)).toBe(defaultLocale);
     }
   });
 
-  it('invalidates all languages when shared or fallback content changes', () => {
+  it('keeps public paths independent from the selected locale', () => {
+    expect(localizedPath('/', 'pt')).toBe('/');
+    expect(localizedPath('/posts/example?q=one#two', 'pt')).toBe('/posts/example?q=one#two');
+  });
+
+  it('invalidates a shared path once', () => {
     revalidatePath.mockClear();
     revalidateLocalizedPath('/posts/example');
-    expect(revalidatePath.mock.calls).toEqual([
-      ['/en/posts/example', undefined],
-      ['/pt/posts/example', undefined],
-    ]);
+    expect(revalidatePath.mock.calls).toEqual([['/posts/example', undefined]]);
   });
 });
 
 describe('translation and indexing policy', () => {
-  it('does not advertise fallback content as an available translation', () => {
-    expect(languageAlternates('/posts/example', ['en'])).toEqual({ en: '/en/posts/example' });
+  it('uses one canonical URL while preventing fallback content from being indexed', () => {
     expect(localizedMetadata('/posts/example', 'pt', ['en'])).toMatchObject({
-      alternates: { canonical: '/pt/posts/example', languages: { en: '/en/posts/example' } },
+      alternates: { canonical: '/posts/example' },
       robots: { index: false },
     });
     expect(localizedMetadata('/posts/example', 'pt', ['en', 'pt']).robots).toBeUndefined();

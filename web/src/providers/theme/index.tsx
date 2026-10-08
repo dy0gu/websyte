@@ -8,9 +8,8 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-  useTransition,
 } from 'react';
-import { saveThemePreference } from '~/providers/theme/actions';
+import { saveThemePreference } from '~/providers/theme/client';
 import type { ThemeContextType, ThemePreference } from '~/providers/theme/types';
 
 const ThemeContext = createContext<ThemeContextType>({
@@ -29,52 +28,32 @@ export const ThemeProvider = ({
   initialPreference: ThemePreference;
 }) => {
   const [preference, setPreference] = useState<ThemePreference>(initialPreference);
+  const currentPreference = useRef<ThemePreference>(initialPreference);
   const pendingSave = useRef<Promise<void>>(Promise.resolve());
-  const [isPending, startTransition] = useTransition();
-  const [saveFailed, setSaveFailed] = useState(false);
 
-  // CSS handles the first paint. A Server Action refresh can replace the root
-  // layout's attribute with a stale server value while preserving this client
-  // state, so reassert the client preference after every render.
+  // CSS handles the first paint. Keep the latest client choice in a ref so an
+  // incoming server render cannot restore a stale root attribute.
   useLayoutEffect(() => {
-    document.documentElement.setAttribute('data-theme', preference);
+    document.documentElement.setAttribute('data-theme', currentPreference.current);
   });
 
-  const setTheme = useCallback(
-    (next: ThemePreference) => {
-      setSaveFailed(false);
-      setPreference(next);
+  const setTheme = useCallback((next: ThemePreference) => {
+    currentPreference.current = next;
+    document.documentElement.setAttribute('data-theme', next);
+    setPreference(next);
 
-      let completeSave: () => void;
-      const save = new Promise<void>((resolve) => {
-        completeSave = resolve;
-      });
-      pendingSave.current = save;
-
-      startTransition(async () => {
-        try {
-          // Invoking the Server Action inside the transition keeps controls
-          // disabled until its route refresh has been applied.
-          await saveThemePreference(next);
-        } catch {
-          setPreference(initialPreference);
-          setSaveFailed(true);
-        } finally {
-          completeSave();
-        }
-      });
-    },
-    [initialPreference],
-  );
+    saveThemePreference(next);
+    pendingSave.current = Promise.resolve();
+  }, []);
 
   const waitForThemeSave = useCallback(() => pendingSave.current, []);
 
   return (
     <ThemeContext
       value={{
-        isPending: isPending,
+        isPending: false,
         preference: preference,
-        saveFailed: saveFailed,
+        saveFailed: false,
         setTheme: setTheme,
         waitForThemeSave: waitForThemeSave,
       }}

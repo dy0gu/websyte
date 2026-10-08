@@ -1,3 +1,2 @@
-import { createNavigation } from 'next-intl/navigation';
-import { routing } from '~/i18n/routing';
-export const { Link, usePathname, useRouter } = createNavigation(routing);
+export { default as Link } from 'next/link';
+export { useRouter } from 'next/navigation';

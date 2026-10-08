@@ -14,8 +14,7 @@ for (const preference of ['light', 'dark', 'auto'] as const) {
       await context.addCookies([{ name: 'site-theme', url: baseURL, value: preference }]);
       const page = await context.newPage();
       try {
-        // Include the archive that previously forced static rendering.
-        for (const path of ['/en', '/en/posts']) {
+        for (const path of ['/', '/posts']) {
           await page.goto(path);
           await expect(page.locator('html')).toHaveAttribute('data-theme', preference);
           await expect(page.locator('html')).toHaveCSS(
@@ -58,7 +57,7 @@ test('an automatic preference displays the active system theme without offering 
   const page = await context.newPage();
 
   try {
-    await page.goto('/en');
+    await page.goto('/');
     const selector = page.getByRole('combobox', { name: 'Select a theme' });
     await expect(selector).toHaveValue('dark');
     await expect(selector.getByRole('option', { name: 'Auto' })).toHaveCount(0);
@@ -69,7 +68,7 @@ test('an automatic preference displays the active system theme without offering 
 
 test('theme selection persists across reloads and locale changes', async ({ page, context }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
-  await page.goto('/en');
+  await page.goto('/');
   await expect(page.getByRole('combobox', { name: 'Select a theme' })).toHaveValue('dark');
   for (const preference of ['light', 'dark']) {
     await page.getByRole('combobox', { name: 'Select a theme' }).selectOption(preference);
@@ -85,9 +84,16 @@ test('theme selection persists across reloads and locale changes', async ({ page
     await expect(page.locator('html')).toHaveCSS('color-scheme', preference);
   }
   await page.getByRole('combobox', { name: 'Select a theme' }).selectOption('light');
-  await expect(page.getByRole('combobox', { name: 'Select a theme' })).toBeEnabled();
-  await page.getByRole('combobox', { name: 'Language' }).selectOption('pt');
-  await expect(page).toHaveURL('/pt');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect
+    .poll(
+      async () => (await context.cookies()).find((cookie) => cookie.name === 'site-theme')?.value,
+    )
+    .toBe('light');
+  const languageSelector = page.getByRole('combobox', { name: 'Language' });
+  await languageSelector.selectOption('pt');
+  await expect(languageSelector).toHaveValue('pt');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'pt');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await expect(page.locator('html')).toHaveCSS('color-scheme', 'light');
 });
