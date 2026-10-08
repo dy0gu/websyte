@@ -33,28 +33,35 @@ export const ThemeProvider = ({
   const [isPending, startTransition] = useTransition();
   const [saveFailed, setSaveFailed] = useState(false);
 
-  // CSS handles the first paint. Optimistic changes apply before the next paint;
-  // failed saves revert to the server preference when the transition finishes.
+  // CSS handles the first paint. A Server Action refresh can replace the root
+  // layout's attribute with a stale server value while preserving this client
+  // state, so reassert the client preference after every render.
   useLayoutEffect(() => {
     document.documentElement.setAttribute('data-theme', preference);
-  }, [preference]);
+  });
 
   const setTheme = useCallback(
     (next: ThemePreference) => {
       setSaveFailed(false);
       setPreference(next);
-      const save = (async () => {
+
+      let completeSave: () => void;
+      const save = new Promise<void>((resolve) => {
+        completeSave = resolve;
+      });
+      pendingSave.current = save;
+
+      startTransition(async () => {
         try {
-          // Setting a cookie in a Server Action also refreshes the server layout.
+          // Invoking the Server Action inside the transition keeps controls
+          // disabled until its route refresh has been applied.
           await saveThemePreference(next);
         } catch {
           setPreference(initialPreference);
           setSaveFailed(true);
+        } finally {
+          completeSave();
         }
-      })();
-      pendingSave.current = save;
-      startTransition(async () => {
-        await save;
       });
     },
     [initialPreference],

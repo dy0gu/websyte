@@ -75,7 +75,9 @@ it.each(['dark', 'light', 'auto'] as const)(
     expect(view.container.querySelector('select')?.value).toBe(next === 'auto' ? 'light' : next);
     expect(view.container.querySelector('select')?.disabled).toBe(true);
     expect(saveThemePreference).toHaveBeenCalledWith(next);
-    // Next.js delivers the new cookie preference in the action's server response.
+    // A Server Action refresh can replace the root layout attribute with the
+    // previous server value while preserving the provider's client state.
+    document.documentElement.dataset.theme = next === 'dark' ? 'light' : 'dark';
     await act(async () => {
       view.rerender(app(next));
       complete();
