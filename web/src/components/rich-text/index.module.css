@@ -1,0 +1,29 @@
+.root {
+  width: 100%;
+}
+
+.withoutGutter {
+  max-width: none;
+}
+
+.prose {
+  margin-inline: auto;
+}
+
+.banner,
+.code {
+  margin-bottom: 1rem;
+}
+
+.mediaBlock {
+  width: 100%;
+}
+
+.mediaImage {
+  margin: 0;
+}
+
+.caption {
+  max-width: 48rem;
+  margin-inline: auto;
+}

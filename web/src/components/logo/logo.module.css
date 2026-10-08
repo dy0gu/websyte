@@ -1,0 +1,17 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: currentColor;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.logoIcon {
+  display: block;
+  width: 2rem;
+  height: auto;
+}

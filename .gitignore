@@ -1,30 +1,27 @@
 # IDE
+xcuserdata/
+.vs/
+.vscode/*
 .idea/
-.vscode/
+*.swp
+*.*~
 
-# Dependencies
-node_modules/
-
-# Testing
-/coverage
-
-# Build
-dist/
-tsconfig.tsbuildinfo
-vite.config.ts.*
-.react-router
+# Environment
+.env
+.env.*
+|.pem.example
+!.env.example
 
 # Miscellaneous
 .DS_Store
-*.pem
-next-env.d.ts
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.justcache/
 
 # Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# Environment
-.env*
-!.env.example
+*.log
+*.logs

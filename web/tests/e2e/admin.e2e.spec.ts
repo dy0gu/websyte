@@ -1,0 +1,42 @@
+import { expect, type Page, test } from '@playwright/test';
+
+import { login } from '$/tests/helpers/login';
+import { cleanupTestUser, seedTestUser, testUser } from '$/tests/helpers/seed-user';
+
+test.describe('Admin Panel', () => {
+  let page: Page;
+
+  test.beforeAll(async ({ browser }, _testInfo) => {
+    await seedTestUser();
+
+    const context = await browser.newContext();
+    page = await context.newPage();
+
+    await login({ page: page, user: testUser });
+  });
+
+  test.afterAll(async () => {
+    await cleanupTestUser();
+  });
+
+  test('can navigate to dashboard', async () => {
+    await page.goto('/admin');
+    await expect(page).toHaveURL('/admin');
+    const dashboardArtifact = page.locator('span[title="Dashboard"]').first();
+    await expect(dashboardArtifact).toBeVisible();
+  });
+
+  test('can navigate to list view', async () => {
+    await page.goto('/admin/collections/admins');
+    await expect(page).toHaveURL(/\/admin\/collections\/admins(?:\?.*)?$/);
+    const listViewArtifact = page.locator('h1', { hasText: 'Admins' }).first();
+    await expect(listViewArtifact).toBeVisible();
+  });
+
+  test('can navigate to edit view', async () => {
+    await page.goto('/admin/collections/pages/create');
+    await expect(page).toHaveURL(/\/admin\/collections\/pages\/[a-zA-Z0-9-_]+/);
+    const editViewArtifact = page.locator('input[name="title"]');
+    await expect(editViewArtifact).toBeVisible();
+  });
+});

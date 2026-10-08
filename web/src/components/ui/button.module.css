@@ -1,0 +1,120 @@
+.base {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: normal;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+}
+
+.base:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.base:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.base svg {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+}
+
+.default {
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.default:hover {
+  background: color-mix(in srgb, var(--primary) 90%, var(--background));
+}
+
+.destructive {
+  color: var(--destructive);
+  background: transparent;
+  border-color: var(--destructive);
+}
+
+.destructive:hover {
+  background: var(--accent);
+}
+
+.outline {
+  color: var(--foreground);
+  background: transparent;
+  border-color: var(--border);
+}
+
+.outline:hover {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.secondary {
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  border-color: var(--border);
+}
+
+.secondary:hover {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.ghost {
+  color: var(--foreground);
+  background: transparent;
+}
+
+.ghost:hover {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.link {
+  color: var(--primary);
+  text-underline-offset: 0.25em;
+  background: transparent;
+  border: 0;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.sizeDefault {
+  min-height: 2.75rem;
+  padding: 0.625rem 1.25rem;
+}
+
+.small {
+  min-height: 2.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.large {
+  min-height: 3rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+}

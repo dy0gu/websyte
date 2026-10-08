@@ -1,8 +1,0 @@
-output: false
-
-pre-commit:
-  paralell: true
-  commands:
-    format:
-      run: "npm run check"
-      stage_fixed: true

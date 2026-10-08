@@ -1,0 +1,40 @@
+.root {
+  padding-block: var(--section-space);
+  padding-inline: max(var(--page-gutter), calc((100% - var(--content-width)) / 2));
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.grid {
+  display: none;
+}
+
+.meta {
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.heading h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+
+.heading p {
+  max-width: 40rem;
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+}

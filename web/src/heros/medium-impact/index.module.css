@@ -1,0 +1,32 @@
+.intro {
+  margin-bottom: 2rem;
+}
+
+.richText {
+  margin-bottom: 1.5rem;
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+}
+
+.media {
+  margin-inline: -1rem;
+}
+
+.caption {
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 48rem) {
+  .media {
+    margin-inline: -2rem;
+  }
+}
+
+@media (min-width: 86rem) {
+  .media {
+    margin-inline: -4rem;
+  }
+}

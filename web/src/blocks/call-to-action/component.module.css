@@ -1,0 +1,33 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  max-width: 48rem;
+}
+
+.richText {
+  margin-bottom: 0;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 48rem) {
+  .panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
