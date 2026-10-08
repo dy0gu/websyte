@@ -3,6 +3,7 @@ FROM node:24.21.0@sha256:64af3819f9275802414d7cdc38c27e9d82bd564dec4d4da87d00825
 FROM base AS dependencies
 WORKDIR /app
 
+ENV DO_NOT_TRACK=1
 ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -11,7 +12,7 @@ RUN pnpm install --frozen-lockfile
 
 FROM dependencies AS tools
 
-RUN pnpx playwright install --with-deps
+RUN pnpm exec playwright install --with-deps
 
 FROM dependencies AS build
 
