@@ -4,9 +4,10 @@ import type * as React from 'react';
 import type { ButtonProps } from '~/components/ui/button';
 import { buttonVariants } from '~/components/ui/button';
 import styles from '~/components/ui/pagination.module.css';
+import shared from '~/styles/shared.module.css';
 import { cn } from '~/utilities/ui';
 
-const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => {
+const PaginationRoot = ({ className, ...props }: React.ComponentProps<'nav'>) => {
   const t = useTranslations('UI');
   return <nav aria-label={t('pagination')} className={cn(styles.root, className)} {...props} />;
 };
@@ -78,17 +79,17 @@ const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'
   return (
     <span aria-hidden className={cn(styles.ellipsis, className)} {...props}>
       <MoreHorizontal className={styles.icon} />
-      <span className={styles.srOnly}>{t('morePages')}</span>
+      <span className={shared.srOnly}>{t('morePages')}</span>
     </span>
   );
 };
 
 export {
-  Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationRoot,
 };

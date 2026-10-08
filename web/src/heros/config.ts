@@ -1,3 +1,4 @@
+// fallow-ignore-file code-duplication -- this field owns its local editor field configuration.
 import {
   FixedToolbarFeature,
   HeadingFeature,

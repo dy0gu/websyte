@@ -1,3 +1,4 @@
+// fallow-ignore-file code-duplication -- hero variants intentionally render their local link layouts.
 import type React from 'react';
 import { CMSLink } from '~/components/cms-link';
 import { Media } from '~/components/media';

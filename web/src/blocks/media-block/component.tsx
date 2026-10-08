@@ -2,6 +2,7 @@ import type { StaticImageData } from 'next/image';
 import type React from 'react';
 import styles from '~/blocks/media-block/component.module.css';
 import { Media } from '~/components/media';
+// fallow-ignore-next-line circular-dependency -- rich-text renders this block recursively.
 import { RichText } from '~/components/rich-text';
 import type { MediaBlock as MediaBlockProps, Media as MediaDoc } from '~/payload-types';
 import shared from '~/styles/shared.module.css';

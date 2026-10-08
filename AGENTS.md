@@ -4,9 +4,7 @@ Prefer the Docker based environment defined in each section of the project over 
 
 Run project specific commands through the appopriate docker services.
 
-If you get blocked because of your sandbox ask the user to allow you to proceed outside the sandbox.
-
-When running linters or formatters, always run with the fix flag, considering only safe fixes are applied. This is so we only get stopping errors when we have unsafe or non-automatable fixes.
+If Docker commands get blocked because of your sandbox ask the user to open that section of the project in the provided Devcontainer (if their IDE supports it) or to allow you to proceed outside the sandbox.
 
 ## Web
 

@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/fallow/schema.json",
+  "duplicates": {
+    "ignore": ["src/payload-types.ts", "src/app/(payload)/**/*.{tsx,ts,js}"],
+    "ignoreDefaults": false
+  },
+  "entry": ["src/migrations/index.ts", "src/seeds/run.ts", "tests/**/*.{ts,tsx}"],
+  "failOnParseError": true,
+  "ignoreDependencies": ["react-dom"],
+  "ignoreExports": [{ "exports": ["*"], "file": "src/payload-types.ts" }],
+  "rules": {
+    "private-type-leaks": "off"
+  },
+  "typeAware": {
+    "enabled": true,
+    "projects": ["tsconfig.json"],
+    "require": "best-effort"
+  }
+}

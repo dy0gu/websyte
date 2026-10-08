@@ -81,10 +81,6 @@
   max-width: 100%;
 }
 
-.fullWidth {
-  width: 100%;
-}
-
 @media (min-width: 48rem) {
   .prose h1 {
     font-size: 3rem;

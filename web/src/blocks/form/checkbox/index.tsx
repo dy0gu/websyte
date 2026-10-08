@@ -10,7 +10,7 @@ import { Checkbox as CheckboxUi } from '~/components/ui/checkbox';
 import { Label } from '~/components/ui/label';
 import shared from '~/styles/shared.module.css';
 
-export const Checkbox: React.FC<
+export const FormCheckbox: React.FC<
   CheckboxField & {
     errors: Partial<FieldErrorsImpl>;
     register: UseFormRegister<FieldValues>;

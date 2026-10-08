@@ -1,3 +1,4 @@
+// fallow-ignore-file code-duplication -- this collection retains its local SEO configuration for readability.
 import {
   MetaDescriptionField,
   MetaImageField,

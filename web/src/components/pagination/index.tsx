@@ -2,7 +2,7 @@
 import type React from 'react';
 import styles from '~/components/pagination/index.module.css';
 import {
-  Pagination as PaginationComponent,
+  PaginationRoot as PaginationComponent,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,

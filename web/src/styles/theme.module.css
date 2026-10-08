@@ -1,3 +1,4 @@
+/* fallow-ignore-file code-duplication -- this module intentionally scopes the same theme tokens for embedded content. */
 .dark {
   --background: oklch(14.5% 0 0deg);
   --foreground: oklch(98.5% 0 0deg);

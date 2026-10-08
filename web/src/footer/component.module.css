@@ -29,27 +29,20 @@
   gap: 0.5rem 1.25rem;
 }
 
-.nav a,
-.backToTop {
+.nav a {
   color: inherit;
   text-decoration: none;
   text-underline-offset: 0.25em;
 }
 
-.nav a:hover,
-.backToTop:hover {
+.nav a:hover {
   text-decoration: underline;
 }
 
-.nav a:focus-visible,
-.backToTop:focus-visible {
+.nav a:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 3px;
   border-radius: var(--radius);
-}
-
-.backToTop {
-  margin: 0;
 }
 
 .copyright {

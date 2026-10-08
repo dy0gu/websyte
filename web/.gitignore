@@ -18,3 +18,4 @@ playwright/.cache/
 
 # Payload default media upload directory
 public/media/
+.fallow/

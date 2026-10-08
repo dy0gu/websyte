@@ -1,13 +1,28 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "vcs": {
-    "clientKind": "git",
-    "enabled": true,
-    "useIgnoreFile": true
+  "assist": {
+    "actions": {
+      "source": {
+        "noDuplicateClasses": "on",
+        "preset": "recommended",
+        "useSortedAttributes": "on",
+        "useSortedEnumMembers": "on",
+        "useSortedInterfaceMembers": "on",
+        "useSortedKeys": "on",
+        "useSortedPackageJson": "on",
+        "useSortedProperties": "on"
+      }
+    },
+    "enabled": true
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!src/payload-types.ts", "!src/app/(payload)/admin/import-map.js"]
+    "includes": [
+      "**",
+      "!src/payload-types.ts",
+      "!src/app/(payload)",
+      "src/app/(payload)/custom.module.css"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -22,24 +37,22 @@
       "trailingCommas": "all"
     }
   },
-  "assist": {
-    "enabled": true,
-    "actions": {
-      "source": {
-        "preset": "recommended",
-        "useSortedPackageJson": "on",
-        "useSortedAttributes": "on",
-        "noDuplicateClasses": "on",
-        "useSortedProperties": "on",
-        "useSortedEnumMembers": "on",
-        "useSortedInterfaceMembers": "on",
-        "useSortedKeys": "on"
-      }
-    }
-  },
   "linter": {
     "enabled": true,
     "rules": {
+      "nursery": {
+        "noDuplicateSelectors": "error",
+        "noEmptyObjectKeys": "error",
+        "noFloatingPromises": "error",
+        "noInlineStyles": "error",
+        "noJsonUnsafeValues": "error",
+        "noJsxLeakedDollar": "error",
+        "noLoopFunc": "error",
+        "noMisusedPromises": "error",
+        "noRestrictedDependencies": "error",
+        "noUnsafePlusOperands": "error"
+        // "noUnsafeTypeAssertion": "error"
+      },
       "preset": "recommended",
       "style": {
         "noDefaultExport": "error",
@@ -102,14 +115,19 @@
       }
     },
     {
-      "includes": ["biome.json", "package.json", "src/migrations/**"],
       "assist": {
         "actions": {
           "source": {
             "useSortedKeys": "off"
           }
         }
-      }
+      },
+      "includes": [
+        "biome.json",
+        "package.json",
+        ".devcontainer/devcontainer.json",
+        "src/migrations/**"
+      ]
     },
     {
       "includes": ["env.ts"],
@@ -135,7 +153,6 @@
     },
     {
       "includes": [
-        "knip.config.ts",
         "next.config.ts",
         "playwright.config.ts",
         "src/app/**",
@@ -172,5 +189,10 @@
         }
       }
     }
-  ]
+  ],
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
+  }
 }

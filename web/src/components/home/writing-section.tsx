@@ -1,3 +1,4 @@
+// fallow-ignore-file code-duplication -- these distinct home sections intentionally share a presentation pattern.
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import styles from '~/components/home/home.module.css';

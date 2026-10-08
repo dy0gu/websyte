@@ -37,13 +37,6 @@
   padding: 1.25rem;
 }
 
-.categories {
-  margin-bottom: 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: var(--muted-foreground);
-}
-
 .title h3 {
   margin: 0;
   font-size: clamp(1.25rem, 2vw, 1.5rem);

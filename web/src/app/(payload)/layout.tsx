@@ -2,9 +2,11 @@
 /* DO NOT MODIFY IT BECAUSE IT COULD BE REWRITTEN AT ANY TIME. */
 import config from '@payload-config';
 import '@payloadcms/next/css';
+
 import { handleServerFunctions, RootLayout } from '@payloadcms/next/layouts';
 import type { ServerFunctionClient } from 'payload';
 import type React from 'react';
+import styles from '~/app/(payload)/custom.module.css';
 
 import { importMap } from './admin/import-map.js';
 
@@ -23,7 +25,7 @@ const serverFunction: ServerFunctionClient = async (args) => {
 
 const Layout = ({ children }: Args) => (
   <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
-    {children}
+    <div className={styles.admin}>{children}</div>
   </RootLayout>
 );
 

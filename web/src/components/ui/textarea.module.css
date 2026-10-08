@@ -1,3 +1,4 @@
+/* fallow-ignore-file code-duplication -- input and textarea need independent CSS-module roots with the same interaction states. */
 .root {
   width: 100%;
   min-width: 0;

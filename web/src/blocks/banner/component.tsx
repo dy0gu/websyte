@@ -1,5 +1,6 @@
 import type React from 'react';
 import styles from '~/blocks/banner/component.module.css';
+// fallow-ignore-next-line circular-dependency -- rich-text renders this block recursively.
 import { RichText } from '~/components/rich-text';
 import type { BannerBlock as BannerBlockProps } from '~/payload-types';
 import { cn } from '~/utilities/ui';
