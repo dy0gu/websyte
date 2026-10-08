@@ -84,10 +84,10 @@ export default buildConfig({
   collections: [Pages, Posts, Projects, Media, Admins],
   cors: [getServerSideURL()].filter(Boolean),
   db: postgresAdapter({
+    disableCreateDatabase: false,
     pool: {
       connectionString: databaseUrl.toString(),
     },
-    disableCreateDatabase: false,
     // Schema changes must be created and applied through migrations in every environment.
     push: false,
   }),
