@@ -96,6 +96,7 @@ export default buildConfig({
   email: nodemailerAdapter({
     defaultFromAddress: env.SMTP_FROM,
     defaultFromName: 'Websyte',
+    skipVerify: true,
     transportOptions: {
       auth:
         env.SMTP_USER && env.SMTP_PASS

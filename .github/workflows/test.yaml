@@ -23,5 +23,6 @@ jobs:
           push: never
           runCmd: |
             pnpm run check &&
+            pnpm run migrate &&
             pnpm run build &&
             pnpm run test

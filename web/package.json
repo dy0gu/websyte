@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "pnpm generate && next build",
-    "check": "biome check . && fallow --no-cache --fail-on-issues --only dead-code,dupes",
+    "build": "next build",
+    "check": "tsc --noEmit && biome check . && fallow --no-cache --fail-on-issues --only dead-code,dupes",
     "check:fix": "biome check --write .",
-    "dev": "next dev",
+    "dev": "pnpm generate && pnpm migrate && next dev",
     "generate": "payload generate:types && payload generate:importmap",
     "migrate": "payload migrate",
     "migrate:create": "payload migrate:create",

@@ -30,10 +30,10 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.module.css",
-    ".next/types/**/*.ts",
     "redirects.js",
     "next-env.d.ts",
     "next.config.js",
+    ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     ".next-test/dev/types/**/*.ts",
     ".next-test/dev/dev/types/**/*.ts"
