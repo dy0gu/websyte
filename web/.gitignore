@@ -5,7 +5,7 @@ node_modules/
 # Build
 build
 dist
-.next
+.next*
 next-env.d.ts
 .vercel
 tsconfig.tsbuildinfo
