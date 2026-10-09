@@ -13,27 +13,6 @@ import { PostHero } from '~/heros/post-hero';
 import shared from '~/styles/shared.module.css';
 import { generateMeta } from '~/utilities/generate-meta';
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise });
-  const posts = await payload.find({
-    collection: 'posts',
-    draft: false,
-    limit: 1000,
-    locale: 'en',
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  });
-
-  const params = posts.docs.map(({ slug }) => {
-    return { slug: slug };
-  });
-
-  return params;
-}
-
 type Args = {
   params: Promise<{
     slug?: string;

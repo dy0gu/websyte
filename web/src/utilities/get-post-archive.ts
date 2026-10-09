@@ -3,7 +3,7 @@ import { getLocale } from 'next-intl/server';
 import { getPayload } from 'payload';
 import type { HomePost } from '~/components/home/types';
 
-export const postsPerPage = 12;
+const postsPerPage = 12;
 
 export async function getPostArchive(page?: number) {
   const payload = await getPayload({ config: configPromise });

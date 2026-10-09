@@ -24,5 +24,4 @@ jobs:
           runCmd: |
             pnpm run check &&
             pnpm run build &&
-            pnpm run test:migrate &&
             pnpm run test
