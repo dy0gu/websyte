@@ -12,10 +12,7 @@
     "dark": "Dark",
     "emailError": "Enter a valid email address",
     "goHome": "Go home ↗",
-    "heroLabel": "I build software that works",
-    "heroOne": "I build",
-    "heroThree": "that works",
-    "heroTwo": "software",
+
     "home": "Home",
     "homeDescription": "I am a software engineer working on web applications, backend systems, cloud infrastructure, and DevOps.",
     "language": "Language",

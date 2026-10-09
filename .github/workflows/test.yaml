@@ -1,4 +1,4 @@
-name: "ci"
+name: "lint & test"
 
 on:
   pull_request:
@@ -17,14 +17,12 @@ jobs:
       COMPOSE_BAKE: "false"
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-
       - uses: devcontainers/ci@513af61f4de4f75d37e4438f184ba4358f0fc1ca # v0.3
         with:
           configFile: .devcontainer/web/devcontainer.json
           push: never
           runCmd: |
-            pnpm migrate &&
-            pnpm seed &&
             pnpm run check &&
             pnpm run build &&
+            pnpm run test:migrate &&
             pnpm run test

@@ -1,6 +1,5 @@
-import { revalidateTag } from 'next/cache.js';
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload';
-import { revalidateLocalizedPath } from '~/i18n/revalidate';
+import { revalidateLocalizedPath, revalidateTagWhenAvailable } from '~/i18n/revalidate';
 import type { Post } from '~/payload-types';
 import { getDocumentPath } from '~/utilities/get-document-path';
 
@@ -19,7 +18,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
       revalidateLocalizedPath('/');
       revalidateLocalizedPath('/posts');
       revalidateLocalizedPath('/posts/page/[page-number]', 'page');
-      revalidateTag('posts-sitemap', 'max');
+      revalidateTagWhenAvailable('posts-sitemap');
     }
 
     // If the post was previously published, we need to revalidate the old path
@@ -32,7 +31,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
       revalidateLocalizedPath('/');
       revalidateLocalizedPath('/posts');
       revalidateLocalizedPath('/posts/page/[page-number]', 'page');
-      revalidateTag('posts-sitemap', 'max');
+      revalidateTagWhenAvailable('posts-sitemap');
     }
   }
   return doc;
@@ -46,7 +45,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post> = ({ doc, req: { 
     revalidateLocalizedPath('/');
     revalidateLocalizedPath('/posts');
     revalidateLocalizedPath('/posts/page/[page-number]', 'page');
-    revalidateTag('posts-sitemap', 'max');
+    revalidateTagWhenAvailable('posts-sitemap');
   }
 
   return doc;

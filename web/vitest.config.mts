@@ -9,8 +9,9 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
+    fileParallelism: false,
     include: ['tests/int/**/*.int.spec.ts'],
-    server: { deps: { inline: ['next-intl'] } },
-    setupFiles: ['./vitest.setup.ts'],
+    isolate: true,
+    pool: 'forks',
   },
 });

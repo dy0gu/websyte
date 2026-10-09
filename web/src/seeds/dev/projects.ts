@@ -1,5 +1,5 @@
 import type { Payload, RequiredDataFromCollectionSlug } from 'payload';
-import { getOrCreateSeedImage, type SeedImage } from '~/seeds/fake/media';
+import { getOrCreateSeedImage, type SeedImage } from '~/seeds/dev/media';
 
 type ProjectSeed = RequiredDataFromCollectionSlug<'projects'>;
 type SeedProject = ProjectSeed & { image: SeedImage };

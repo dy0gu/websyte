@@ -18,4 +18,7 @@ playwright/.cache/
 
 # Payload default media upload directory
 public/media/
+
+# Generated Fallow data and reports
 .fallow/
+fallow-report/

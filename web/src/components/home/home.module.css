@@ -3,7 +3,6 @@
   background: var(--background);
 }
 
-.hero,
 .work,
 .writing,
 .contact {
@@ -11,17 +10,6 @@
   max-width: calc(var(--content-width) + 2 * var(--page-gutter));
   padding: clamp(0.875rem, 1.75vw, 1.5rem) var(--page-gutter);
   margin-inline: auto;
-}
-
-.hero {
-  width: 100%;
-  max-width: calc(var(--content-width) + 2 * var(--page-gutter));
-  padding: clamp(2.5rem, 8vw, 6rem) var(--page-gutter) clamp(1.5rem, 4vw, 3rem);
-  margin: 0 auto;
-  font-size: clamp(2.5rem, 7vw, 5.5rem);
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.06em;
 }
 
 .sectionIntro {

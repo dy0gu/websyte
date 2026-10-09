@@ -14,6 +14,7 @@ const PUBLIC_SERVER_URL = env.PUBLIC_SERVER_URL;
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  distDir: env.NODE_ENV === 'test' ? '.next-test' : '.next',
   images: {
     localPatterns: [
       {
@@ -41,11 +42,6 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   reactStrictMode: true,
   redirects: redirects,
-  // Temporarily required on Windows until Next.js fixes Turbopack Sass resolution.
-  // See: https://github.com/vercel/next.js/issues/86431
-  sassOptions: {
-    loadPaths: ['./node_modules/@payloadcms/ui/dist/scss/'],
-  },
   turbopack: {
     root: path.resolve(dirname),
   },

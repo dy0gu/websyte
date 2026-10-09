@@ -18,12 +18,12 @@ import { plugins } from '~/plugins';
 import { getServerSideURL } from '~/utilities/get-server-url';
 import { titleSuffix } from '~/utilities/site';
 
-const databaseUrl = new URL('postgresql://localhost');
+const databaseUrl = new URL('postgresql://');
 databaseUrl.hostname = env.POSTGRES_HOST;
 databaseUrl.port = String(env.POSTGRES_PORT);
 databaseUrl.username = env.POSTGRES_USER;
 databaseUrl.password = env.POSTGRES_PASSWORD;
-databaseUrl.pathname = env.POSTGRES_DB;
+databaseUrl.pathname = env.NODE_ENV === 'test' ? `${env.POSTGRES_DB}_test` : env.POSTGRES_DB;
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

@@ -15,6 +15,19 @@ pnpm install
 
 Docker Compose provides a full development configuration, so no `.env` file is required. The application validates its environment at startup. Production deployments must provide the values required by the [`src/env.ts`](src/env.ts) schema.
 
+### Optional S3 media storage
+
+Media uploads use the local `public/media` directory by default. To store media in an AWS S3 bucket instead, set all four of the following environment variables:
+
+```sh
+S3_BUCKET=your-bucket-name
+S3_REGION=eu-west-1
+S3_ACCESS_KEY_ID=...
+S3_SECRET_ACCESS_KEY=...
+```
+
+The S3 principal needs permission to read, write, and delete objects in the bucket. The bucket must permit public reads for the media URLs to be publicly accessible. The application fails at startup when only part of this S3 configuration is set.
+
 For each database schema change, manually create migrations with
 `docker compose run --rm app pnpm migrate:create`, review the generated files, then run
 `docker compose run --rm app pnpm migrate` before development startup, building, or production

@@ -1,22 +1,36 @@
-import { expect, type Page, test } from '@playwright/test';
-
+import config from '@payload-config';
+import { type BrowserContext, expect, type Page, test } from '@playwright/test';
+import { getPayload } from 'payload';
+import { createAdmin } from '$/tests/factories/admin';
 import { login } from '$/tests/helpers/login';
-import { cleanupTestUser, seedTestUser, testUser } from '$/tests/helpers/seed-user';
+import { scope } from '$/tests/helpers/scope.e2e';
 
-test.describe('Admin Panel', () => {
+const testUser = {
+  email: 'test-admin@example.com',
+  password: 'test-password',
+};
+
+scope('Admin Panel', () => {
+  let context: BrowserContext;
   let page: Page;
 
-  test.beforeAll(async ({ browser }, _testInfo) => {
-    await seedTestUser();
+  test.beforeAll(async ({ browser }) => {
+    const payload = await getPayload({ config: config });
+    await createAdmin(payload, testUser);
 
-    const context = await browser.newContext();
+    context = await browser.newContext();
     page = await context.newPage();
-
     await login({ page: page, user: testUser });
   });
 
   test.afterAll(async () => {
-    await cleanupTestUser();
+    await context.close();
+  });
+
+  test('does not add a locale to Payload admin routes', async ({ request }) => {
+    const response = await request.get('/admin');
+
+    expect(new URL(response.url()).pathname).toMatch(/^\/admin/);
   });
 
   test('can navigate to dashboard', async () => {
@@ -36,7 +50,7 @@ test.describe('Admin Panel', () => {
   test('can navigate to edit view', async () => {
     await page.goto('/admin/collections/pages/create');
     await expect(page).toHaveURL(/\/admin\/collections\/pages\/[a-zA-Z0-9-_]+/);
-    const editViewArtifact = page.locator('input[name="title"]');
+    const editViewArtifact = page.getByRole('textbox', { name: /Title/ });
     await expect(editViewArtifact).toBeVisible();
   });
 });

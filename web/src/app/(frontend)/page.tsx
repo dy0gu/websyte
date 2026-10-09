@@ -23,11 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [t, { isEnabled: draft }, locale] = await Promise.all([
-    getTranslations('UI'),
-    draftMode(),
-    getLocale(),
-  ]);
+  const [{ isEnabled: draft }, locale] = await Promise.all([draftMode(), getLocale()]);
   const payload = await getPayload({ config: configPromise });
 
   const [workResult, postResult, contactFormResult] = await Promise.all([
@@ -105,7 +101,6 @@ export default async function HomePage() {
 
   return (
     <main className={styles.root}>
-      <h1 className={styles.hero}>{t('heroLabel')}</h1>
       {projects.length > 0 && <WorkSection projects={projects} />}
       {posts.length > 0 && <WritingSection posts={posts} />}
       <ContactSection contactEmail={env.CONTACT_EMAIL} contactForm={contactForm} />

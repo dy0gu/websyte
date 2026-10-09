@@ -1,10 +1,11 @@
 import { getPayload, type Payload } from 'payload';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, expect, it } from 'vitest';
+import { scope } from '$/tests/helpers/scope';
 import config from '~/payload.config';
 
 let payload: Payload;
 
-describe('API', () => {
+scope('API', () => {
   beforeAll(async () => {
     const payloadConfig = await config;
     payload = await getPayload({ config: payloadConfig });

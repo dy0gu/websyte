@@ -13,7 +13,7 @@ services:
       target: tools
     command: sh -c "pnpm migrate && pnpm seed && pnpm dev"
     ports:
-      - "3000:3000"
+      - "5623:5623"
     environment:
       <<: *postgres
       POSTGRES_HOST: db
@@ -27,7 +27,7 @@ services:
       SMTP_FROM: contact@websyte.local
       PORT: 5623
       PUBLIC_SERVER_URL: http://localhost:5623
-      CONTACT_EMAIL: diogo@simoes.cc
+      CONTACT_EMAIL: hi@dy0gu.example
       PAYLOAD_SECRET: local-development-payload-secret-0001
       CRON_SECRET: local-development-cron-secret-000001
       PREVIEW_SECRET: local-development-preview-secret-0001
@@ -42,10 +42,8 @@ services:
       - next_cache:/app/.next
     healthcheck:
       test:
-        - CMD
-        - curl
-        - --fail
-        - http://localhost:3000/health
+        - CMD-SHELL
+        - curl --fail http://localhost:$${PORT}/
       interval: 5s
       timeout: 5s
       retries: 10
@@ -59,9 +57,10 @@ services:
     healthcheck:
       test:
         - CMD
-        - curl
-        - --fail
-        - http://localhost:8025/health
+        - wget
+        - --quiet
+        - --spider
+        - http://localhost:8025/
       interval: 5s
       timeout: 5s
       retries: 10

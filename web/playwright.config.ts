@@ -30,7 +30,7 @@ export default defineConfig({
   },
   webServer: {
     command: 'pnpm dev',
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     url: env.PUBLIC_SERVER_URL,
   },
   /* The tests share one Next/Payload dev server and database state. */

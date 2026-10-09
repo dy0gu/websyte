@@ -1,6 +1,5 @@
-import { revalidateTag } from 'next/cache.js';
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload';
-import { revalidateLocalizedPath } from '~/i18n/revalidate';
+import { revalidateLocalizedPath, revalidateTagWhenAvailable } from '~/i18n/revalidate';
 import type { Page } from '~/payload-types';
 import { getDocumentPath } from '~/utilities/get-document-path';
 
@@ -16,10 +15,10 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
       payload.logger.info(`Revalidating page at path: ${path}`);
 
       revalidateLocalizedPath(path);
-      revalidateTag('pages-sitemap', 'max');
+      revalidateTagWhenAvailable('pages-sitemap');
     }
 
-    // If the page was previously published, we need to revalidate the old path
+    // If the page was previously published, then the old path should be revalidated
     if (
       previousDoc?._status === 'published' &&
       (doc._status !== 'published' || previousDoc.slug !== doc.slug)
@@ -29,7 +28,7 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
       payload.logger.info(`Revalidating old page at path: ${oldPath}`);
 
       revalidateLocalizedPath(oldPath);
-      revalidateTag('pages-sitemap', 'max');
+      revalidateTagWhenAvailable('pages-sitemap');
     }
   }
   return doc;
@@ -39,7 +38,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({ doc, req: { 
   if (!context.disableRevalidate) {
     const path = getDocumentPath({ collection: 'pages', slug: doc.slug });
     revalidateLocalizedPath(path);
-    revalidateTag('pages-sitemap', 'max');
+    revalidateTagWhenAvailable('pages-sitemap');
   }
 
   return doc;

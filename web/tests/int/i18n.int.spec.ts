@@ -10,8 +10,11 @@ import { formatDateTime } from '~/utilities/format-date-time';
 import { getDocumentPath } from '~/utilities/get-document-path';
 import { siteName, titleSuffix, withSiteTitle } from '~/utilities/site';
 
-const { revalidatePath } = vi.hoisted(() => ({ revalidatePath: vi.fn() }));
-vi.mock('next/cache', () => ({ revalidatePath: revalidatePath }));
+const { revalidatePath, revalidateTag } = vi.hoisted(() => ({
+  revalidatePath: vi.fn(),
+  revalidateTag: vi.fn(),
+}));
+vi.mock('next/cache', () => ({ revalidatePath: revalidatePath, revalidateTag: revalidateTag }));
 
 import { revalidateLocalizedPath } from '~/i18n/revalidate';
 

@@ -3,8 +3,8 @@
   "assist": {
     "actions": {
       "source": {
-        "noDuplicateClasses": "on",
         "preset": "recommended",
+        "noDuplicateClasses": "on",
         "useSortedAttributes": "on",
         "useSortedEnumMembers": "on",
         "useSortedInterfaceMembers": "on",
@@ -17,12 +17,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": [
-      "**",
-      "!src/payload-types.ts",
-      "!src/app/(payload)",
-      "src/app/(payload)/custom.module.css"
-    ]
+    "includes": ["**", "!src/payload-types.ts", "!src/app/(payload)/admin/import-map.js"]
   },
   "formatter": {
     "enabled": true,
@@ -40,6 +35,7 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "preset": "recommended",
       "nursery": {
         "noDuplicateSelectors": "error",
         "noEmptyObjectKeys": "error",
@@ -53,7 +49,6 @@
         "noUnsafePlusOperands": "error"
         // "noUnsafeTypeAssertion": "error"
       },
-      "preset": "recommended",
       "style": {
         "noDefaultExport": "error",
         "noProcessEnv": "error",
@@ -105,16 +100,6 @@
   },
   "overrides": [
     {
-      "includes": ["src/app/(payload)/admin/import-map.js"],
-      "linter": {
-        "rules": {
-          "style": {
-            "noRestrictedImports": "off"
-          }
-        }
-      }
-    },
-    {
       "assist": {
         "actions": {
           "source": {
@@ -123,7 +108,7 @@
         }
       },
       "includes": [
-        "biome.json",
+        "biome.jsonc",
         "package.json",
         ".devcontainer/devcontainer.json",
         "src/migrations/**"
