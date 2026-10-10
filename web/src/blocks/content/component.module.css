@@ -1,0 +1,41 @@
+.root {
+  margin-block: 4rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  row-gap: 2rem;
+  column-gap: 4rem;
+}
+
+.column {
+  grid-column: span 4;
+}
+
+@media (min-width: 48rem) {
+  .partial {
+    grid-column: span 2;
+  }
+  .full {
+    grid-column: span 4;
+  }
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .full {
+    grid-column: span 12;
+  }
+  .half {
+    grid-column: span 6;
+  }
+  .oneThird {
+    grid-column: span 4;
+  }
+  .twoThirds {
+    grid-column: span 8;
+  }
+}

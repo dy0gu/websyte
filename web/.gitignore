@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build
+build
+dist
+.next*
+next-env.d.ts
+.vercel
+tsconfig.tsbuildinfo
+
+# Test
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Payload default media upload directory
+public/media/
+
+# Generated Fallow data and reports
+.fallow/
+fallow-report/

@@ -1,0 +1,45 @@
+/* fallow-ignore-file code-duplication -- input and textarea need independent CSS-module roots with the same interaction states. */
+.root {
+  width: 100%;
+  min-width: 0;
+  height: 3rem;
+  padding: 0 0.85rem;
+  font-size: 1rem;
+  color: var(--foreground);
+  background: transparent;
+  border: 1px solid var(--input);
+  border-radius: var(--radius);
+  box-shadow: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.root::placeholder {
+  color: var(--muted-foreground);
+}
+
+.root:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+  border-color: var(--foreground);
+}
+
+.root:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.root[aria-invalid="true"] {
+  border-color: var(--destructive);
+}
+
+.root::file-selector-button {
+  height: 2rem;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: inherit;
+  background: transparent;
+  border: 0;
+}

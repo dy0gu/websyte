@@ -1,0 +1,139 @@
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 3rem;
+  padding: 0 0.85rem;
+  font-size: 0.9rem;
+  color: var(--ink, var(--foreground));
+  background: transparent;
+  border: 1px solid var(--ink, var(--input));
+  border-radius: 0;
+}
+
+.trigger[data-placeholder] {
+  color: var(--muted-foreground);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--ink, var(--ring));
+  outline-offset: 2px;
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.trigger[aria-invalid="true"] {
+  border-color: var(--destructive);
+}
+
+.trigger svg,
+.item svg {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+}
+
+.mutedIcon {
+  opacity: 0.6;
+}
+
+.content {
+  position: relative;
+  z-index: 50;
+  min-width: 8rem;
+  max-height: 24rem;
+  overflow: hidden;
+  color: var(--ink, var(--popover-foreground));
+  background: var(--paper, var(--popover));
+  border: 1px solid var(--ink, var(--border));
+  border-radius: 0;
+  box-shadow: 0.5rem 0.5rem 0 var(--ink, var(--border));
+}
+
+.content[data-state="open"] {
+  animation: select-in 120ms ease-out;
+}
+
+.popper[data-side="bottom"] {
+  transform: translateY(0.25rem);
+}
+
+.popper[data-side="top"] {
+  transform: translateY(-0.25rem);
+}
+
+.popper[data-side="left"] {
+  transform: translateX(-0.25rem);
+}
+
+.popper[data-side="right"] {
+  transform: translateX(0.25rem);
+}
+
+.viewport {
+  padding: 0.25rem;
+}
+
+.popperViewport {
+  width: 100%;
+  min-width: var(--radix-select-trigger-width);
+  height: var(--radix-select-trigger-height);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+  padding: 0.55rem 2rem 0.55rem 0.65rem;
+  font-size: 0.875rem;
+  cursor: default;
+  user-select: none;
+  outline: none;
+  border-radius: 0;
+}
+
+.item:focus {
+  color: var(--paper, var(--accent-foreground));
+  background: var(--ink, var(--accent));
+}
+
+.item[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.itemIndicator {
+  position: absolute;
+  right: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.scrollButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 0.25rem;
+  cursor: default;
+}
+
+@keyframes select-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+  }
+}

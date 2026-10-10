@@ -1,0 +1,53 @@
+.root {
+  max-width: 48rem;
+  font-family: var(--font-sans), sans-serif;
+}
+
+.root :is(button, input, textarea, select) {
+  font: inherit;
+}
+
+.intro {
+  margin-bottom: 1rem;
+}
+
+.panel {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.fields {
+  margin-bottom: 1.5rem;
+}
+.field {
+  margin-bottom: 0.875rem;
+}
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.checkboxRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.error {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--destructive);
+}
+
+.message {
+  margin-block: 1.5rem;
+}
+
+@media (min-width: 64rem) {
+  .intro {
+    margin-bottom: 1.5rem;
+  }
+  .panel {
+    padding: 1.5rem;
+  }
+}

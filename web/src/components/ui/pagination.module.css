@@ -1,0 +1,38 @@
+.root {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.previous,
+.next {
+  gap: 0.25rem;
+}
+
+.previous {
+  padding-left: 0.625rem;
+}
+.next {
+  padding-right: 0.625rem;
+}
+
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+}

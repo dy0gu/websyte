@@ -1,0 +1,37 @@
+/* fallow-ignore-file code-duplication -- input and textarea need independent CSS-module roots with the same interaction states. */
+.root {
+  width: 100%;
+  min-width: 0;
+  min-height: 9rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--input);
+  border-radius: var(--radius);
+  background: transparent;
+  box-shadow: none;
+  color: var(--foreground);
+  field-sizing: content;
+  font-size: 1rem;
+  resize: vertical;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.root::placeholder {
+  color: var(--muted-foreground);
+}
+
+.root:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+  border-color: var(--foreground);
+}
+
+.root:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.root[aria-invalid="true"] {
+  border-color: var(--destructive);
+}

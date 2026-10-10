@@ -1,0 +1,233 @@
+.root {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.work,
+.writing,
+.contact {
+  width: 100%;
+  max-width: calc(var(--content-width) + 2 * var(--page-gutter));
+  padding: clamp(0.875rem, 1.75vw, 1.5rem) var(--page-gutter);
+  margin-inline: auto;
+}
+
+.sectionIntro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.sectionMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+.yearRange,
+.projectNumber,
+.projectMeta,
+.post > span,
+.post time {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.allPostsLink,
+.allProjectsLink {
+  font-size: 0.875rem;
+}
+
+.projectList,
+.postList {
+  border-top: 1px solid var(--border);
+}
+
+.project {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.5rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.projectNumber {
+  display: none;
+}
+
+.projectVisual,
+.postVisual {
+  position: relative;
+  width: 5rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.projectCover,
+.postCover {
+  object-fit: cover;
+}
+
+.projectCopy {
+  min-width: 0;
+}
+
+.projectCopy h3,
+.post h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.projectSummary {
+  max-width: 62ch;
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+}
+
+.projectMeta {
+  text-align: right;
+}
+
+.projectMetaHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  justify-content: flex-end;
+}
+
+.projectActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.projectAction {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  color: var(--foreground);
+}
+
+.post {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.375rem 0.75rem;
+  align-items: start;
+  padding-block: 1rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.post > span {
+  display: none;
+}
+
+.post:has(.postVisual) {
+  grid-template-columns: 5rem minmax(0, 1fr) auto;
+}
+
+.post p {
+  max-width: 62ch;
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+}
+
+.post time {
+  justify-self: end;
+}
+
+.post:hover h3,
+.post:focus-visible h3 {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.contactTop {
+  margin-bottom: 0.75rem;
+}
+
+.contactBody {
+  width: 100%;
+  max-width: 40rem;
+}
+
+.contactMain {
+  min-width: 0;
+}
+
+.contactHeading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  font-size: 1rem;
+}
+
+.contactChoice,
+.contactHeading p {
+  color: var(--muted-foreground);
+}
+
+.contactLink {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  min-height: 2.5rem;
+}
+
+.contactForm {
+  width: 100%;
+  max-width: 40rem;
+  padding-inline: 0;
+  margin-top: 0.75rem;
+}
+
+.contactForm > div {
+  padding: 0;
+  border: 0;
+}
+
+@media (min-width: 48rem) {
+  .project {
+    grid-template-columns: minmax(0, 1fr) 14rem;
+    gap: 1rem 2rem;
+  }
+
+  .project:has(.projectVisual) {
+    grid-template-columns: 7rem minmax(0, 1fr) 14rem;
+  }
+
+  .projectVisual,
+  .postVisual {
+    width: 7rem;
+  }
+
+  .post {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+
+  .post:has(.postVisual) {
+    grid-template-columns: 7rem minmax(0, 1fr) auto;
+  }
+}

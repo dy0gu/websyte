@@ -1,0 +1,83 @@
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.nav a {
+  color: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  text-underline-offset: 0.25em;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.nav a:focus-visible,
+.preferences select:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+.adminLink,
+.homeLink,
+.searchLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 2.5rem;
+}
+
+.preferences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  min-width: 0;
+}
+
+.preferences select {
+  max-width: 100%;
+  padding: 0.375rem 0.5rem;
+  font-family: var(--font-sans), sans-serif;
+  font-size: inherit;
+  line-height: 1.5;
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.preferences select:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+@media (max-width: 48rem) {
+  .nav {
+    flex-basis: 100%;
+  }
+
+  .preferences {
+    order: 1;
+  }
+
+  .adminLink,
+  .homeLink,
+  .searchLink {
+    order: 2;
+  }
+}

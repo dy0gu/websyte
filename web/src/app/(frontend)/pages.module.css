@@ -1,0 +1,88 @@
+.page,
+.article,
+.postArticle {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.page,
+.postArticle {
+  margin-top: 0;
+}
+
+.article {
+  padding-block: var(--section-space);
+}
+
+.searchForm {
+  width: calc(100% - 2 * var(--page-gutter));
+  max-width: 40rem;
+  margin: 0 auto var(--section-space);
+}
+
+.postContentArea {
+  padding-block: var(--section-space);
+}
+
+.postContent {
+  max-width: 44rem;
+  margin-inline: auto;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.75;
+  color: var(--foreground);
+  overflow-wrap: anywhere;
+}
+
+.postContent h2,
+.postContent h3 {
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.postContent h2 {
+  margin-top: 2em;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+}
+
+.postContent h3 {
+  margin-top: 1.75em;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.postContent a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25rem;
+}
+
+.relatedPosts {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  margin-top: var(--section-space);
+}
+
+.notFoundAction {
+  padding-block: var(--section-space);
+  padding-inline: max(var(--page-gutter), calc((100% - var(--content-width)) / 2));
+  border-top: 1px solid var(--border);
+}
+
+.pagination {
+  padding-block: 0 var(--section-space);
+  padding-inline: max(var(--page-gutter), calc((100% - var(--content-width)) / 2));
+}
+
+.emptyState {
+  padding-block: var(--section-space);
+  padding-inline: max(var(--page-gutter), calc((100% - var(--content-width)) / 2));
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+}
+
+@media (min-width: 64rem) {
+  .relatedPosts {
+    display: grid;
+  }
+}

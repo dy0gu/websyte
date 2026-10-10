@@ -1,0 +1,43 @@
+// fallow-ignore-file code-duplication -- this block owns its local editor field configuration.
+import {
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical';
+import type { Block } from 'payload';
+
+import { linkGroup } from '~/fields/link-group';
+
+export const CallToAction: Block = {
+  fields: [
+    {
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ];
+        },
+      }),
+      label: false,
+      localized: true,
+      name: 'richText',
+      type: 'richText',
+    },
+    linkGroup({
+      appearances: ['default', 'outline'],
+      overrides: {
+        maxRows: 2,
+      },
+    }),
+  ],
+  interfaceName: 'CallToActionBlock',
+  labels: {
+    plural: 'Calls to Action',
+    singular: 'Call to Action',
+  },
+  slug: 'cta',
+};
