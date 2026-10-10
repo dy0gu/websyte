@@ -26,6 +26,7 @@ jobs:
           configFile: .devcontainer/web/devcontainer.json
           push: never
           runCmd: |
+            cd web &&
             pnpm run check &&
             pnpm run migrate &&
             pnpm run build &&

@@ -37,9 +37,9 @@ services:
       mail:
         condition: service_started
     volumes:
-      - ..:/websyte
-      - node_modules:/websyte/web/node_modules
-      - next_cache:/websyte/web/.next
+      - ..:/project
+      - node_modules:/project/web/node_modules
+      - next_cache:/project/web/.next
     healthcheck:
       test:
         - CMD-SHELL

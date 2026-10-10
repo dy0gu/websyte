@@ -1,13 +1,15 @@
 FROM node:24.21.0@sha256:64af3819f9275802414d7cdc38c27e9d82bd564dec4d4da87d008255d36c63b4 AS base
 
 FROM base AS dependencies
-WORKDIR /websyte/web
+WORKDIR /project/web
 
 ENV DO_NOT_TRACK=1
 ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
 RUN corepack enable pnpm
+RUN corepack install --global "$(node -p "require('./package.json').packageManager")"
 
 ENV PNPM_HOME="/pnpm"
 
@@ -29,14 +31,14 @@ RUN --mount=type=secret,id=build_env \
 
 # Production image, copy all the files and run next
 FROM base AS runtime
-WORKDIR /websyte/web
+WORKDIR /project/web
 
 ENV NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=build /websyte/web/public ./public
+COPY --from=build /project/web/public ./public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
@@ -44,8 +46,8 @@ RUN mkdir -p public/media && chown -R nextjs:nodejs .next public/media
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=build --chown=nextjs:nodejs /websyte/web/.next/standalone ./
-COPY --from=build --chown=nextjs:nodejs /websyte/web/.next/static ./.next/static
+COPY --from=build --chown=nextjs:nodejs /project/web/.next/standalone ./
+COPY --from=build --chown=nextjs:nodejs /project/web/.next/static ./.next/static
 
 USER nextjs
 
