@@ -4,6 +4,7 @@
   gap: 0.8rem;
   align-items: center;
   justify-content: flex-start;
+  width: 100%;
   min-width: 0;
   font-family: var(--font-sans), sans-serif;
   font-size: 0.9375rem;
@@ -47,6 +48,7 @@
   gap: 0.5rem;
   align-items: center;
   min-width: 0;
+  margin-inline-start: auto;
 }
 
 .preferences select {
@@ -68,16 +70,30 @@
 
 @media (max-width: 48rem) {
   .nav {
-    flex-basis: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .nav > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    text-align: center;
   }
 
   .preferences {
-    order: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-column: 1 / -1;
+    gap: 0.5rem;
+    width: 100%;
+    margin-inline-start: 0;
   }
 
-  .adminLink,
-  .homeLink,
-  .searchLink {
-    order: 2;
+  .preferences select {
+    width: 100%;
+    min-height: 2.75rem;
   }
 }

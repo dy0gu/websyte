@@ -1,4 +1,5 @@
 import type { Payload, RequiredDataFromCollectionSlug } from 'payload';
+import { defaultLocale, type Locale, locales } from '~/i18n/config';
 import { getOrCreateSeedImage, type SeedImage } from '~/seeds/dev/media';
 
 type ProjectSeed = RequiredDataFromCollectionSlug<'projects'>;
@@ -8,7 +9,10 @@ const projects: SeedProject[] = [
   {
     _status: 'published',
     image: {
-      alt: 'Software code displayed on a computer screen',
+      alt: {
+        en: 'Software code displayed on a computer screen',
+        pt: 'Código de software apresentado num ecrã de computador',
+      },
       filename: 'relay.jpg',
     },
     projectURL: 'https://example.com/relay',
@@ -17,15 +21,18 @@ const projects: SeedProject[] = [
     sourceURL: 'https://github.com/example/relay',
     summary:
       'A real-time operations workspace that turns alerts, ownership, and incident notes into one focused timeline.',
-    technologies: [{ name: 'Next.js' }, { name: 'TypeScript' }, { name: 'PostgreSQL' }],
-    title: 'Relay',
+    technologies: [],
+    title: 'Veyra',
     typeLabel: 'Product engineering',
     visualStyle: 'violet',
   },
   {
     _status: 'published',
     image: {
-      alt: 'Earth viewed from space at night',
+      alt: {
+        en: 'Earth viewed from space at night',
+        pt: 'Terra vista do espaço durante a noite',
+      },
       filename: 'northstar.jpg',
     },
     projectURL: 'https://example.com/northstar',
@@ -34,15 +41,18 @@ const projects: SeedProject[] = [
     sourceURL: 'https://github.com/example/northstar',
     summary:
       'An infrastructure cost explorer that helps teams understand spend, spot regressions, and assign ownership.',
-    technologies: [{ name: 'Go' }, { name: 'React' }, { name: 'ClickHouse' }],
-    title: 'Northstar',
+    technologies: [],
+    title: 'Orivon',
     typeLabel: 'Cloud platform',
     visualStyle: 'coral',
   },
   {
     _status: 'published',
     image: {
-      alt: 'Person taking notes beside a laptop',
+      alt: {
+        en: 'Person taking notes beside a laptop',
+        pt: 'Pessoa a tirar notas ao lado de um portátil',
+      },
       filename: 'field-notes.jpg',
     },
     projectURL: 'https://example.com/field-notes',
@@ -51,12 +61,38 @@ const projects: SeedProject[] = [
     sourceURL: 'https://github.com/example/field-notes',
     summary:
       'An offline-first research notebook for collecting observations and synchronizing them when connectivity returns.',
-    technologies: [{ name: 'React' }, { name: 'IndexedDB' }, { name: 'Node.js' }],
-    title: 'Field Notes',
+    technologies: [],
+    title: 'Lunexa',
     typeLabel: 'Web application',
     visualStyle: 'silver',
   },
 ];
+
+type ProjectTranslation = Pick<ProjectSeed, 'summary' | 'title' | 'typeLabel'>;
+
+const projectTranslations: Record<Locale, Partial<Record<string, ProjectTranslation>>> = {
+  en: {},
+  pt: {
+    'field-notes': {
+      summary:
+        'Um caderno de investigação offline para recolher observações e sincronizá-las quando a ligação é restabelecida.',
+      title: 'Lunexa',
+      typeLabel: 'Aplicação web',
+    },
+    northstar: {
+      summary:
+        'Um explorador de custos de infraestrutura que ajuda as equipas a compreender gastos, detetar regressões e atribuir responsabilidades.',
+      title: 'Orivon',
+      typeLabel: 'Plataforma de cloud',
+    },
+    relay: {
+      summary:
+        'Um espaço de trabalho operacional em tempo real que reúne alertas, responsáveis e notas de incidentes numa única linha temporal.',
+      title: 'Veyra',
+      typeLabel: 'Engenharia de produto',
+    },
+  },
+};
 
 export const seedFakeProjects = async (payload: Payload): Promise<void> => {
   payload.logger.info('Ensuring fake development projects exist...');
@@ -75,23 +111,28 @@ export const seedFakeProjects = async (payload: Payload): Promise<void> => {
 
     const existingProject = existing.docs[0];
 
-    if (existingProject) {
+    const seededProject =
+      existingProject ??
+      (await payload.create({
+        collection: 'projects',
+        context: { disableRevalidate: true },
+        data: projectData,
+        depth: 0,
+        locale: defaultLocale,
+      }));
+
+    for (const locale of locales) {
+      const translation = projectTranslations[locale][project.slug];
       await payload.update({
         collection: 'projects',
         context: { disableRevalidate: true },
-        data: projectData,
+        data: { ...projectData, ...translation },
         depth: 0,
-        id: existingProject.id,
-      });
-    } else {
-      await payload.create({
-        collection: 'projects',
-        context: { disableRevalidate: true },
-        data: projectData,
-        depth: 0,
+        id: seededProject.id,
+        locale: locale,
       });
     }
   }
 
-  payload.logger.info('Fake development projects are ready.');
+  payload.logger.info('Fake development projects are ready in all configured locales.');
 };

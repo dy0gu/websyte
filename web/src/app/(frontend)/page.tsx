@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { getPayload } from 'payload';
-import { env } from '$/env';
+
 import { ContactSection } from '~/components/home/contact-section';
 import styles from '~/components/home/home.module.css';
 import { toHomeProjects } from '~/components/home/project-data';
@@ -103,7 +103,7 @@ export default async function HomePage() {
     <main className={styles.root}>
       {projects.length > 0 && <WorkSection projects={projects} />}
       {posts.length > 0 && <WritingSection posts={posts} />}
-      <ContactSection contactEmail={env.CONTACT_EMAIL} contactForm={contactForm} />
+      <ContactSection contactForm={contactForm} />
     </main>
   );
 }
