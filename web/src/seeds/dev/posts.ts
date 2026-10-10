@@ -143,8 +143,7 @@ const postTranslations: Record<Locale, Partial<Record<string, PostTranslation>>>
         'Nomes de recursos claros e respostas previsíveis reduzem a documentação que quem consome a API precisa de memorizar. Quando algo falha, os erros devem explicar o que aconteceu e o que fazer a seguir.',
       ),
       meta: {
-        description:
-          'Como nomes consistentes e erros úteis tornam uma API mais fácil de adotar.',
+        description: 'Como nomes consistentes e erros úteis tornam uma API mais fácil de adotar.',
         title: 'Desenhar APIs para a próxima pessoa',
       },
       title: 'Desenhar APIs para a próxima pessoa',

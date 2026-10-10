@@ -5,19 +5,18 @@ WORKDIR /project/web
 
 ENV DO_NOT_TRACK=1
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PNPM_HOME="/pnpm"
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 RUN corepack enable pnpm
 RUN corepack install --global "$(node -p "require('./package.json').packageManager")"
 
-ENV PNPM_HOME="/pnpm"
-
 RUN pnpm install --frozen-lockfile --store-dir=/pnpm/store
 
 FROM dependencies AS tools
 
-RUN git config --global --add safe.directory '*'
+RUN git config --global --add safe.directory '/project'
 RUN pnpm exec playwright install --with-deps
 RUN npm install --global agent-browser@0.39.0
 
