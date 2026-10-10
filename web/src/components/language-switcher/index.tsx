@@ -14,15 +14,10 @@ export function LanguageSwitcher() {
   const { isPending: isThemePending, waitForThemeSave } = useTheme();
   const [isSaving, setIsSaving] = useState(false);
   const [selectedLocale, setSelectedLocale] = useState(locale);
-  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     setSelectedLocale(locale);
   }, [locale]);
-
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
 
   const changeLocale = async (nextLocale: string) => {
     if (!isLocale(nextLocale) || nextLocale === locale) return;
@@ -42,9 +37,9 @@ export function LanguageSwitcher() {
 
   return (
     <select
-      aria-busy={!isHydrated || isSaving || isThemePending}
+      aria-busy={isSaving || isThemePending}
       aria-label={t('language')}
-      disabled={!isHydrated || isSaving || isThemePending}
+      disabled={isSaving || isThemePending}
       onChange={(event) => changeLocale(event.target.value)}
       value={selectedLocale}
     >

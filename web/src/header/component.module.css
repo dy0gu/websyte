@@ -4,14 +4,12 @@
   min-height: var(--site-header-height);
   font-family: var(--font-sans), sans-serif;
   color: var(--foreground);
-  border-bottom: 1px solid var(--border);
 }
 
 /* The image hero extends behind the header. Its server-rendered page marker
    provides contrast without client state or navigation effects. */
 .root:has(~ [data-header-contrast="light"]) {
   color: #fff;
-  border-bottom-color: color-mix(in srgb, #fff 25%, transparent);
 }
 
 .inner {

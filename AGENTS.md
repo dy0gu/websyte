@@ -2,9 +2,21 @@
 
 Prefer the Docker based environment defined in each section of the project over tools installed on the host.
 
-Run project specific commands through the appopriate docker services.
+Always determine the execution environment before running project-specific commands (tests, builds, migrations, scripts, etc.).
 
-If Docker commands get blocked because of your sandbox, ask for permission to proceed outside the sandbox.
+Follow this priority order:
+
+1. **Inside a container** (`cat /.dockerenv` succeeds):
+   - Run commands directly using the project's scripts, e.g `pnpm seed:dev`
+   - Do not use Docker Compose.
+
+2. **Outside a container**:
+   - Run commands through the appropriate Docker Compose service, e.g `docker compose run web pnpm seed:dev`
+   - Never execute project-specific commands directly on the host.
+
+3. **Sandbox restrictions**:
+   - If Docker commands are blocked by sandbox restrictions, request permission to execute them outside the sandbox.
+   - Do not fall back to running commands directly on the host.
 
 ## Web
 
@@ -14,7 +26,7 @@ Instructions related to the web directory:
 
 ### This is NOT the Next.js you know
 
-This version of Next.js is not the same you were trained on - APIs, conventions, and file structure may all differ from your training data. When making or suggesting changes always ensure you did the appropriate research regarding the latest Next.js best practices. Heed deprecation notices whenever they are mentioned.
+This version has breaking changes - APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 
 <!-- END:nextjs-agent-rules -->
 

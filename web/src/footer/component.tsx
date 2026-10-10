@@ -6,7 +6,6 @@ export async function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <p className={styles.copyright}>{/*© 2026 - {new Date().getFullYear()}*/}</p>
         <nav aria-label={t('socialLinks')} className={styles.nav}>
           <a href="https://linkedin.com" rel="noreferrer" target="_blank">
             LinkedIn ↗
@@ -15,6 +14,7 @@ export async function Footer() {
             GitHub ↗
           </a>
         </nav>
+        <p className={styles.copyright}>{/*© 2026 - {new Date().getFullYear()}*/}</p>
       </div>
     </footer>
   );

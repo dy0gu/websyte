@@ -12,7 +12,7 @@ const envSchema = z
     CI: boolean.default(false),
     CONTACT_EMAIL: buildable(z.email()),
     CRON_SECRET: buildable(z.string().min(32)),
-    NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+    NODE_ENV: z.enum(['development', 'test', 'production']).optional(),
     PAYLOAD_SECRET: z.string().min(32),
     PORT: z.coerce.number().int().min(1),
     POSTGRES_DB: z.string().trim().min(1),
