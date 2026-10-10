@@ -1,8 +1,8 @@
 {
-  "name": "websyte",
-  "dockerComposeFile": "../../docker-compose.yml",
+  "name": "websyte - web",
+  "dockerComposeFile": "../../web/docker-compose.yml",
   "service": "app",
-  "workspaceFolder": "/app",
+  "workspaceFolder": "/project",
   "overrideCommand": true,
   "shutdownAction": "stopCompose"
 }

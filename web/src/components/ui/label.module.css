@@ -2,11 +2,10 @@
   display: inline-block;
   margin-bottom: 0.65rem;
   font-family: var(--font-sans), sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.2;
   color: var(--ink, var(--foreground));
-  text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 

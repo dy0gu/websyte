@@ -1,4 +1,5 @@
 import type { Payload, RequiredDataFromCollectionSlug } from 'payload';
+import { defaultLocale, type Locale, locales } from '~/i18n/config';
 import { getOrCreateSeedImage, type SeedImage } from '~/seeds/dev/media';
 
 type PostSeed = RequiredDataFromCollectionSlug<'posts'>;
@@ -54,7 +55,10 @@ const posts: SeedPost[] = [
       'A dashboard becomes easier to understand when every number supports a clear action. Group related signals, name the trade-offs, and keep exceptional states visible instead of decorating every possible metric equally.',
     ),
     image: {
-      alt: 'Close-up of an electronic circuit board',
+      alt: {
+        en: 'Close-up of an electronic circuit board',
+        pt: 'Plano aproximado de uma placa de circuito eletrónico',
+      },
       filename: 'building-calm-interfaces.jpg',
     },
     meta: {
@@ -74,7 +78,10 @@ const posts: SeedPost[] = [
       'Choosing familiar tools made the service easier to deploy and easier to repair. A short health check, structured logs, and one useful dashboard paid for themselves long before the first feature rewrite.',
     ),
     image: {
-      alt: 'Rows of servers in a data center',
+      alt: {
+        en: 'Rows of servers in a data center',
+        pt: 'Filas de servidores num centro de dados',
+      },
       filename: 'shipping-a-small-service.jpg',
     },
     meta: {
@@ -94,7 +101,10 @@ const posts: SeedPost[] = [
       'Clear resource names and predictable response shapes reduce the amount of documentation a consumer must keep in their head. When something fails, errors should explain both what happened and what the caller can do next.',
     ),
     image: {
-      alt: 'Developer writing code on a laptop',
+      alt: {
+        en: 'Developer writing code on a laptop',
+        pt: 'Programador a escrever código num portátil',
+      },
       filename: 'designing-apis-for-the-next-person.jpg',
     },
     meta: {
@@ -107,6 +117,52 @@ const posts: SeedPost[] = [
     title: 'Designing APIs for the Next Person',
   },
 ];
+
+type PostTranslation = Pick<PostSeed, 'content' | 'meta' | 'title'>;
+
+const postTranslations: Record<Locale, Partial<Record<string, PostTranslation>>> = {
+  en: {},
+  pt: {
+    'building-calm-interfaces': {
+      content: content(
+        'Produtos complexos não precisam de parecer complicados. As melhores interfaces mostram decisões no momento em que se tornam úteis.',
+        'Começa pela decisão, não pelos dados',
+        'Um painel torna-se mais fácil de compreender quando cada número sustenta uma ação clara. Agrupa sinais relacionados, nomeia as escolhas e mantém os estados excecionais visíveis em vez de decorar todos os cenários possíveis.',
+      ),
+      meta: {
+        description:
+          'Notas práticas para reduzir a carga cognitiva sem esconder a complexidade de que as pessoas precisam.',
+        title: 'Criar interfaces tranquilas para sistemas complexos',
+      },
+      title: 'Criar interfaces tranquilas para sistemas complexos',
+    },
+    'designing-apis-for-the-next-person': {
+      content: content(
+        'Uma API é uma interface de utilizador. Os seus utilizadores são programadores, mas continuam a beneficiar de consistência, orientação e predefinições sensatas.',
+        'Torna o caminho feliz previsível',
+        'Nomes de recursos claros e respostas previsíveis reduzem a documentação que quem consome a API precisa de memorizar. Quando algo falha, os erros devem explicar o que aconteceu e o que fazer a seguir.',
+      ),
+      meta: {
+        description: 'Como nomes consistentes e erros úteis tornam uma API mais fácil de adotar.',
+        title: 'Desenhar APIs para a próxima pessoa',
+      },
+      title: 'Desenhar APIs para a próxima pessoa',
+    },
+    'shipping-a-small-service': {
+      content: content(
+        'Serviços pequenos são professores úteis: cada dependência desnecessária, linha de registo pouco clara e manual em falta torna-se rapidamente evidente.',
+        'A simplicidade operacional é uma funcionalidade',
+        'Escolher ferramentas familiares tornou o serviço mais fácil de implementar e reparar. Uma verificação de saúde curta, registos estruturados e um painel útil compensaram muito antes da primeira reescrita.',
+      ),
+      meta: {
+        description:
+          'Um guia de campo sobre observabilidade, tecnologia simples e o trabalho que começa após o lançamento.',
+        title: 'O que aprendi ao lançar um pequeno serviço',
+      },
+      title: 'O que aprendi ao lançar um pequeno serviço',
+    },
+  },
+};
 
 export const seedFakePosts = async (payload: Payload): Promise<void> => {
   payload.logger.info('Ensuring fake development posts exist...');
@@ -129,23 +185,32 @@ export const seedFakePosts = async (payload: Payload): Promise<void> => {
 
     const existingPost = existing.docs[0];
 
-    if (existingPost) {
+    const seededPost =
+      existingPost ??
+      (await payload.create({
+        collection: 'posts',
+        context: { disableRevalidate: true },
+        data: postData,
+        depth: 0,
+        locale: defaultLocale,
+      }));
+
+    for (const locale of locales) {
+      const translation = postTranslations[locale][post.slug];
       await payload.update({
         collection: 'posts',
         context: { disableRevalidate: true },
-        data: postData,
+        data: {
+          ...postData,
+          ...translation,
+          meta: { ...postData.meta, ...translation?.meta },
+        },
         depth: 0,
-        id: existingPost.id,
-      });
-    } else {
-      await payload.create({
-        collection: 'posts',
-        context: { disableRevalidate: true },
-        data: postData,
-        depth: 0,
+        id: seededPost.id,
+        locale: locale,
       });
     }
   }
 
-  payload.logger.info('Fake development posts are ready.');
+  payload.logger.info('Fake development posts are ready in all configured locales.');
 };
