@@ -29,7 +29,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'pnpm dev',
+    command: 'pnpm exec next dev',
     reuseExistingServer: false,
     url: env.PUBLIC_SERVER_URL,
   },

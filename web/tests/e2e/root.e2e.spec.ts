@@ -9,12 +9,11 @@ scope('Root', () => {
     await page.goto('/');
     await expect(page).toHaveURL('/');
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-    await expect(page.getByRole('heading', { level: 2, name: 'Want to talk?' })).toBeVisible();
+    await expect(page.getByRole('link', { exact: true, name: 'Search' })).toBeVisible();
 
     await page.getByRole('combobox', { name: 'Language' }).selectOption('pt');
     await expect(page).toHaveURL('/');
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt');
-    await expect(page.getByRole('heading', { level: 2, name: 'Vamos conversar?' })).toBeVisible();
     await expect(page.getByRole('link', { exact: true, name: 'Pesquisar' })).toHaveAttribute(
       'href',
       '/search',
